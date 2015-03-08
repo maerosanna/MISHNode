@@ -1,0 +1,71 @@
+<script language="JavaScript">
+  function openFileChooser(){
+    jQuery('#eventImg').click();
+  }
+
+  function copyFileName(fileElement){
+    jQuery('#eventImgFake').val(fileElement.files[0].name);
+  }
+
+</script>
+<form id="createEventForm" class="formMISH" method="post">
+  <!-- EVENT NAME -->
+  <div class="formMISH-row">
+    <label for="eventName" class="label">Nombre del Evento:</label>
+
+    <div class="formMISH-fieldDiv">
+      <input type="text" name="newEventName" id="eventName" class="formMISH-field">
+    </div>
+  </div>
+
+  <!-- EVENT DESCRIPTION -->
+  <div class="formMISH-row">
+    <label for="eventDescription" class="label">Descripción del Evento:</label>
+
+    <div class="formMISH-fieldDiv">
+      <textarea rows="4" cols="50" name="newEventDescription" id="eventDescription" class="formMISH-field"></textarea>
+    </div>
+  </div>
+
+  <!-- EVENT IMAGE -->
+  <div class="formMISH-row">
+    <label for="eventImgFake" class="label">Imagen para el evento:</label>
+    <input type="file" name="newEventImg" id="eventImg" class="formMISH-field" style="display: none;" onchange="copyFileName(this);">
+    <div class="formMISH-fieldDiv">
+      <input type="text" name="newEventName" id="eventImgFake" class="formMISH-field" onclick="openFileChooser();" onfocus="this.blur();">
+    </div>
+  </div>
+
+  <!-- EVENT DATE -->
+  <div class="formMISH-row">
+    <label for="eventDate" class="label">Fecha del evento:</label>
+
+    <div class="formMISH-fieldDiv">
+      <input type="text" name="newEventDate" id="eventDate" class="formMISH-field">
+    </div>
+  </div>
+
+  <!-- EVENT URL -->
+  <div class="formMISH-row">
+    <label for="eventUrl" class="label">URL:</label>
+
+    <div class="formMISH-fieldDiv">
+      <input type="text" name="newEventUrl" id="eventUrl" class="formMISH-field">
+    </div>
+  </div>
+
+
+  <!--DIV for errors-->
+  <div class="formMISH-row-error">
+    <div id="errorNewEvent" class="formMISH-error-container">
+      <div id="newEventErrorMsg" class="formMISH-error-messages">
+      </div>
+    </div>
+  </div>
+
+  <div class="formMISH-row">
+    <input id="buttonCreateEvent" type="button" value="Crear Evento" class="formMISH-button">
+    <input id="newEventCancel" type="button" value="Cancelar" class="formMISH-button">
+  </div>
+
+</form>

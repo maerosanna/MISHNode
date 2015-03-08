@@ -1,0 +1,784 @@
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+ALL
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: #262325;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.0em;
+  overflow: hidden;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+HEADER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#header {
+  width: 100%;
+  height: 75px;
+  line-height: 75px;
+
+  color: white;
+  background: #13829f;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 50;
+}
+
+div#header h1 {
+  float: left;
+  color: #EDEDED;
+  font-size: 2.5em;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px;
+  background-color: #073341;
+  border: none;
+  cursor: default;
+
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+div#header h1:hover {
+  color: #073341;
+  background-color: #13829f;
+
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+div#header h3 {
+  float: none;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  color: #fdffc7;
+  padding: 0;
+  margin: 0 0 0 40px;
+}
+
+div#header div.headerButtons {
+  height: auto;
+  line-height: 75px;
+
+  border: none;
+
+  position: absolute;
+  right: 0px;
+}
+
+div#header div.headerButtons ul {
+  height: auto;
+  line-height: 75px;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+div#header div.headerButtons li {
+  height: auto;
+  float: left;
+
+  padding: 0;
+  margin: 0;
+
+  direction: ltr;
+
+  line-height: 75px;
+
+  border: none;
+}
+
+div#header div.headerButtons li:last-of-type a {
+  border-right: none;
+}
+
+div#header div.headerButtons ul li a {
+  display: block; /*Esto hace que se ocupe todo el espacio*/
+  width: auto;
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 15px; /*0 - top/down | 15 left/right*/
+  line-height: 75px; /*Esto hace que se centre el texto*/
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#header div.headerButtons ul li a:hover {
+  background-color: #0A3F50;
+  color: white;
+}
+
+div#header div.headerButtons ul li a:active {
+  background-color: #009999;
+  color: white;
+}
+
+div#header div.headerButtons li.user_header {
+  background-color: #024252;
+  height: 75px;
+  display: none;
+}
+
+div#header div.headerButtons li.user_header a{
+  height: inherit;
+}
+
+div#header div.headerButtons li.user_header a:hover {
+  background-color: #05B3DE;
+}
+
+div#header div.headerButtons li.user_header a span{
+  vertical-align: middle;
+  display: inline;
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4{
+  font-size: 2em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4:before{
+  margin-left: 0px;
+}
+
+div#header div.headerButtons li.logout {
+  color: #E6EA85;
+  background-color: #66211F;
+  display: none;
+}
+
+div#header div.headerButtons li.logout a {
+  
+}
+
+div#header div.headerButtons ul li.logout a:hover {
+  color: #E6EA3E;
+  background-color: #E64A45;
+}
+
+div#header div.headerButtons ul li.logout a:active {
+  background-color: #7F2926;
+  color: #888C25;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+WORK AREA CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#work-area-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
+  position: absolute;
+  top: 75px;
+  left: 0;
+}
+
+div#work-area-container div#work-area-handler {
+  width: inherit;
+  height: inherit;
+  z-index: 20;
+
+  position: relative;
+}
+
+div#work-area-container div#work-area-handler div#work-area-handler-sq {
+  width: inherit;
+  height: inherit;
+
+  cursor: e-resize;
+  opacity: 0.01;
+  background-color: #ffffff;
+
+  position: relative;
+}
+
+div#work-area-container div#canvas-container {
+  width: inherit;
+  height: inherit;
+  z-index: 9;
+
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div#work-area-container div#canvas-container canvas#maincanvas {
+  width: inherit;
+  height: inherit;
+
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  z-index: 10;
+
+  position: relative;
+}
+
+div#canvasContextMenu {
+  display: none;
+  background: #C1DAD6;
+  position: absolute;
+
+  z-index: 50;
+}
+
+.ui-menu {
+  width: 300px;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+TIME RULER STYLES
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+div#timeline-container {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 15;
+}
+
+div#timeline-container div.rulerGroup {
+  height: inherit;
+  display: inline;
+  position: absolute;
+}
+
+div#timeline-container div.date {
+  height: 40px;
+  background: #262f26;
+  position: absolute;
+}
+
+div#timeline-container div.date div.centerDate {
+  height: inherit;
+  border-left: solid;
+  border-left-color: #13829f;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.centerDate div.label {
+  color: #EEEEEE;
+  font-size: 14px;
+  background: #13829f;
+  padding: 5px;
+  margin: 0px;
+
+  position: absolute;
+  top: -30px;
+}
+
+div#timeline-container div.date div.separatorDate {
+  height: inherit;
+
+  border-left: solid;
+  border-left-color: #f2edf4;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.separatorDate div.label {
+  width: auto;
+
+  color: #d1dbef;
+  font-size: 11px;
+
+  position: absolute;
+  left: 2px;
+  z-index: 16;
+}
+
+div#timeline-container div.date div.normalDate {
+  height: inherit;
+
+  position: absolute;
+  top: 20px;
+
+  border-left: solid;
+  border-left-color: #f2edf4;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.normalDate div.label {
+  color: #d1dbef;
+  font-size: 11px;
+
+  position: absolute;
+  left: 2px;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+FORMS
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+.formMISH {
+  width: 100%;
+}
+
+.formMISH-row {
+  clear: both;
+  display: table;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.formMISH-row-error {
+  clear: both;
+  display: table;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.formMISH-error-container{
+  display: inline-block;
+  float: left;
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.formMISH-error-container .formMISH-error-messages{
+  background-color: #f2dede;
+  border: 1px solid #d3bfbf;
+  color: #2f2f2f;
+  width: 100%;
+}
+
+.formMISH-error-container .formMISH-error-messages p{
+  padding-left: 5px;
+}
+
+/*
+The width and inline-block settings turn the labels into little evenly sized blocks
+and provide a clean left edge to which all the form filds align.
+*/
+.formMISH .formMISH-row .label {
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  padding: 7px;
+  position: relative;
+  text-align: right;
+  vertical-align: middle;
+  width: 40%;
+}
+
+.formMISH-fieldDiv {
+  display: inline-block;
+  float: left;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.formMISH-fieldDiv-100 {
+  display: inline-block;
+  float: left;
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.formMISH-field {
+  border: 1px solid #13829f;
+  color: #262626;
+  display: table;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  vertical-align: middle;
+  width: 97.6%;
+}
+
+.formMISH div.required label {
+  color: #b81900;
+}
+
+.formMISH div.required input {
+  border-color: #13829f;
+}
+
+.formMISH-button {
+  float: right;
+  border: none;
+  background-color: #0A4554;
+  color: #ECECEC;
+  padding: 8px;
+  cursor: pointer;
+
+  vertical-align: middle;
+
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+.formMISH-button:nth-child(n+2) {/*Each element (n) from the second (+2)*/
+  margin-right: 5px;
+}
+
+.formMISH-button:hover {
+  color: white;
+  background-color: #4693A6;
+}
+
+.formMISH-col-1 {
+  margin-left: 20px;
+  margin-right: -15px;
+}
+
+.formMISH-col-2 {
+  margin-left: -5px;
+  margin-right: 10px;
+}
+
+
+.mish-errors {
+  list-style: square;
+}
+
+.mish-errors li:nth-child(odd){
+  color: #701700;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+FOOTER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+div#footer {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: black;
+  color: #EDEDED;
+  z-index: 50;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+div#footer div.footerButtons {
+  background-color: #000000;
+  border-left: none;
+  border-right: none;
+  line-height: 40px;
+}
+
+div#footer div.footerButtons ul {
+  padding: 0;
+  margin: 0;
+}
+
+div#footer div.footerButtons ul li {
+  float: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 40px;
+}
+
+div#footer div.footerButtons ul li:last-of-type a {
+  border-right: none;
+}
+
+div#footer div.footerButtons ul li a {
+  line-height: 40px;
+  float: left;
+
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 12px;
+  border-right: 1px solid rgba(255, 255, 255, .75);
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#footer div.footerButtons ul li a:hover {
+  background-color: #9f0a59;
+  color: white;
+  padding-left: 30px;
+}
+
+div#footer div.footerButtons ul.seconda li a {
+  line-height: 40px;
+  float: left;
+
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 12px;
+  border-left: 1px dashed rgba(255, 255, 255, .75);
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#footer div.footerButtons ul.seconda li a:hover {
+  background-color: #66669f;
+  color: white;
+  padding-right: 40px;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+ALERTS
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+
+/*
+success: 097054
+error: 9A3334
+*/
+.alert-message-container{
+  display: none;
+  position: absolute;
+  background-color: #097054;
+  padding: 22px;
+  z-index: 101;
+  color: #EDEDED;
+}
+
+.alert-message-container .alert-message-close{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #9A3334;
+  padding: 3px;
+}
+
+.alert-message-container .alert-message{
+  min-width: 250px;
+  text-align: center;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADED TIMELINES CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#user_timelines_container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: none;
+
+  z-index: 60;
+}
+
+div#user_timelines_container div.user_timelines_overlay {
+  position: relative;
+  z-index: 61;
+}
+
+div#user_timelines_container div.user_timelines_panel {
+  width: 30%;
+  height: inherit;
+  background-color: #13829f;
+  color: #AB643F;
+  float: right;
+  
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  z-index: 62;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title {
+  background-color: #024252;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title span {
+  font-size: 1.5em;
+  color: #dadada;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close{
+  height: inherit;
+  color: #cacaca;
+  /*background-color: #032D38;*/
+  cursor: pointer;
+
+  float: right;
+
+  -webkit-transition: all .3s !important;
+  -moz-transition: all .3s !important;
+  -o-transition: all .3s !important;
+  transition: all .3s !important;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close:hover{
+  /*background-color: #0A809E;*/
+  color: #fafafa;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39,
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39:before{
+  font-size: 1.4em;
+  text-align: center;
+  margin-left: 0px;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul{
+  color: #fafafa;
+  line-height: 35px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li:first-child{
+  border-bottom: 1px dashed #34C5EB;
+  display: inline;
+  text-align: center;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li{
+  width: 100%;
+  float: left;
+  direction: ltr;
+  border: none;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a {
+  display: block; /*Esto hace que se ocupe todo el espacio*/
+  width: auto;
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 15px; /*0 - top/down | 15 left/right*/
+  vertical-align: middle;
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:hover {
+  background-color: #0A3F50;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:active {
+  background-color: #009999;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a span{
+  vertical-align: middle;
+  display: inline;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182{
+  font-size: 1.6em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182:before{
+  margin-left: 0px;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADED TIMELINES CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#user_header_submenu {
+  background-color: #d1d1d1;
+  float: right;
+  width: 200%;
+}
+
+div#user_header_submenu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div#user_header_submenu li {
+  float: right;
+  display: list-item;
+
+  padding: 0;
+  margin: 0;
+
+  direction: rtl;
+}
