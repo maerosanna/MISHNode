@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+var app = require('../app');
+app.set('port', process.env.PORT || 3000);
+
+app.server.listen(app.get('port'), process.env.IP, function(){
+  if(process.env.PORT){
+    console.log('Server up!');
+  }else{
+    console.log('Server up on port 3000!');
+  }
+});

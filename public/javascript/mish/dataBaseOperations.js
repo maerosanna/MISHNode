@@ -14,26 +14,28 @@ function loginUser(username, password, callback){
   var errObj = {msg:''};
 
   jQuery.ajax({
-    "url": "/user",
+    "url": "/userDetail",
     "type": "GET",
     "data": userData,
     "dataType": "JSON"
   }).done(function (data){
-    if (!data || !data._id) {
+    if (!data || !data.user) {
       errObj.msg = "error.operation";
-      return callback(errObj,null);
+      return callback(errObj, null);
     }
 
-    callback(null,data);
+    var userObj = data.user;
+    userObj.timelines = data.timelines;
+
+    callback(null, userObj);
   }).fail(function(err){
     errObj.msg = "error.operation";
     if(err.responseJSON && err.responseJSON.code){
       errObj.msg = err.responseJSON.code;
     }
 
-    callback(errObj,null);
+    callback(errObj, null);
   });
-
 }
 
 /**
@@ -105,9 +107,14 @@ function saveTimeline(callback) {
           "centerDate": centerDate,
           "zoomLevel": mishGA.currentZoomLevel,
           "zoomSubLevel": mishGA.currentZoomSubLevel,
-          "events": savedEvents,
+          "events": [],
           "user": logged_user_id
         };
+
+        //2.1 Assign the _IDs of the events to create
+        savedEvents.forEach(function(eventObj){
+          newTimeline.events.push(eventObj._id);
+        });
 
         //3. Send the object to database
         jQuery.ajax({
@@ -178,10 +185,44 @@ function saveTimelineEvents(events, callback){
 }
 
 /**
+ * Function the loads the timelines of the received user.
+ * 
+ * @param  {string}   userId   The _ID of the user
+ * @param  {Function} callback The function to call after request completion
+ * 
+ */
+function loadUserTimelines(userId, callback){
+  var errObj = {msg:''};
+
+  jQuery.ajax({
+    "url": "/user",
+    "type": "GET",
+    "data": userId,
+    "dataType": "JSON"
+  }).done(function (data){
+    if (!data || !data._id) {
+      errObj.msg = "error.operation";
+      return callback(errObj,null);
+    }
+
+    callback(null,data);
+  }).fail(function(err){
+    errObj.msg = "error.operation";
+    if(err.responseJSON && err.responseJSON.code){
+      errObj.msg = err.responseJSON.code;
+    }
+
+    callback(errObj,null);
+  });
+}
+
+
+/**
  * Function that opens a timeline saved as JSON with the ID received as parameter.
  *
  * @param id
  */
+/*
 function readJSonTimeline(id) {
   var timelineToLoad = {
     "user_id": logged_user_id,
@@ -202,6 +243,7 @@ function readJSonTimeline(id) {
     //@todo Implement what happens here
   });
 }
+*/
 
 
 

@@ -14,7 +14,7 @@ var EventSchema = new Schema({
   title: { type: String },
   description: { type: String },
   date: { type: Date },
-  time: { type: String },
+  time: { type: Number },
   image: { type: String },
   url: { type: String }
 });

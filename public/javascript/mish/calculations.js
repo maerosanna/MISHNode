@@ -115,7 +115,7 @@ function findGroupOfEvent(eventTime) {
 
   //2. Search the group for the event date
   var groupOfDate = null;
-  mishGA.timeRulerGroups.forEach(function(groupObj,index){
+  mishGA.timeRulerGroups.forEach(function(groupObj, index){
     if(eventTime >= getTimeOfGroupId(groupObj)){
       groupOfDate = groupObj;
     }
@@ -132,12 +132,12 @@ function findGroupOfEvent(eventTime) {
  * @param event : object
  * @returns number
  */
-function calculateXPosOfEvent(eventGroup,event){
+function calculateXPosOfEvent(eventGroup, event){
   //1. Calculate the X position of the group
   var eventGroupXPos = mishGA.timeRulerXPos + eventGroup.position().left;
 
   //2. Calculate the X position of the event
-  var eventXPos = mishGA.zoomData.calculateXPosOfEvent(getTimeOfGroupId(eventGroup),event.time);
+  var eventXPos = mishGA.zoomData.calculateXPosOfEvent(getTimeOfGroupId(eventGroup), event.time);
 
   if(eventXPos !== null && eventGroupXPos !== null
       && eventXPos !== undefined && eventGroupXPos !== undefined){

@@ -87,7 +87,7 @@ function logInBtnAction() {
       logged_user_id = userObj._id;
       user_timelines = userObj.timelines;
 
-      // loadUserTimelines();
+      fillUserTimelinesList();
     });
   }
 }
@@ -353,11 +353,6 @@ function guardarTimeline() {
   else {
     jQuery("#buttCreateUser").click();
   }
-}
-
-function openTimeline(timelineId) {
-  readJSonTimeline(timelineId);
-  showTimelinesPanel(false);
 }
 
 function createNewTimeline() {

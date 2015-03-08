@@ -15,6 +15,37 @@ var UserSchema = new Schema({
 
 /**
  * --------------------------------------------------
+ * VIRTUALS
+ * --------------------------------------------------
+ */
+
+/*
+UserSchema.virtual('timelines').get(function(){
+  return this.timelines;
+});
+
+UserSchema.virtual('timelines').set(function(_timelines){
+  this.timelines = _timelines;
+});
+*/
+
+/*
+UserSchema.virtual('timelines').get(function(){
+  return this.timelines;
+}).set(function(timelines){
+  this.timelines = timelines;
+});
+*/
+
+/**
+ * --------------------------------------------------
+ * MODEL CONFIGURATION
+ * --------------------------------------------------
+ */
+//  UserSchema.set('toJSON', { virtuals: true });
+
+/**
+ * --------------------------------------------------
  * MONGOOSE MODEL CREATION AND EXPORTATION
  * --------------------------------------------------
  */

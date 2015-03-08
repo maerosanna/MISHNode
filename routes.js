@@ -16,6 +16,7 @@ module.exports = function (app) {
   //User routes (API)
   //- - - - - - - - - - - - - - - - - - - - - - - -
   app.get('/user', userAPI.findUser);
+  app.get('/userDetail', userAPI.findUserDetail);
   app.post('/user', userAPI.saveUser);
 
   //- - - - - - - - - - - - - - - - - - - - - - - -

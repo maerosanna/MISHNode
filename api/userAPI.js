@@ -1,4 +1,5 @@
 var UserModel = require('../models/UserModel').UserModel;
+var TimelineModel = require('../models/TimelineModel').TimelineModel;
 
 exports.findUser = function(req, res){
   var userData = req.query;
@@ -20,6 +21,45 @@ exports.findUser = function(req, res){
     }
 
     return res.status(200).send(userObj);
+  });
+};
+
+exports.findUserDetail = function(req, res){
+  var userData = req.query;
+  var query = {
+    username: userData.username
+  };
+
+  //1. Search the user in database
+  UserModel.findOne(query).exec(function(err, userObj){
+    if(err){
+      return res.status(400).send({code:'error.operation'});
+    }
+
+    if(!userObj){
+      return res.status(400).send({code:'dialog.logIn.error.user.notfound'});
+    }
+
+    if(userObj.password !== userData.password){
+      return res.status(400).send({code:'dialog.logIn.error.user.wrong.password'});
+    }
+
+    //return res.status(200).send(userObj);
+    //2. If the user exists and the password match, load the user timelines
+    TimelineModel.find({ user: userObj._id }).populate('events').exec(function(err, userTimelines){
+      if(err){
+        return res.status(400).send({code:'error.operation'});
+      }
+
+      var userDetail = {
+        user: userObj,
+        timelines: userTimelines
+      };
+      //userObj.set("timelines", userTimelines);
+      return res.status(200).send(userDetail);
+    });
+    
+
   });
 };
 

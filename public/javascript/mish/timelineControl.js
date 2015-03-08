@@ -3,33 +3,6 @@
  */
 
 /**
- * Function called when a timeline is loaded. It assigns all the information needed for the draw of
- * the time ruler and the events to the respective objects of mishJsonObjs.
- *
- * @param jsonObj
- */
-function timeLineJsonLoaded(jsonObj) {
-  //1. Get the timeline information and assign it to the mishJsonObjs.timelineJson object
-  mishJsonObjs.timelineJson = jsonObj.timeline;
-
-  //2. Get the events of the loaded timeline
-  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
-
-  //2.1 Set some required information (if it's necessary) to the timeline events
-  mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
-    if (eventObj.date) {
-      //0. If the event hasn't time information, calculate it
-      if (!eventObj.time) {
-        eventObj.time = moment(eventObj.date, 'DD-MM-YYYY').valueOf();
-      }
-    }
-  });
-
-  //3. Draw the time ruler and all the events
-  drawTimeRuler();
-}
-
-/**
  * Function that draws the basic time ruler whether a saved timeline is loaded or is a new timeline.
  *
  * @returns {undefined}
@@ -37,8 +10,8 @@ function timeLineJsonLoaded(jsonObj) {
 function drawTimeRuler() {
   //Get the center date of the timeline loaded by the user
   if (mishJsonObjs.timelineJson
-    && mishJsonObjs.timelineJson.centerDate) {
-    center_date = moment(mishJsonObjs.timelineJson.centerDate, "DD-MM-YYYY");
+      && mishJsonObjs.timelineJson.centerDate) {
+    center_date = moment(mishJsonObjs.timelineJson.centerDate);
   }
   clearTimeline();
   mishGA.zoomData.fillTimeRuler(center_date, null);
@@ -116,25 +89,58 @@ function createTimelineCell(id, xPosition, cellClass, cellText, groupID, dateWid
  * logged in user.
  *
  */
-function loadUserTimelines() {
-  var col_cont = 1;
-  jQuery.each(user_timelines, function (key, value) {
+function fillUserTimelinesList() {
+  if(!user_timelines){
+    return;
+  }
+
+  user_timelines.forEach(function(timelineObj, index){
     jQuery('<li/>', {
-      "id": 'timeline-' + key,
+      "id": 'timeline-' + index,
       "class": "user_timeline_removable",
-      "onclick": "openTimeline(" + key + ")"
+      "onclick": "openTimeline(" + index + ")"
     }).appendTo(
       jQuery('.user_timelines_list_ul')
     );
 
-    jQuery('<a/>',{"href":"#"}).text(value.toUpperCase()).appendTo(
-      jQuery('#timeline-' + key)
+    jQuery('<a/>',{"href":"#"}).text(timelineObj.name.toUpperCase()).appendTo(
+      jQuery('#timeline-' + index)
     );
-
-    col_cont++;
-    user_timelines_count++;
   });
 
   jQuery('#logInDialog').dialog('close');
 
+}
+
+/**
+ * Function that opens the timeline stored in the received index.
+ *
+ * It assigns all the information needed for the draw of the time ruler 
+ * and the events to the respective objects of mishJsonObjs.
+ * 
+ * @param  {number} index The index of the array
+ * 
+ */
+function openTimeline(index){
+  //Hide the panel with the list of timelines of the user
+  showTimelinesPanel(false);
+
+  //1. Get the timeline information and assign it to the mishJsonObjs.timelineJson object
+  mishJsonObjs.timelineJson = user_timelines[index];
+
+  //2. Get the events of the loaded timeline
+  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
+
+  //2.1 Set some required information (if it's necessary) to the timeline events
+  mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
+    if (eventObj.date) {
+      //If the event hasn't time information, calculate it
+      if (!eventObj.time) {
+        eventObj.time = moment(eventObj.date).valueOf();
+      }
+    }
+  });
+
+  //3. Draw the time ruler and all the events
+  drawTimeRuler();
 }
