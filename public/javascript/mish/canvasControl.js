@@ -65,7 +65,7 @@ function canvasApp(x, y) {
   function drawScreen() {
     drawEvents();
     //Draw a dashed line in the center of the screen for nothing...
-    drawLineToTimeline(jQuery(window).width() / 2,globalPosY);
+    //  drawLineToTimeline(jQuery(window).width() / 2,globalPosY);
   }
 
   /**
@@ -89,10 +89,10 @@ function canvasApp(x, y) {
           if (eventXPos) {
             drawLineToTimeline(eventXPos, globalPosY);
             drawEvent(eventXPos, globalPosY, eventObj.title);
-            if(eventObj.image){
+            if(eventObj.imageElement){
               // var widthScale = 100 / eventObj.image.width;
               // var heightScale = 100 / eventObj.image.height;
-              context.drawImage(eventObj.image, eventXPos, globalPosY, 100, 100);
+              context.drawImage(eventObj.imageElement, eventXPos + 10, globalPosY + 6, 80, 80);
             }
           }
         }
@@ -108,7 +108,7 @@ function canvasApp(x, y) {
       context.lineWidth = 1;
       context.lineCap = 'square';
       context.lineJoin = 'square';
-      context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[0] : "GRAY";
+      context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[0] : "#499AAF";
       context.setLineDash([5, 10]);
 
       //Draw the dashed line to de timeline
@@ -124,19 +124,19 @@ function canvasApp(x, y) {
     if (event_posX < jQuery(window).width()
         && event_posX >= 0) {
       //Define the properties of the event to draw
-      context.font = "14px sans-serif";
-      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "GRAY";
+      context.font = "20px sans-serif";
+      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#499AAF";
 
       //Draw the title of the event
       context.fillText(event_text, event_posX + 20, event_posY + 3);
 
       //Draw the circle of the event
-      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
+      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#499AAF";
       context.lineWidth = 10;
       context.lineCap = 'round';
       context.lineJoin = 'round';
-      context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
-      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
+      context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#499AAF";
+      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#499AAF";
       context.setLineDash([0]);
 
       context.beginPath();

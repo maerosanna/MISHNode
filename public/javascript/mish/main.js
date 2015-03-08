@@ -44,6 +44,7 @@ var user_timelines;
 var user_loggedIn;
 var logged_user_id;
 var user_timelines_count;
+var showing_alert_message;
 
 /**
  * Function that assigns the initial values for all the global variables.
@@ -75,6 +76,7 @@ function initAttr() {
   globalPosY = 80;
   logged_user_id = 0;
   user_timelines_count = 0;
+  showing_alert_message = false;
 
   initStyleVars();
 }

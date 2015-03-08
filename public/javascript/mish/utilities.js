@@ -128,3 +128,53 @@ function hideErrorMessages(element) {
 function getTimeOfGroupId(groupObj){
   return ( moment( '01' + groupObj.attr('id').split('-')[2] , 'DDMMYYYY') ).valueOf();
 }
+
+/**
+ * Shows an alert message with the text of the code received.
+ * 
+ * @param  {string} messageCode The code to search in "messages.js"
+ * 
+ */
+function showAlertMessage(messageCode){
+  if(showing_alert_message === false){
+    showing_alert_message = true;
+    jQuery(".alert-message").append(msg[messageCode]);
+    jQuery(".alert-message-container").show("fade",450);
+    var alertContainerWidth = jQuery(".alert-message-container").width();
+    var alertContainerHeight = jQuery(".alert-message-container").height();
+    var xPos = (mishGA.workAreaWidth / 2) - (alertContainerWidth / 2);
+    var yPos = ((mishGA.workAreaHeight / 2) - (alertContainerHeight / 2)) - 50;
+    jQuery(".alert-message-container").css({left:xPos,top:yPos});
+    setTimeout(function(){
+      jQuery(".alert-message-container").hide("fade",300);
+      showing_alert_message = false;
+    }, 1500);
+  }
+}
+
+/**
+ * Function that creates and <img> element for rendering an image on the canvas.
+ * 
+ * @param  {string}   source   The data of the image
+ * @param  {Function} callback The function to call after loading the image
+ * 
+ */
+function createImgElementFrom(source, callback){
+  var res = new Image();
+  res.addEventListener('load', function(){
+    callback(this);
+  }, false);
+  res.src = source;
+}
+
+function cloneObj(objToClone){
+  var clone = objToClone.constructor();
+
+  for (var attr in objToClone) {
+    if (objToClone.hasOwnProperty(attr)){
+      clone[attr] = objToClone[attr];
+    }
+  }
+
+  return clone;
+};

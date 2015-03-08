@@ -63,7 +63,7 @@ function assignMouseEventsListeners() {
 function mouseScrollEvent(e) {
   //cross-browser wheel delta
   var e = window.event || e; //old IE support
-  var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+  var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) * (mishGA.zoomData.deltaMultiplier || 1);
 
   var zoomSubLevelChange = false;
   var zoomLevelChange = false;

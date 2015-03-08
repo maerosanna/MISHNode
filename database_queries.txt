@@ -1,0 +1,14 @@
+//Get all events in DB
+db.events.find().pretty()
+
+//Get all timelines in DB
+db.timelines.find().pretty()
+
+//Remove all the events in DB
+db.events.remove({})
+
+//Remove all the timelines in DB
+db.timelines.remove({})
+
+//Get the events in DB without the "image" field
+db.events.find({},{image:0}).pretty()

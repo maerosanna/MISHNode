@@ -13,6 +13,10 @@ function calculateDistance(date1, date2) {
  * @returns {moment}
  */
 function findCenterDate() {
+  return (moment(mishJsonObjs.eventsJsonElement[0].date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
+
+
+  // @TODO Calculate the real center date for the timeline.
 
   if (mishJsonObjs.eventsJsonElement.length > 0) {
     var menor = null;
@@ -30,8 +34,7 @@ function findCenterDate() {
 
       if (mayor == null) {
         mayor = eventDateMoment;
-      }
-      else {
+      } else {
         if (mayor.isBefore(eventDateMoment)) {
           mayor = eventDateMoment;
         }

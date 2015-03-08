@@ -19,6 +19,7 @@ var zoomSubLevels = {
       id: 1,
       name: 'MONTHS',
       parentId: 5,
+      deltaMultiplier: 5,
       initialCellWidth: 30,
       lastCellWidth: 150,
       isTheLast: false,

@@ -34,7 +34,7 @@ function assignButtonsListeners() {
 
   jQuery("#user_timelines_panel_new").click(function(){
     createNewTimeline();
-    //loadSamplesClic()
+    //loadSamplesClic();
   });
 
 }
@@ -208,17 +208,11 @@ function resetTimeruler(){
   drawTimeRuler();
 }
 
-function readURL(input, callback) {
+function readImageURL(input, callback) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
-      var res = new Image();
-      res.addEventListener('load', function(){
-        callback(this);
-      }, false);
-      res.src = e.target.result;
-
-      // saveImage(e.target.result);
+      createImgElementFrom(e.target.result, callback);
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -274,8 +268,10 @@ function createMISHEventBtnAction() {
     var imageOfEvent = document.getElementById("eventImg");
 
     if(imageOfEvent.files && imageOfEvent.files[0]){
-      readURL(imageOfEvent, function(imageData){
-        newEventObj.image = imageData;
+      readImageURL(imageOfEvent, function(imageData){
+        newEventObj.image = imageData.src;
+        newEventObj.imageElement = imageData;
+
         //Add the created event object to the array of events of the timeline
         mishJsonObjs.eventsJsonElement.push(newEventObj);
 
@@ -322,9 +318,9 @@ function createTimelineBtnAction() {
         return;
       }
 
-      alert("TIMELINE GUARDADO");
+      showAlertMessage("dialog.createTimeline.timeline.saved");
       jQuery('#newTimelineDialog').dialog('close');
-      // @TODO Create a success message...
+
     });
   }
 }
@@ -336,17 +332,7 @@ function createTimelineBtnAction() {
  * after its creation the timeline is saved.
  * 
  */
-function guardarTimeline() {
-  /*
-  jQuery(".alert-message").append("Se ha creado la línea de tiempo");
-  jQuery(".alert-message-container").show("fade",450);
-  var alertContainerWidth = jQuery(".alert-message-container").width();
-  var alertContainerHeight = jQuery(".alert-message-container").height();
-  var xPos = (mishGA.workAreaWidth / 2) - (alertContainerWidth / 2);
-  var yPos = ((mishGA.workAreaHeight / 2) - (alertContainerHeight / 2)) - 50;
-  jQuery(".alert-message-container").css({left:xPos,top:yPos});
-  */
-
+function saveTimelineBtnAction() {
   if (user_loggedIn) {
     jQuery("#newTimelineDialog").dialog('open');
   }

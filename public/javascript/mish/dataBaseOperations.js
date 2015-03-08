@@ -103,8 +103,8 @@ function saveTimeline(callback) {
           "name": jQuery("#timelineName").val(),
           "colorScheme": "01",//@todo Implement this
           "user": logged_user_id,
-          "creationDate": moment().format("DD-MM-YYYY"),
-          "centerDate": centerDate,
+          "creationDate": moment().format('MM-DD-YYYY'),
+          "centerDate": moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY'),
           "zoomLevel": mishGA.currentZoomLevel,
           "zoomSubLevel": mishGA.currentZoomSubLevel,
           "events": [],
@@ -156,8 +156,16 @@ function saveTimeline(callback) {
 function saveTimelineEvents(events, callback){
   var errObj = {msg:''};
 
+  var eventsToSend = [];
+
   events.forEach(function(eventObj){
-    eventObj.date = (moment(eventObj.date, 'DD-MM-YYYY')).valueOf();
+    var eventCloned = cloneObj(eventObj);
+
+    //Modify and remove elements on the clone to send to the database
+    eventCloned.date = (moment(eventCloned.date, 'DD-MM-YYYY')).valueOf();
+    eventCloned.imageElement = null;
+
+    eventsToSend.push(eventCloned);
   });
 
   //1. Send the array of events to the database
@@ -165,7 +173,7 @@ function saveTimelineEvents(events, callback){
     "url": "/events",
     "type": "POST",
     "data": {
-      "events": events
+      "events": eventsToSend
     },
     "dataType": "JSON"
   }).done(function (data) {

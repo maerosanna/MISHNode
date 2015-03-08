@@ -138,6 +138,12 @@ function openTimeline(index){
       if (!eventObj.time) {
         eventObj.time = moment(eventObj.date).valueOf();
       }
+
+      if(eventObj.image){
+        createImgElementFrom(eventObj.image, function(imageElement){
+          eventObj.imageElement = imageElement;
+        });
+      }
     }
   });
 
