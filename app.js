@@ -2,10 +2,15 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     mongoose = require('mongoose'),
-    app = express();
+    app = express(),
+    fs = require('fs'),
+    gridFS = require('gridfs-stream');
 
 //Connect to MISH DB
 mongoose.connect('mongodb://localhost:27017/mishdb');
+
+var conn = mongoose.connection;
+gridFS.mongo = mongoose.mongo;
 
 //Configure the application
 app.use(bodyParser.json()); // for parsing application/json

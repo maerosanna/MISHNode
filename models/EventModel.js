@@ -1,5 +1,12 @@
+//  http://excellencenodejsblog.com/gridfs-using-mongoose-nodejs/
+//  https://github.com/aheckmann/gridfs-stream
+//  http://blog.robertonodi.me/managing-files-with-node-js-and-mongodb-gridfs/   [!]
+
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    fs = require('fs'),
+    path = require('path'),
+    gridFS = require('gridfs-stream');
 
 /**
  * EVENT model:
@@ -15,8 +22,33 @@ var EventSchema = new Schema({
   description: { type: String },
   date: { type: Date },
   time: { type: Number },
-  image: { type: String },
+  image: { type: Schema.Types.ObjectId },
+  imageName: { type: String },
+  imageURL: { type: String },
   url: { type: String }
+});
+
+/**
+ * --------------------------------------------------
+ * PRE
+ * --------------------------------------------------
+ */
+
+EventSchema.pre('save', function(next, done){
+  var _me = this;
+  var gfs = gridFS(mongoose.connection.db);
+  var writestream = gfs.createWriteStream({
+    filename: _me.imageName
+  });
+
+  fs.createReadStream(_me.imageURL).pipe(writestream);
+  writestream.on('close', function (file) {
+    _me.image = file._id;
+    _me.imageURL = undefined;
+    _me.imageName = undefined;
+
+    return next();
+  });
 });
 
 /**

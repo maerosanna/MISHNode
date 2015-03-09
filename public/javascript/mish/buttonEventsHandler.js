@@ -271,9 +271,18 @@ function createMISHEventBtnAction() {
       readImageURL(imageOfEvent, function(imageData){
         newEventObj.image = imageData.src;
         newEventObj.imageElement = imageData;
+        
+        newEventObj.imageName = imageOfEvent.files[0].name;
+        
+        // newEventObj.imageURL = (window.URL.createObjectURL(imageOfEvent.files[0])).slice(5);
+        newEventObj.imageURL = (window.URL.createObjectURL(imageOfEvent.files[0])).split("/");
+        newEventObj.imageURL = newEventObj.imageURL[newEventObj.imageURL.length - 1]
 
         //Add the created event object to the array of events of the timeline
         mishJsonObjs.eventsJsonElement.push(newEventObj);
+
+
+        saveEventImage(imageOfEvent.files[0]);
 
       });
     }else{

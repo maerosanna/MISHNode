@@ -289,18 +289,25 @@ function colorSchemeXMLReadError() {
 
 
 
-function saveImage(imageData){
+function saveEventImage(imageData){
+
+  // var data = new FormData(jQuery("#createEventForm")[0]);
+  var data = new FormData();
+  data.append('eventImage', ['mateo','robayo','22-04-2013']);
+  data.append('eventImage', imageData);
+  //data.append('username', 'chocolo');
+  //data.append('date', '03-10-2014');
+
   jQuery.ajax({
-    "url": "PHP/imageHandling.php",
-    "type": "POST",
-    "data": {
-      "imageData": imageData
+    url: '/events',
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function(data){
+      alert(data);
     }
-  }).done(function (data) {
-    console.log("IMAGEN GUARDADA");
-    return;
-  }).fail(function(){
-    console.log("ERROR AL GUARDAR IMAGEN");
-    return;
   });
+
 }
