@@ -1,50 +1,62 @@
 var EventModel = require('../models/EventModel').EventModel;
 
 exports.findEvent = function(req, res){
+
+};
+
+exports.findEventImage = function(req, res){
+  var eventData = req.query;
+  EventModel.findEventImage(eventData.eventId, res, function(err, eventImageObj){
+    if(err){
+      return res.status(400).send({code:'error.operation'});
+    }
+
+    if(!eventImageObj){
+      return res.status(400).send({code:'eventDetail.error.noImage'});
+    }
+
+    var eventDetail = {
+      eventIndex: eventData.eventIndex,
+      eventImage: eventImageObj
+    };
+
+    return res.status(200).send(eventDetail);
+  });
 };
 
 exports.saveEvent = function(req, res){
 };
 
 exports.createEvents = function(req, res){
-  // console.log("........................");
-  // console.log(req);
+  var eventsData = req.body;
+  var eventsImages = req.files;
 
-  // return res.status(400).send({code:"createEvents.error.events.creation"});
-
-  // var eventsToStore = req.body.events;
-
-  var eventsToStore = [
-    {
-      "title": "cocoliso",
-      "description": "pruebas",
-      "date": "03-10-2014",
-      "imageURL": req.files.eventImage.path,
-      "imageName": req.files.eventImage.originalname
-    },
-    {
-      "title": "simona",
-      "description": "la cacalisa",
-      "date": "10-02-2017",
-      "imageURL": req.files.eventImage.path,
-      "imageName": req.files.eventImage.originalname
-    }
-  ];
-
-  if(!eventsToStore || eventsToStore.length == 0){
+  if(!eventsData){
     return res.status(400).send({code:"createEvents.error.noEventsToSave"});
   }
 
-  // var testEvent = new EventModel(eventsToStore[0]);
-  // testEvent.save(function (err, savedEvent){
-  //   if(err){
-  //     console.log("err", err);
-  //     return res.status(400).send({code:"createEvents.error.events.creation"});
-  //   }
+  var eventsToStore = [];
 
-  //   console.log("savedEvent", savedEvent);
-  //   return res.status(200).send([savedEvent]);
-  // });
+  //1. Create the array of events to store
+  for(eventString in eventsData){
+    var dataArray = eventsData[eventString].split(':|@');
+    var eventObj = {};
+    eventObj.title = dataArray[0];
+    eventObj.description = dataArray[1];
+    eventObj.date = parseInt(dataArray[2]);
+    eventObj.time = parseInt(dataArray[3]);
+    if(eventsImages[eventString]){
+      eventObj.imageURL = eventsImages[eventString].path;
+      eventObj.imageName = eventsImages[eventString].originalname;
+    }
+    eventObj.url = dataArray[4];
+
+    eventsToStore.push(eventObj);
+  }
+
+  if(eventsToStore.length == 0){
+    return res.status(400).send({code:"createEvents.error.noEventsToSave"});
+  }
 
   EventModel.create(eventsToStore, function (err, /*saved events*/ savedEvents) {
     if(err || !savedEvents || (savedEvents && savedEvents.length === 0)){

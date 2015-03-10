@@ -1,5 +1,5 @@
-var UserModel = require('../models/UserModel').UserModel;
-var TimelineModel = require('../models/TimelineModel').TimelineModel;
+var UserModel = require('../models/UserModel').UserModel,
+    TimelineModel = require('../models/TimelineModel').TimelineModel;
 
 exports.findUser = function(req, res){
   var userData = req.query;
@@ -46,6 +46,7 @@ exports.findUserDetail = function(req, res){
 
     //return res.status(200).send(userObj);
     //2. If the user exists and the password match, load the user timelines
+    //TimelineModel.find({ user: userObj._id }).exec(function(err, userTimelines){
     TimelineModel.find({ user: userObj._id }).populate('events').exec(function(err, userTimelines){
       if(err){
         return res.status(400).send({code:'error.operation'});
@@ -55,7 +56,7 @@ exports.findUserDetail = function(req, res){
         user: userObj,
         timelines: userTimelines
       };
-      //userObj.set("timelines", userTimelines);
+
       return res.status(200).send(userDetail);
     });
     

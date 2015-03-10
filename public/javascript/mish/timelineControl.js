@@ -122,6 +122,8 @@ function fillUserTimelinesList() {
  * 
  */
 function openTimeline(index){
+  var eventsWithImages = 0;
+
   //Hide the panel with the list of timelines of the user
   showTimelinesPanel(false);
 
@@ -132,21 +134,72 @@ function openTimeline(index){
   mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
 
   //2.1 Set some required information (if it's necessary) to the timeline events
-  mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
+  mishJsonObjs.eventsJsonElement.forEach(function (eventObj, index) {
     if (eventObj.date) {
       //If the event hasn't time information, calculate it
       if (!eventObj.time) {
         eventObj.time = moment(eventObj.date).valueOf();
       }
+    }
 
-      if(eventObj.image){
-        createImgElementFrom(eventObj.image, function(imageElement){
-          eventObj.imageElement = imageElement;
-        });
-      }
+    if(eventObj.image){
+      eventsWithImages++;
+      getEventImage(eventObj._id, index, function(err, imageData){
+        eventsWithImages--;
+        if(err){
+          console.log("Event: " + index + " image not loaded", err);
+        }
+
+        if(imageData){
+          // console.log("Event: " + index, imageData);
+          
+
+          /*var caca = new Image();
+          caca.src = imageData;
+          caca.onload = function(){
+            eventObj.imageElement = caca;
+            if(eventsWithImages <= 0){
+              drawTimeRuler();
+            }
+          };*/
+
+          var oMyBlob = new Blob(imageData.eventImage.data);
+          var reader = new FileReader();
+
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+              console.log("................................");
+              console.log(e.target);
+
+              /*
+              createImgElementFrom(e.target.result, function(imageElement){
+                eventObj.imageElement = imageElement;
+              });
+              */
+            };
+          })(imageData);
+
+          // Read in the image file as a data URL.
+          //reader.readAsArrayBuffer(imageData.eventImage.data);
+          //reader.readAsArrayBuffer(oMyBlob);
+          reader.readAsArrayBuffer(oMyBlob);
+
+
+        }
+      });
+
+      /*
+      createImgElementFrom(imageData, function(imageElement){
+        eventObj.imageElement = imageElement;
+      });
+      */
+
     }
   });
 
   //3. Draw the time ruler and all the events
-  drawTimeRuler();
+  if(eventsWithImages == 0){
+    drawTimeRuler();
+  }
 }

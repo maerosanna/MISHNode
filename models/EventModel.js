@@ -6,7 +6,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     fs = require('fs'),
     path = require('path'),
-    gridFS = require('gridfs-stream');
+    gridFS = require('gridfs-stream'),
+    Binary = mongoose.mongo.Binary,
+    GridStore = mongoose.mongo.GridStore,
+    ObjectId = require('mongoose').Types.ObjectId;
 
 /**
  * EVENT model:
@@ -23,8 +26,8 @@ var EventSchema = new Schema({
   date: { type: Date },
   time: { type: Number },
   image: { type: Schema.Types.ObjectId },
-  imageName: { type: String },
   imageURL: { type: String },
+  imageName: { type: String },
   url: { type: String }
 });
 
@@ -46,10 +49,70 @@ EventSchema.pre('save', function(next, done){
     _me.image = file._id;
     _me.imageURL = undefined;
     _me.imageName = undefined;
-
     return next();
   });
 });
+
+/**
+ * --------------------------------------------------
+ * STATICS
+ * --------------------------------------------------
+ */
+
+/**
+ * Method that get the image related to an event.
+ * 
+ * @param  {[type]}   eventId  [description]
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
+EventSchema.statics.findEventImage = function(eventId, response, callback) {
+  var query = {_id: new ObjectId(eventId)};
+  this.findOne(query).exec(function(err, eventObj){
+    if(err){
+      return callback({message:"ERROR IN OPERATION"}, null);
+    }
+
+    if(!eventObj){
+      console.log("ERROR: No event in DB for the id " + eventId);
+      return callback({message:"ERROR EVENT NOT FOUND"}, null);
+    }
+
+    var gridStore = new GridStore(mongoose.connection.db, new ObjectId(eventObj.image), 'r');
+    gridStore.open(function (err, gridStore) {
+        //console.log(gridStore.currentChunk.data.buffer);
+        gridStore.read(function (error,data){
+            callback(null, data);
+            //res.writeHead(200, {'Content-Type': 'image/png'});
+            //var s = gridStore.stream(true);
+            //console.log(s);
+        });
+    });
+
+
+    /*
+    
+    if(eventObj.image){
+      var imageData;
+      
+      // var fs_write_stream = fs.createWriteStream('write.png');
+
+      var gfs = gridFS(mongoose.connection.db);
+      var readstream = gfs.createReadStream({_id: eventObj.image}, {encoding:'base64'});
+      response.setHeader('Content-Type', 'text/html; charset=UTF-8');
+      readstream.pipe(response);
+
+      readstream.on('end', function () {
+        console.log("- - - - - - TERMINADO - - - - - - ");
+      });
+    }else{
+      return callback(null, null);
+    }
+
+    */
+
+  });
+};
 
 /**
  * --------------------------------------------------

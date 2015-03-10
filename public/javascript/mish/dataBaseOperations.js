@@ -154,7 +154,55 @@ function saveTimeline(callback) {
  * @param  {Function}     The function to call after complete the operation
  */
 function saveTimelineEvents(events, callback){
+  jQuery("#loading_container").show("fade", 300);
+
   var errObj = {msg:''};
+
+  var data = new FormData();
+  events.forEach(function(eventObj, index){
+    var eventCloned = cloneObj(eventObj);
+
+    //Append the data of the event
+    data.append('event_' + index, "" + 
+      eventCloned.title + ":|@" +
+      eventCloned.description || "" + ":|@" +
+      (moment(eventCloned.date, 'DD-MM-YYYY')).valueOf() + ":|@" +
+      eventCloned.time + ":|@" +
+      eventCloned.url || "" + ":|@"
+    );
+
+    //Append the image of the event
+    data.append('event_' + index, eventCloned.image);
+  });
+
+  jQuery.ajax({
+    url: '/events',
+    data: data,
+    type: 'POST',
+    cache: false,
+    contentType: false,
+    processData: false
+  }).done(function (data) {
+    jQuery("#loading_container").hide("fade", 200);
+
+    if(!data){
+      errObj.msg = "error.operation";
+      return callback(errObj,null);
+    }
+
+    return callback(null, data);
+  }).fail(function(err){
+    jQuery("#loading_container").hide("fade", 200);
+
+    errObj.msg = "error.operation";
+    if(err.responseJSON && err.responseJSON.code){
+      errObj.msg = err.responseJSON.code;
+    }
+    callback(errObj,null);
+  });;
+
+
+  /*
 
   var eventsToSend = [];
 
@@ -190,6 +238,9 @@ function saveTimelineEvents(events, callback){
     }
     callback(errObj,null);
   });
+
+  */
+
 }
 
 /**
@@ -224,34 +275,46 @@ function loadUserTimelines(userId, callback){
   });
 }
 
-
 /**
- * Function that opens a timeline saved as JSON with the ID received as parameter.
- *
- * @param id
+ * Function that get the image of the received event
+ * @param  {string}   eventId    The _ID of the event
+ * @param  {number}   eventIndex The event position in the "mishJsonObjs.eventsJsonElement" array
+ * @param  {Function} callback   The function to call after completing the request
+ * 
  */
-/*
-function readJSonTimeline(id) {
-  var timelineToLoad = {
-    "user_id": logged_user_id,
-    "timeline_id": id
+function getEventImage(eventId, eventIndex, callback){
+  var eventData = {
+    "eventId": eventId,
+    "eventIndex": eventIndex
   };
 
+  var errObj = {msg:''};
+
   jQuery.ajax({
-    "url": "PHP/openTimeline.php",
-    "type": "POST",
-    "data": {
-      "objTimelineToLoad": JSON.stringify(timelineToLoad)
-    },
-    "dataType": "JSON"
-  }).done(function (data) {
-    //The PHP file has responded. Call the function that will use the data received.
-    timeLineJsonLoaded(data);
-  }).fail(function(){
-    //@todo Implement what happens here
+    "url": "/eventImage",
+    "type": "GET",
+    "data": eventData
+  }).done(function (data){
+    if (!data) {
+      errObj.msg = "error.operation";
+      return callback(errObj, null);
+    }
+    callback(null, data);
+    // (mishJsonObjs.eventsJsonElement[data.eventIndex]).image = {xxx:"asdasd"};
+
+  }).fail(function(err){
+    console.log("||||||||||||||||||||");
+    console.log(err);
+
+
+    errObj.msg = "error.operation";
+    if(err.responseJSON && err.responseJSON.code){
+      errObj.msg = err.responseJSON.code;
+    }
+
+    callback(errObj, null);
   });
 }
-*/
 
 
 
@@ -284,30 +347,4 @@ function colorSchemeXMLSuccessRead(xml) {
 }
 function colorSchemeXMLReadError() {
   confirm("Hubo un error al intentar cargar el archivo XML para el color scheme");
-}
-
-
-
-
-function saveEventImage(imageData){
-
-  // var data = new FormData(jQuery("#createEventForm")[0]);
-  var data = new FormData();
-  data.append('eventImage', ['mateo','robayo','22-04-2013']);
-  data.append('eventImage', imageData);
-  //data.append('username', 'chocolo');
-  //data.append('date', '03-10-2014');
-
-  jQuery.ajax({
-    url: '/events',
-    data: data,
-    cache: false,
-    contentType: false,
-    processData: false,
-    type: 'POST',
-    success: function(data){
-      alert(data);
-    }
-  });
-
 }
