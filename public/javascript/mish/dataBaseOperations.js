@@ -154,7 +154,7 @@ function saveTimeline(callback) {
  * @param  {Function}     The function to call after complete the operation
  */
 function saveTimelineEvents(events, callback){
-  jQuery("#loading_container").show("fade", 300);
+  showLoadingAnimation(true);
 
   var errObj = {msg:''};
 
@@ -183,7 +183,7 @@ function saveTimelineEvents(events, callback){
     contentType: false,
     processData: false
   }).done(function (data) {
-    jQuery("#loading_container").hide("fade", 200);
+    showLoadingAnimation(false);
 
     if(!data){
       errObj.msg = "error.operation";
@@ -192,7 +192,7 @@ function saveTimelineEvents(events, callback){
 
     return callback(null, data);
   }).fail(function(err){
-    jQuery("#loading_container").hide("fade", 200);
+    showLoadingAnimation(false);
 
     errObj.msg = "error.operation";
     if(err.responseJSON && err.responseJSON.code){
@@ -251,6 +251,7 @@ function saveTimelineEvents(events, callback){
  * 
  */
 function loadUserTimelines(userId, callback){
+  showLoadingAnimation(true);
   var errObj = {msg:''};
 
   jQuery.ajax({
@@ -259,6 +260,8 @@ function loadUserTimelines(userId, callback){
     "data": userId,
     "dataType": "JSON"
   }).done(function (data){
+    showLoadingAnimation(false);
+
     if (!data || !data._id) {
       errObj.msg = "error.operation";
       return callback(errObj,null);
@@ -266,6 +269,8 @@ function loadUserTimelines(userId, callback){
 
     callback(null,data);
   }).fail(function(err){
+    showLoadingAnimation(false);
+
     errObj.msg = "error.operation";
     if(err.responseJSON && err.responseJSON.code){
       errObj.msg = err.responseJSON.code;
@@ -299,8 +304,8 @@ function getEventImage(eventId, eventIndex, callback){
       errObj.msg = "error.operation";
       return callback(errObj, null);
     }
-    callback(null, data);
-    // (mishJsonObjs.eventsJsonElement[data.eventIndex]).image = {xxx:"asdasd"};
+
+    callback(null, data.eventIndex, data.eventImage);
 
   }).fail(function(err){
     console.log("||||||||||||||||||||");
