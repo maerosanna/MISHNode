@@ -214,3 +214,13 @@ function encode (input) {
 
   return output;
 }
+
+function readImageURL(input, callback) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      createImgElementFrom(e.target.result, callback);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}

@@ -208,16 +208,6 @@ function resetTimeruler(){
   drawTimeRuler();
 }
 
-function readImageURL(input, callback) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      createImgElementFrom(e.target.result, callback);
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
 /**
  * Function that validates the fields for Creating a New Event and then
  * proceeds to send the data to the database.

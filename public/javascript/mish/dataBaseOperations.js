@@ -165,10 +165,10 @@ function saveTimelineEvents(events, callback){
     //Append the data of the event
     data.append('event_' + index, "" + 
       eventCloned.title + ":|@" +
-      eventCloned.description || "" + ":|@" +
+      (eventCloned.description || "") + ":|@" +
       (moment(eventCloned.date, 'DD-MM-YYYY')).valueOf() + ":|@" +
       eventCloned.time + ":|@" +
-      eventCloned.url || "" + ":|@"
+      (eventCloned.url || "") + ":|@"
     );
 
     //Append the image of the event
@@ -308,10 +308,6 @@ function getEventImage(eventId, eventIndex, callback){
     callback(null, data.eventIndex, data.eventImage);
 
   }).fail(function(err){
-    console.log("||||||||||||||||||||");
-    console.log(err);
-
-
     errObj.msg = "error.operation";
     if(err.responseJSON && err.responseJSON.code){
       errObj.msg = err.responseJSON.code;
