@@ -80,36 +80,10 @@ EventSchema.statics.findEventImage = function(eventId, response, callback) {
 
     var gridStore = new GridStore(mongoose.connection.db, new ObjectId(eventObj.image), 'r');
     gridStore.open(function (err, gridStore) {
-        //console.log(gridStore.currentChunk.data.buffer);
         gridStore.read(function (error,data){
             callback(null, data);
-            //res.writeHead(200, {'Content-Type': 'image/png'});
-            //var s = gridStore.stream(true);
-            //console.log(s);
         });
     });
-
-
-    /*
-    
-    if(eventObj.image){
-      var imageData;
-      
-      // var fs_write_stream = fs.createWriteStream('write.png');
-
-      var gfs = gridFS(mongoose.connection.db);
-      var readstream = gfs.createReadStream({_id: eventObj.image}, {encoding:'base64'});
-      response.setHeader('Content-Type', 'text/html; charset=UTF-8');
-      readstream.pipe(response);
-
-      readstream.on('end', function () {
-        console.log("- - - - - - TERMINADO - - - - - - ");
-      });
-    }else{
-      return callback(null, null);
-    }
-
-    */
 
   });
 };

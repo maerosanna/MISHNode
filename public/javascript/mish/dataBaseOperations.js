@@ -199,47 +199,7 @@ function saveTimelineEvents(events, callback){
       errObj.msg = err.responseJSON.code;
     }
     callback(errObj,null);
-  });;
-
-
-  /*
-
-  var eventsToSend = [];
-
-  events.forEach(function(eventObj){
-    var eventCloned = cloneObj(eventObj);
-
-    //Modify and remove elements on the clone to send to the database
-    eventCloned.date = (moment(eventCloned.date, 'DD-MM-YYYY')).valueOf();
-    eventCloned.imageElement = null;
-
-    eventsToSend.push(eventCloned);
   });
-
-  //1. Send the array of events to the database
-  jQuery.ajax({
-    "url": "/events",
-    "type": "POST",
-    "data": {
-      "events": eventsToSend
-    },
-    "dataType": "JSON"
-  }).done(function (data) {
-    if(!data){
-      errObj.msg = "error.operation";
-      return callback(errObj,null);
-    }
-
-    return callback(null, data);
-  }).fail(function(err){
-    errObj.msg = "error.operation";
-    if(err.responseJSON && err.responseJSON.code){
-      errObj.msg = err.responseJSON.code;
-    }
-    callback(errObj,null);
-  });
-
-  */
 
 }
 

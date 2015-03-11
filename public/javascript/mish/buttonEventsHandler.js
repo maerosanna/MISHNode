@@ -34,7 +34,6 @@ function assignButtonsListeners() {
 
   jQuery("#user_timelines_panel_new").click(function(){
     createNewTimeline();
-    //loadSamplesClic();
   });
 
 }
@@ -261,7 +260,7 @@ function createMISHEventBtnAction() {
       readImageURL(imageOfEvent, function(imageData){
         newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
-        
+
         //Add the created event object to the array of events of the timeline
         mishJsonObjs.eventsJsonElement.push(newEventObj);
       });

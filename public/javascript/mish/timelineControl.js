@@ -157,7 +157,8 @@ function openTimeline(index){
         }
 
         if(eventIndex && imageData){
-          var arrayBuffer = imageData.data;
+          //In some cases, like the cloud9 one, "imageData" is an Array, not an object with a "data" attribute
+          var arrayBuffer = imageData.data || imageData;
           var bytes = new Uint8Array(arrayBuffer);
           var res = new Image();
           res.src = 'data:image/png;base64,' + encode(bytes);
