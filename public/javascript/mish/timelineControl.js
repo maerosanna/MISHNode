@@ -123,7 +123,9 @@ function fillUserTimelinesList() {
  */
 function openTimeline(index){
   //Remove the canvas
-  mishGA.canvasObject;
+  if(mishGA.canvasObject){
+    mishGA.canvasObject.clearAndPause();
+  }
 
   showLoadingAnimation(true);
 
