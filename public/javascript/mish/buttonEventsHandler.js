@@ -34,7 +34,6 @@ function assignButtonsListeners() {
 
   jQuery("#user_timelines_panel_new").click(function(){
     createNewTimeline();
-    //loadSamplesClic();
   });
 
 }
@@ -208,16 +207,6 @@ function resetTimeruler(){
   drawTimeRuler();
 }
 
-function readImageURL(input, callback) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      createImgElementFrom(e.target.result, callback);
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
 /**
  * Function that validates the fields for Creating a New Event and then
  * proceeds to send the data to the database.
@@ -269,12 +258,11 @@ function createMISHEventBtnAction() {
 
     if(imageOfEvent.files && imageOfEvent.files[0]){
       readImageURL(imageOfEvent, function(imageData){
-        newEventObj.image = imageData.src;
+        newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
 
         //Add the created event object to the array of events of the timeline
         mishJsonObjs.eventsJsonElement.push(newEventObj);
-
       });
     }else{
       mishJsonObjs.eventsJsonElement.push(newEventObj);

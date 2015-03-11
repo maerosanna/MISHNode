@@ -29,6 +29,7 @@ module.exports = function (app) {
   //Event routes (API)
   //- - - - - - - - - - - - - - - - - - - - - - - -
   app.get('/event', eventAPI.findEvent);
+  app.get('/eventImage', eventAPI.findEventImage);
   app.post('/event', eventAPI.saveEvent);
   app.post('/events', eventAPI.createEvents);
 

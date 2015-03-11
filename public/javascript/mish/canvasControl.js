@@ -22,21 +22,36 @@ function canvasApp(x, y) {
     //http://css-tricks.com/using-requestanimationframe/
     //http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
     window.requestAnimFrame = (function () {
-      return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function (/* function */ callback, /* DOMElement */ element) {
-          window.setTimeout(callback, 1000 / 24);// 24 fps
-        };
+      return function (/* function */ callback, /* DOMElement */ element) {
+        window.setTimeout(callback, 1000 / 24);// 24 fps
+      };
+
+      // window.requestAnimationFrame ||
+      // window.webkitRequestAnimationFrame ||
+      // window.mozRequestAnimationFrame ||
+      // window.oRequestAnimationFrame ||
+      // window.msRequestAnimationFrame ||
+
     })();
+
+    var _clearAndPause = function(){
+      theCanvas.render = false;
+      context.clearRect(0, 0, theCanvas.width, theCanvas.height);
+    };
+
+    var _continueRender = function(){
+      theCanvas.render = true;
+      drawFrame();
+    };
 
     var theCanvas = document.getElementById('maincanvas');
     var context = theCanvas.getContext('2d');
 
     theCanvas.setAttribute("width", mishGA.workAreaWidth);
     theCanvas.setAttribute("height", mishGA.workAreaHeight);
+    theCanvas.render = true;
+    theCanvas.clearAndPause = _clearAndPause;
+    theCanvas.continueRender = _continueRender;
 
     //setInterval(drawScreen, 1000 / 60);//60 FPS
     drawFrame();
@@ -54,7 +69,9 @@ function canvasApp(x, y) {
    */
   function drawFrame() {
     requestAnimFrame(drawFrame);
-    drawScreen();
+    if(theCanvas.render === true){
+      drawScreen();
+    }
   }
 
   /**

@@ -2,3 +2,10 @@
 ## NodeModules
 #################
 node_modules/
+
+#################
+## cloud9
+#################
+.c9/
+data/
+mongod

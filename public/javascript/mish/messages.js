@@ -25,6 +25,9 @@ var messagesObject = {
     //Save events
     "createEvents.error.noEventsToSave": "No hay eventos para guardar.",
     "createEvents.error.events.creation": "Error al guardar eventos.",
+    //Open timeline
+    "eventDetail.error.noEvent": "No se encontró información sobre el evento.",
+    "eventDetail.error.noImage": "No se encontró la imagen del evento.",
     //GENERAL ERRORS
     "error.operation":"Ha ocurrido un error inesperado. Inténtelo nuevamente."
   }

@@ -122,6 +122,15 @@ function fillUserTimelinesList() {
  * 
  */
 function openTimeline(index){
+  //Remove the canvas
+  if(mishGA.canvasObject){
+    mishGA.canvasObject.clearAndPause();
+  }
+
+  showLoadingAnimation(true);
+
+  var eventsWithImages = 0;
+
   //Hide the panel with the list of timelines of the user
   showTimelinesPanel(false);
 
@@ -132,21 +141,46 @@ function openTimeline(index){
   mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
 
   //2.1 Set some required information (if it's necessary) to the timeline events
-  mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
+  mishJsonObjs.eventsJsonElement.forEach(function (eventObj, index) {
     if (eventObj.date) {
       //If the event hasn't time information, calculate it
       if (!eventObj.time) {
         eventObj.time = moment(eventObj.date).valueOf();
       }
+    }
 
-      if(eventObj.image){
-        createImgElementFrom(eventObj.image, function(imageElement){
-          eventObj.imageElement = imageElement;
-        });
-      }
+    if(eventObj.image){
+      eventsWithImages++;
+      getEventImage(eventObj._id, index, function(err, eventIndex, imageData){
+        if(err){
+          console.log("Event: " + index + " image not loaded", err);
+        }
+
+        if(eventIndex && imageData){
+          //In some cases, like the cloud9 one, "imageData" is an Array, not an object with a "data" attribute
+          var arrayBuffer = imageData.data || imageData;
+          var bytes = new Uint8Array(arrayBuffer);
+          var res = new Image();
+          res.src = 'data:image/png;base64,' + encode(bytes);
+
+          (mishJsonObjs.eventsJsonElement[eventIndex]).image = arrayBuffer;
+          (mishJsonObjs.eventsJsonElement[eventIndex]).imageElement = res;
+        }
+
+        eventsWithImages--;
+        if(eventsWithImages <= 0){
+          showLoadingAnimation(false);
+          drawTimeRuler();
+        }
+
+      });
+
     }
   });
 
   //3. Draw the time ruler and all the events
-  drawTimeRuler();
+  if(eventsWithImages == 0){
+    showLoadingAnimation(false);
+    drawTimeRuler();
+  }
 }

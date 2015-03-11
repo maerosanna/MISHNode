@@ -77,6 +77,8 @@ function fillTimeRulerDays(dateOfReference, xPosDiff) {
     globalPosX = center;
 
     mishGA.canvasObject = canvasApp(globalPosX, globalPosY);
+  }else if(mishGA.canvasObject.render === false){
+    mishGA.canvasObject.continueRender();
   }
 }
 
