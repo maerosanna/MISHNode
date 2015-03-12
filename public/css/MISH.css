@@ -305,6 +305,7 @@ div#timeline-container div.date div.centerDate {
 }
 
 div#timeline-container div.date div.centerDate div.label {
+  width: 100px;
   color: #EEEEEE;
   font-size: 14px;
   background: #13829f;
@@ -324,7 +325,7 @@ div#timeline-container div.date div.separatorDate {
 }
 
 div#timeline-container div.date div.separatorDate div.label {
-  width: auto;
+  width: 100px;
 
   color: #d1dbef;
   font-size: 11px;

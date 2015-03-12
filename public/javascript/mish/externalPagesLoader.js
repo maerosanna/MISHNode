@@ -61,10 +61,17 @@ function loadExternalPages() {
   //Load canvasContextMenu.html
   jQuery("#canvasContextMenu").load("pages/canvasContextMenu.html", function () {
     jQuery("#menu").menu();
+    
     //Assign Create Event function
-    jQuery("#linkCreateEvent").click(function () {
+    jQuery("#contextCreateEvent").click(function () {
       jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
       jQuery('#newEventDialog').dialog('open');
+      closeMenu();
+    });
+
+    //Assign Save Timeline function
+    jQuery("#contextSaveTimeline").click(function () {
+      saveTimelineBtnAction();
       closeMenu();
     });
   });
