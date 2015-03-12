@@ -49,11 +49,14 @@ function loadExternalPages() {
   jQuery("#newTimelineDialog").load("pages/newTimelineForm.html", function () {
     //Create and configure the 'Create timeline' dialog
     createBasicDialog('#newTimelineDialog', 'dialog.createTimeline.title');
+    
     //Assign button listeners
     jQuery("#saveTimelineCancel").click(function () {
       closeDialog("#newTimelineDialog");
     });
+    
     jQuery("#buttonCreateTimeline").click(createTimelineBtnAction);
+    
     //Hide the error section
     jQuery("#errorSaveTimeline").hide();
   });

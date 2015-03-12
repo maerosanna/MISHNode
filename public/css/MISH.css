@@ -605,12 +605,8 @@ error: 9A3334
   color: #EDEDED;
 }
 
-.alert-message-container .alert-message-close{
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: #9A3334;
-  padding: 3px;
+.error-alert-message-container{
+  background-color: #9A3334 !important;
 }
 
 .alert-message-container .alert-message{

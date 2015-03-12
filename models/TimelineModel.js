@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    ObjectId = require('mongoose').Types.ObjectId;
 
 /**
  * TIMELINE model:
@@ -22,6 +23,39 @@ var TimelineSchema = new Schema({
   zoomSubLevel: { type: Number },
   events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 });
+
+
+/**
+ * --------------------------------------------------
+ * STATICS
+ * --------------------------------------------------
+ */
+
+
+TimelineSchema.statics.addEventsToTimeline = function(timelineId, eventsToAdd, callback) {
+  var query = {_id: new ObjectId(timelineId)};
+  this.findOneAndUpdate(query,
+    { $addToSet:{ 
+      events: { 
+        $each: eventsToAdd 
+      } 
+    } 
+    }, function(err, timelineUpdatedObj){
+      if(err){
+        return callback({message:"ERROR IN OPERATION"}, null);
+      }
+
+      if(!timelineUpdatedObj){
+        console.log("ERROR: No timeline in DB for the id " + timelineId);
+        return callback({message:"ERROR TIMELINE NOT FOUND"}, null);
+      }
+
+      callback(null, timelineUpdatedObj);
+      return;
+    }
+  );
+};
+
 
 /**
  * --------------------------------------------------

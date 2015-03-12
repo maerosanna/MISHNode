@@ -192,6 +192,11 @@ function logOutBtnAction(){
   user_loggedIn = false;
 }
 
+/**
+ * Function that reset to default all the necessary elements for 
+ * creating a new timeline.
+ * 
+ */
 function resetTimeruler(){
   //Restore the timeline ruler and canvas variables to defaults
   center_date = moment();
@@ -274,6 +279,36 @@ function createMISHEventBtnAction() {
 }
 
 /**
+ * Function that saves the changes made in the timeline when it exists.
+ * If the timeline doesn't exists, then it attempts to create it. But, if the
+ * user isn't logged, then the function opens the dialog for creating a user, and,
+ * after its creation the timeline is saved.
+ * 
+ */
+function saveTimelineBtnAction() {
+  if (user_loggedIn) {
+    if(mishJsonObjs.timelineJson && mishJsonObjs.timelineJson.name){
+      //The timeline to save already exists in DB
+      updateTimeline(function(err, updatedTimeline){
+        if(err){
+          showAlertMessage(true, err.msg);
+          return;
+        }
+
+        showAlertMessage(false, "dialog.createTimeline.timeline.saved", ": " + updatedTimeline.name);
+      });
+    }else{
+      //This is a new timeline for the logged in user
+      jQuery("#newTimelineDialog").dialog('open');
+    }
+  }
+  else {
+    //No user logged in...it is necessaty to register one for saving the timeline
+    jQuery("#buttCreateUser").click();
+  }
+}
+
+/**
  * Function that validates the fields for Creating a New Timeline and then
  * proceeds to send the data to the database.
  * 
@@ -306,26 +341,10 @@ function createTimelineBtnAction() {
         return;
       }
 
-      showAlertMessage("dialog.createTimeline.timeline.saved");
+      showAlertMessage(false, "dialog.createTimeline.timeline.saved");
       jQuery('#newTimelineDialog').dialog('close');
 
     });
-  }
-}
-
-/**
- * Function that saves the changes made in the timeline when it exists.
- * If the timeline doesn't exists, then it attempts to create it. But, if the
- * user isn't logged, then the function opens the dialog for creating a user, and,
- * after its creation the timeline is saved.
- * 
- */
-function saveTimelineBtnAction() {
-  if (user_loggedIn) {
-    jQuery("#newTimelineDialog").dialog('open');
-  }
-  else {
-    jQuery("#buttCreateUser").click();
   }
 }
 

@@ -187,7 +187,7 @@ function saveTimelineEvents(events, callback){
 
     if(!data){
       errObj.msg = "error.operation";
-      return callback(errObj,null);
+      return callback(errObj, null);
     }
 
     return callback(null, data);
@@ -198,7 +198,8 @@ function saveTimelineEvents(events, callback){
     if(err.responseJSON && err.responseJSON.code){
       errObj.msg = err.responseJSON.code;
     }
-    callback(errObj,null);
+
+    callback(errObj, null);
   });
 
 }
@@ -277,6 +278,75 @@ function getEventImage(eventId, eventIndex, callback){
   });
 }
 
+/**
+ * Function that updates the current timeline.
+ * This function only send the request to the server if the
+ * timeline has new events, deleted events or updated events.
+ * 
+ * @param  {Function} callback The function to call after completing this operation
+ */
+function updateTimeline(callback){
+  var errObj = {msg:''};
+
+  //1. Verify if the events in the timeline has changed
+  var eventsToCreate = [];
+  // var eventsToUpdate = []; // @TODO Fill this when the application lets the user interact with its events
+  // var eventsToDelete = []; // @TODO Fill this when the application lets the user interact with its events
+
+  mishJsonObjs.eventsJsonElement.forEach(function(eventObj){
+    if(!eventObj._id){
+      //The event doesn't have an _ID attribute. This is a new event in the timeline so....
+      eventsToCreate.push(eventObj);
+    }
+  });
+
+  if(eventsToCreate.length == 0){
+    callback(null, mishJsonObjs.timelineJson);
+    return;
+  }
+
+  //1. Add the new events to the database
+  saveTimelineEvents(eventsToCreate, function(err, savedEvents){
+    if(err){
+      errObj.msg = "error.operation";
+      return callback(errObj, null);
+    }
+
+    //2. Create the object to use for update the databse
+    var timelineToUpdate = {
+      _id: mishJsonObjs.timelineJson._id,
+      eventsToAdd: []
+    };
+
+    //2.1 Assign the _IDs of the events to create
+    savedEvents.forEach(function(eventObj){
+      timelineToUpdate.eventsToAdd.push(eventObj._id);
+    });
+
+    //3. Send the object to database
+    jQuery.ajax({
+      "url": "/timeline",
+      "type": "PUT",
+      "data": timelineToUpdate,
+      "dataType": "JSON"
+    }).done(function (timelineObjUpdated) {
+      if(!timelineObjUpdated){
+        errObj.msg = "error.operation";
+        return callback(errObj, null);
+      }
+
+      return callback(null, timelineObjUpdated);
+    }).fail(function(err){
+      errObj.msg = "error.operation";
+      if(err.responseJSON && err.responseJSON.code){
+        errObj.msg = err.responseJSON.code;
+      }
+
+      return callback(errObj, null);
+    });
+
+  });
+}
 
 
 

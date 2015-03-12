@@ -24,6 +24,7 @@ module.exports = function (app) {
   //- - - - - - - - - - - - - - - - - - - - - - - -
   app.get('/timeline', timelineAPI.findTimeline);
   app.post('/timeline', timelineAPI.saveTimeline);
+  app.put('/timeline', timelineAPI.updateTimeline);
 
   //- - - - - - - - - - - - - - - - - - - - - - - -
   //Event routes (API)

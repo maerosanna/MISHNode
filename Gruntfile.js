@@ -39,7 +39,8 @@ module.exports = function(grunt){
           './api/**/*.js',
           './models/**/*.js',
           './public/javascript/mish/**/*.js',
-          './*.js'
+          './*.js',
+          './*.css',
         ],
         tasks:  ['express:dev'],
         options: {

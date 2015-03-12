@@ -135,10 +135,18 @@ function getTimeOfGroupId(groupObj){
  * @param  {string} messageCode The code to search in "messages.js"
  * 
  */
-function showAlertMessage(messageCode){
+function showAlertMessage(isErrorMessage, messageCode){
   if(showing_alert_message === false){
     showing_alert_message = true;
-    jQuery(".alert-message").append(msg[messageCode]);
+    jQuery(".alert-message").append(msg[messageCode] || messageCode);
+    for(var i=2; i<arguments.length ;i++){
+      jQuery(".alert-message").append(arguments[i]);
+    }
+    if(isErrorMessage === true){
+      jQuery(".alert-message-container").addClass('error-alert-message-container');
+    }else{
+      jQuery(".alert-message-container").removeClass('error-alert-message-container');
+    }
     jQuery(".alert-message-container").show("fade",450);
     var alertContainerWidth = jQuery(".alert-message-container").width();
     var alertContainerHeight = jQuery(".alert-message-container").height();
@@ -146,7 +154,9 @@ function showAlertMessage(messageCode){
     var yPos = ((mishGA.workAreaHeight / 2) - (alertContainerHeight / 2)) - 50;
     jQuery(".alert-message-container").css({left:xPos,top:yPos});
     setTimeout(function(){
-      jQuery(".alert-message-container").hide("fade",300);
+      jQuery(".alert-message-container").hide("fade", 300, function(){
+        jQuery(".alert-message").empty();
+      });
       showing_alert_message = false;
     }, 1500);
   }
