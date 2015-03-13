@@ -204,6 +204,11 @@ function resetTimeruler(){
   mishJsonObjs.timelineJson = null;
   mishJsonObjs.eventsJsonElement = [];
 
+  //Clean the title of the open timeline
+  jQuery("div.timeline_title").slideUp(function(){
+    jQuery("div.timeline_title").empty();
+  });
+
   cellWidth = null;
   mishGA.currentZoomLevel = 6;
   mishGA.currentZoomSubLevel = 2;

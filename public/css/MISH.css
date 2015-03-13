@@ -191,6 +191,20 @@ div#header div.headerButtons ul li.logout a:active {
   color: #888C25;
 }
 
+div#header div.timeline_title{
+  width: 100%;
+  line-height: 25px;
+  background-color: #202020;
+  color: #CECECE;
+  text-align: center;
+  
+  position: absolute;
+  top: 75px;
+  z-index: 45;
+
+  display: none;
+}
+
 /*
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------

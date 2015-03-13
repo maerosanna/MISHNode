@@ -128,6 +128,10 @@ function openTimeline(index){
   }
 
   showLoadingAnimation(true);
+  //Clean the title of the last open timeline
+  jQuery("div.timeline_title").slideUp(function(){
+    jQuery("div.timeline_title").empty();
+  });
 
   var eventsWithImages = 0;
 
@@ -169,7 +173,13 @@ function openTimeline(index){
 
         eventsWithImages--;
         if(eventsWithImages <= 0){
+          //Hide the loading animation
           showLoadingAnimation(false);
+
+          //Show the timeline title
+          jQuery(".timeline_title").append(mishJsonObjs.timelineJson.name);
+          jQuery(".timeline_title").slideDown();
+
           drawTimeRuler();
         }
 
