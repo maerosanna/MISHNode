@@ -14,6 +14,11 @@ function resizeContainers() {
     mishGA.canvasObject.setAttribute("width", mishGA.workAreaWidth);
     mishGA.canvasObject.setAttribute("height", mishGA.workAreaHeight);
   }
+
+  if(mishGA.renderer){
+    console.log("_------_");
+    mishGA.renderer.resize(mishGA.workAreaWidth, mishGA.workAreaHeight);
+  }
 }
 
 /**

@@ -13,7 +13,9 @@ var mishGA = {
   currentZoomLevel: 6,
   currentZoomSubLevel: 2,
   zoomData: null,
-  lastZoomLevelName: null
+  lastZoomLevelName: null,
+  renderer: null,
+  stage: null
 };
 
 /**
@@ -108,6 +110,9 @@ jQuery(document).ready(function () {
 
   //Draw the basis time ruler
   drawTimeRuler();
+
+  //Create pixi.js canvas
+  createPixiCanvas();
 });
 
 //Assign listener for window resizing

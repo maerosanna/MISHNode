@@ -11,6 +11,14 @@
     <link type="text/css" rel="stylesheet" href="css/mish-black-theme/jquery-ui-1.10.4.custom.css"/>
     <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
 
+    <!-- Libraries -->
+    <script type="text/javascript" src="javascript/lib/jquery_1_11.js"></script>
+    <script type="text/javascript" src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="javascript/lib/modernizr-1.6.min.js"></script>
+    <script type="text/javascript" src="javascript/lib/momentjs.js"></script>
+    <script type="text/javascript" src="javascript/lib/Debugger.js"></script>
+    <script type="text/javascript" src="javascript/lib/pixi.js"></script>
+
 </head>
 <body id="mish-white-theme">
 
@@ -48,10 +56,29 @@
                 </li>
             </ul>
         </div>
+
+        <div class="timeline_tools">
+            <ul>
+                <li><a href="#" onclick="saveTimelineBtnAction()">Guardar línea de tiempo</a></li>
+                <!-- <li><a href="#">Nuevo periodo</a></li> -->
+                <!-- <li><a href="#">Nuevo indicador</a></li> -->
+                <li><a href="#" id="footerNewEvent">Nuevo evento</a></li>
+                <!-- <li><a href="#">Elegir colores</a></li> -->
+                <!-- <li><a href="#">Organizar mis datos</a></li> -->
+            </ul>
+            <ul class="seconda">
+                <li><a href="#" onclick="createNewTimeline()">Nueva línea</a></li>
+                <li id="zoom"></li>
+            </ul>
+       
+        </div> 
         <div class="timeline_title">
             PRUEBAS
-        </div>
+        </div>   
     </div>
+
+        
+        
 
     <!-- BODY -->
     <div id="work-area-container">
@@ -99,22 +126,23 @@
 -->
 
     <!-- FOOTER -->
+
     <div id="footer">
-        <div class="footerButtons">
-            <ul>
-                <li><a href="#" onclick="saveTimelineBtnAction()">Guardar línea de tiempo</a></li>
+        <!--<div class="footerButtons">
+            <!-- <ul> -->
+                <!-- <li><a href="#" onclick="saveTimelineBtnAction()">Guardar línea de tiempo</a></li> -->
                 <!-- <li><a href="#">Nuevo periodo</a></li> -->
                 <!-- <li><a href="#">Nuevo indicador</a></li> -->
-                <li><a href="#" id="footerNewEvent">Nuevo evento</a></li>
-                <!-- <li><a href="#">Elegir colores</a></li> -->
-                <!-- <li><a href="#">Organizar mis datos</a></li> -->
-            </ul>
-            <ul class="seconda">
+<!--                <li><a href="#" id="footerNewEvent">Nuevo evento</a></li>
+                <!-- <li><a href="#">Elegir colores</a></li> 
+                <li><a href="#">Organizar mis datos</a></li> -->
+<!--             </ul> -->
+<!--             <ul class="seconda">
                 <li><a href="#" onclick="createNewTimeline()">Nueva línea</a></li>
                 <li id="zoom"></li>
             </ul>
-        </div>
-    </div>
+        </div> -->
+</div> 
 
     <!-- ............................................................ -->
     <!-- [START] EXTERNAL PAGES -->
@@ -145,13 +173,7 @@
 
     <!-- [END] EXTERNAL PAGES -->
 
-    <!-- Load JavaScript Files -->
-    <!-- Libraries -->
-    <script type="text/javascript" src="javascript/lib/jquery_1_11.js"></script>
-    <script type="text/javascript" src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
-    <script type="text/javascript" src="javascript/lib/modernizr-1.6.min.js"></script>
-    <script type="text/javascript" src="javascript/lib/momentjs.js"></script>
-    <script type="text/javascript" src="javascript/lib/Debugger.js"></script>
+    <!-- Load MISH JavaScript Files -->
      <!--MISH -->
     <script type="text/javascript" src="javascript/mish/messages.js"></script>
     <script type="text/javascript" src="javascript/mish/utilities.js"></script>
@@ -166,6 +188,7 @@
     <script type="text/javascript" src="javascript/mish/mouseEventsHandler.js"></script>
     <script type="text/javascript" src="javascript/mish/timelineControl.js"></script>
     <script type="text/javascript" src="javascript/mish/canvasControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/newCanvas.js"></script>
     <script type="text/javascript" src="javascript/mish/dataBaseOperations.js"></script>
     <script type="text/javascript" src="javascript/mish/main.js"></script>
 

@@ -15,6 +15,12 @@ function canvasSupport() {
  * @returns {undefined}
  */
 function canvasApp(x, y) {
+  
+
+  return;
+
+
+
   if (!canvasSupport()) {
     return null;
   } else {
@@ -82,7 +88,7 @@ function canvasApp(x, y) {
   function drawScreen() {
     drawEvents();
     //Draw a dashed line in the center of the screen for nothing...
-    //  drawLineToTimeline(jQuery(window).width() / 2,globalPosY);
+    drawLineToTimeline(jQuery(window).width() / 2,globalPosY);
   }
 
   /**
