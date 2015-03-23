@@ -17,7 +17,7 @@ function canvasSupport() {
 function canvasApp(x, y) {
   
 
-  return;
+  return null;
 
 
 

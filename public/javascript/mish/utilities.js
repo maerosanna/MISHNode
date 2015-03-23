@@ -160,10 +160,10 @@ function showAlertMessage(isErrorMessage, messageCode){
     jQuery(".alert-message-container").css({left:xPos,top:yPos});
     setTimeout(function(){
       jQuery(".alert-message-container").hide("fade", 300, function(){
+        showing_alert_message = false;
         jQuery(".alert-message").empty();
       });
-      showing_alert_message = false;
-    }, 1500);
+    }, 2100);
   }
 }
 
@@ -237,5 +237,35 @@ function readImageURL(input, callback) {
       createImgElementFrom(e.target.result, callback);
     };
     reader.readAsDataURL(input.files[0]);
+  }
+}
+
+/**
+ * Function that creates a DIV with all the information of an event.
+ * 
+ * @param  {Mish.Event} event The event that has the information to show
+ */
+function createEventDetail(eventObj){
+  if(!eventObj.detailElement){
+    var detailElementId = "mish-detail-" + (eventObj.storeableData.date).replace("-","") + "-" + eventObj.storeableData.id;
+    var detailElementClone = jQuery(".mish_detail_container").clone();
+    detailElementClone.attr( "id", detailElementId);
+    detailElementClone.css({
+      left: eventObj.x,
+      top: jQuery("#work-area-container").position().top + eventObj.y
+    });
+    detailElementClone.find(".mish_detail_title span").text(eventObj.storeableData.title);
+    detailElementClone.find(".mish_detail_close").bind("click", {parentElement: detailElementClone}, function (e) {
+      e.data.parentElement.hide("fade");
+    });
+    detailElementClone.find(".mish_detail_description p img").attr("src", eventObj.imageElement.src);
+    detailElementClone.find(".mish_detail_date").text("" + eventObj.storeableData.date);
+    detailElementClone.find(".mish_detail_description_text").text(eventObj.storeableData.description);
+    jQuery(detailElementClone).appendTo("body");
+    detailElementClone.show("fade");
+
+    eventObj.detailElement = detailElementClone;
+  }else{
+    eventObj.detailElement.show("fade");
   }
 }

@@ -245,12 +245,12 @@ function createMISHEventBtnAction() {
     "url": jQuery("#eventUrl").val()
   };
 
-  if (newEventObj.title === "") {
+  if(newEventObj.title === "") {
     appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
     showError = true;
   }
 
-  if (newEventObj.date === "") {
+  if(newEventObj.date === "") {
     appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.empty");
     showError = true;
   }
@@ -264,12 +264,22 @@ function createMISHEventBtnAction() {
     var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
     newEventObj.id = eventID;
 
+    var groupOfDate = findGroupOfEvent(newEventObj.time);
+    var eventXPos = 0;
+    if(groupOfDate){
+      eventXPos = calculateXPosOfEvent(groupOfDate, newEventObj);
+    }
+    var mishEvent = new Mish.Event(newEventObj, groupOfDate, eventXPos, globalPosY, supermish.renderer);
+    supermish.pushEvent(mishEvent);
+
     var imageOfEvent = document.getElementById("eventImg");
 
     if(imageOfEvent.files && imageOfEvent.files[0]){
       readImageURL(imageOfEvent, function(imageData){
         newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
+
+        mishEvent.imageElement = imageData;
 
         //Add the created event object to the array of events of the timeline
         mishJsonObjs.eventsJsonElement.push(newEventObj);

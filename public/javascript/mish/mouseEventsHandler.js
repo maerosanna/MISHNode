@@ -10,6 +10,10 @@ function assignMouseEventsListeners() {
     wah.addEventListener("mousewheel", mouseScrollEvent, false);
     //Firefox
     wah.addEventListener("DOMMouseScroll", mouseScrollEvent, false);
+
+    /*wah.addEventListener("mousemove", function(event){
+    });*/
+
   } else {
     //Others
     wah.attachEvent("onmousewheel", mouseScrollEvent);
@@ -20,12 +24,18 @@ function assignMouseEventsListeners() {
     jQuery("#canvasContextMenu").hide("fade", 200);
     return false;
   });
+
   jQuery("#work-area-handler-sq").bind("contextmenu", function (e) {
     jQuery("#canvasContextMenu").hide();
     jQuery("#canvasContextMenu").css('left', e.clientX);
     jQuery("#canvasContextMenu").css('top', e.clientY);
     jQuery("#canvasContextMenu").show("fade", 200);
     return false;
+  });
+
+  jQuery("#work-area-handler-sq").bind({
+    mousemove: function (e){supermish.renderer.mouse.mousemove(e);},
+    click: function (e){supermish.renderer.mouse.mousedown(e);}
   });
 
   //Assign behavior of dragging the work area

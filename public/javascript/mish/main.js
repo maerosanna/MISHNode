@@ -1,3 +1,22 @@
+var Mish = Mish || {};
+
+Mish = function(){
+  this.timelineEvents = [];
+  this.renderer = null;
+};
+
+Mish.prototype.constructor = Mish;
+
+Mish.prototype.set = function(attr, value){
+  this[attr] = value;
+};
+
+Mish.prototype.init = function(){};
+
+Mish.prototype.pushEvent = function(eventToPush){
+  this.timelineEvents.push(eventToPush);
+};
+
 /*
 --------------------------------
 MISH Global Attributes
@@ -48,6 +67,10 @@ var logged_user_id;
 var user_timelines_count;
 var showing_alert_message;
 
+
+
+var supermish = null;
+
 /**
  * Function that assigns the initial values for all the global variables.
  *
@@ -56,6 +79,8 @@ var showing_alert_message;
 function initAttr() {
   //Set the location of MomentJS
   moment.locale('es');
+
+  supermish = new Mish();
 
   //Get the size for the work area
   mishGA.workAreaWidth = jQuery(window).width();
@@ -112,7 +137,11 @@ jQuery(document).ready(function () {
   drawTimeRuler();
 
   //Create pixi.js canvas
-  createPixiCanvas();
+  // createPixiCanvas();
+  
+  // ----------------------------
+  //Create the renderer...
+  createRenderer();
 });
 
 //Assign listener for window resizing

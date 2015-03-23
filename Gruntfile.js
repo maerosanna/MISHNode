@@ -34,17 +34,30 @@ module.exports = function(grunt){
       }
     },
     watch: {
+      client: {
+        options: {
+          livereload: true
+        },
+        files: [
+          './public/javascript/mish/**/*.js',
+          './public/css/*.css',
+          './*.html'
+        ]
+      },
+
       express: {
         files:  [ 
           './api/**/*.js',
           './models/**/*.js',
           './public/javascript/mish/**/*.js',
           './*.js',
-          './*.css',
+          './public/css/*.css',
+          './*.html'
         ],
         tasks:  ['express:dev'],
         options: {
-          spawn: false
+          spawn: false,
+          livereload: true
         }
       }
     }
