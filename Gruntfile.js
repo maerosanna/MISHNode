@@ -40,7 +40,7 @@ module.exports = function(grunt){
         },
         files: [
           './public/javascript/mish/**/*.js',
-          './public/css/*.css',
+          './public/css/**/*.css',
           './*.html'
         ]
       },
@@ -51,7 +51,7 @@ module.exports = function(grunt){
           './models/**/*.js',
           './public/javascript/mish/**/*.js',
           './*.js',
-          './public/css/*.css',
+          './public/css/**/*.css',
           './*.html'
         ],
         tasks:  ['express:dev'],

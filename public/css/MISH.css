@@ -158,6 +158,44 @@ div#header div.headerButtons li.user_header a span{
   vertical-align: middle;
   display: inline;
 }
+div#header div.headerButtons ul li a div.flaticon-user157{
+  font-size: 2em;
+  display: none;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons ul li a div.flaticon-user157:before{
+  margin-left: 0px;
+}
+
+@media all and (max-width: 500px) {
+  div#header div.headerButtons ul li a div.flaticon-user157{ 
+    display: inline;  
+  }
+  div#header div.headerButtons ul li a span{
+    display: none;
+  }
+}
+
+
+div#header div.headerButtons ul li a div.flaticon-add184{
+  font-size: 2em;
+  display: none;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons ul li a div.flaticon-add184:before{
+  margin-left: 0px;
+}
+
+@media all and (max-width: 500px) {
+  div#header div.headerButtons ul li a div.flaticon-add184{ 
+    display: inline;  
+  }
+  div#header div.headerButtons ul li a span{
+    display: none;
+  }
+}
 
 div#header div.headerButtons li.user_header a div.flaticon-account4{
   font-size: 2em;
@@ -449,22 +487,37 @@ div.mish_detail_container div.mish_detail_close div.flaticon-clear5:before{
 }
 
 div.mish_detail_container div.mish_detail_description{
+  width: 100%;
   font-size: 0.8em;
   text-align: justify;
 }
 
-div.mish_detail_container div.mish_detail_description img{
+div.mish_detail_container div.mish_detail_description p.mish_detail_description_img{
+  width: 30%;
+  float: left;
+  display: inline;
+}
+
+div.mish_detail_container div.mish_detail_description p.mish_detail_description_txt{
+  width: 70%;
+  float: right;
+  display: inline;
+}
+
+div.mish_detail_container div.mish_detail_description p.mish_detail_description_img img{
   width: 80px;
   height: 80px;
   float: left;
   margin-right: 10px;
 }
 
-div.mish_detail_container div.mish_detail_description div.mish_detail_date{
+div.mish_detail_container div.mish_detail_description p.mish_detail_description_txt div.mish_detail_date{
   color: #FFC758;
-  margin-left: 85px;
 }
 
+div.mish_detail_container div.mish_detail_description p.mish_detail_description_txt div.mish_detail_description_text{
+  word-wrap: break-word;
+}
 
 div#canvasContextMenu {
   display: none;

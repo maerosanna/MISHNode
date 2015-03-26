@@ -248,8 +248,9 @@ function readImageURL(input, callback) {
 function createEventDetail(eventObj){
   if(!eventObj.detailElement){
     var detailElementId = "mish-detail-" + (eventObj.storeableData.date).replace("-","") + "-" + eventObj.storeableData.id;
-    var detailElementClone = jQuery(".mish_detail_container").clone();
+    var detailElementClone = jQuery("div.mish_detail_container.original").clone();
     detailElementClone.attr( "id", detailElementId);
+    detailElementClone.removeClass("original");
     detailElementClone.css({
       left: eventObj.x,
       top: jQuery("#work-area-container").position().top + eventObj.y
@@ -258,9 +259,11 @@ function createEventDetail(eventObj){
     detailElementClone.find(".mish_detail_close").bind("click", {parentElement: detailElementClone}, function (e) {
       e.data.parentElement.hide("fade");
     });
-    detailElementClone.find(".mish_detail_description p img").attr("src", eventObj.imageElement.src);
-    detailElementClone.find(".mish_detail_date").text("" + eventObj.storeableData.date);
-    detailElementClone.find(".mish_detail_description_text").text(eventObj.storeableData.description);
+
+    detailElementClone.find("div.mish_detail_description p.mish_detail_description_img").append(jQuery("<img/>").attr("src", eventObj.imageElement.src));
+    detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_date"}).text("" + eventObj.storeableData.date));
+    detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_description_text"}).text(eventObj.storeableData.description));
+
     jQuery(detailElementClone).appendTo("body");
     detailElementClone.show("fade");
 
