@@ -4,7 +4,10 @@ var UserModel = require('../models/UserModel').UserModel,
 exports.findUser = function(req, res){
   var userData = req.query;
   var query = {
-    username: userData.username
+    $or:[
+      {username: userData.username},
+      {email:userData.username}
+    ]
   };
 
   UserModel.findOne(query).exec(function(err, userObj){
@@ -27,7 +30,10 @@ exports.findUser = function(req, res){
 exports.findUserDetail = function(req, res){
   var userData = req.query;
   var query = {
-    username: userData.username
+    $or:[
+      {username: userData.username},
+      {email:userData.username}
+    ]
   };
 
   //1. Search the user in database

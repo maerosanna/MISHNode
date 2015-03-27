@@ -227,44 +227,35 @@ div#header div.headerButtons ul li.logout a:active {
   color: #888C25;
 }
 
-div#header div.timeline_title{
-  width: 100%;
-  line-height: 25px;
-  background-color: #202020;
-  color: #CECECE;
-  text-align: center;
-  
-  position: absolute;
-  top: 75px;
-  z-index: 45;
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+WORK AREA CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
 
-  display: none;
-}
-
-div#header div.timeline_tools {
+div.timeline_tools {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  color: #EDEDED;
-  z-index: 45;
-  position: absolute;
-  bottom: 0;
-  font-size: 14px;
-  top: 75px;
-  left: 0;
   background-color: #000000;
+  color: #EDEDED;
   border-left: none;
   border-right: none;
+  
+  position: absolute;
+  left: 0;
+
+  z-index: 30;
 }
 
-
-
-div#header div.timeline_tools ul {
+div.timeline_tools ul {
   padding: 0;
   margin: 0;
 }
 
-div#header div.timeline_tools ul li {
+div.timeline_tools ul li {
   height: 40px;
   float: left;
   padding: 0;
@@ -272,11 +263,11 @@ div#header div.timeline_tools ul li {
   list-style: none;
 }
 
-div#header div.timeline_tools ul li:last-of-type a {
+div.timeline_tools ul li:last-of-type a {
   border-right: none;
 }
 
-div#header div.timeline_tools ul li a {
+div.timeline_tools ul li a {
   height: 40px;
   float: left;
   color: #e3e2e5;
@@ -291,76 +282,76 @@ div#header div.timeline_tools ul li a {
   transition: all .3s;
 }
 
-div#header div.timeline_tools ul li a span{
+div.timeline_tools ul li a span{
   vertical-align: middle;
   display: inline;
 }
 
-div#header div.timeline_tools ul li a div.flaticon-save20{
+div.timeline_tools ul li a div.flaticon-save20{
   font-size: 2em;
   display: none;
   vertical-align: middle;
 }
 
-div#header div.timeline_tools ul li a div.flaticon-save20:before{
+div.timeline_tools ul li a div.flaticon-save20:before{
   margin-left: 0px;
 }
 
 @media all and (max-width: 500px) {
-  div#header div.timeline_tools ul li a div.flaticon-save20{ 
+  div.timeline_tools ul li a div.flaticon-save20{ 
     display: inline;  
   }
-  div#header div.timeline_tools ul li a span{
+  div.timeline_tools ul li a span{
     display: none;
   }
 }
 
 
-div#header div.timeline_tools ul li a div.flaticon-rounded55{
+div.timeline_tools ul li a div.flaticon-rounded55{
   font-size: 2em;
   display: none;
   vertical-align: middle;
 }
 
-div#header div.timeline_tools ul li a div.flaticon-rounded55:before{
+div.timeline_tools ul li a div.flaticon-rounded55:before{
   margin-left: 0px;
 }
 
 @media all and (max-width: 500px) {
-  div#header div.timeline_tools ul li a div.flaticon-rounded55{ 
+  div.timeline_tools ul li a div.flaticon-rounded55{ 
     display: inline;  
   }
-  div#header div.timeline_tools ul li a span{
+  div.timeline_tools ul li a span{
     display: none;
   }
 }
 
-div#header div.timeline_tools ul li a div.flaticon-add179{
+div.timeline_tools ul li a div.flaticon-add179{
   font-size: 2em;
   display: none;
   vertical-align: middle;
 }
 
-div#header div.timeline_tools ul li a div.flaticon-add179:before{
+div.timeline_tools ul li a div.flaticon-add179:before{
   margin-left: 0px;
 }
 
 @media all and (max-width: 500px) {
-  div#header div.timeline_tools ul li a div.flaticon-add179{ 
+  div.timeline_tools ul li a div.flaticon-add179{ 
     display: inline;  
   }
-  div#header div.timeline_tools ul li a span{
+  div.timeline_tools ul li a span{
     display: none;
   }
 }
 
-div#header div.timeline_tools ul li a:hover {
+div.timeline_tools ul li a:hover {
   background-color: #13829f;
   color: white;
   padding-left: 30px;
 }
 
-div#header div.timeline_tools ul.seconda li a {
+div.timeline_tools ul.seconda li a {
   float: left;
 
   color: #e3e2e5;
@@ -375,21 +366,25 @@ div#header div.timeline_tools ul.seconda li a {
   transition: all .3s;
 }
 
-div#header div.timeline_tools ul.seconda li a:hover {
+div.timeline_tools ul.seconda li a:hover {
   background-color: #66669f;
   color: white;
   padding-right: 40px;
 }
 
+div.timeline_title{
+  width: 100%;
+  line-height: 25px;
+  background-color: #202020;
+  color: #CECECE;
+  text-align: center;
+  
+  position: absolute;
+  top: 40px;
+  z-index: 31;
 
-
-/*
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
-WORK AREA CONTAINER
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
-*/
+  display: none;
+}
 
 div#work-area-container {
   width: 100%;
@@ -547,7 +542,7 @@ div#timeline-container {
 }
 
 div#timeline-container div.rulerGroup {
-  height: inherit;
+  height: 40px;
   display: inline;
   position: absolute;
 }

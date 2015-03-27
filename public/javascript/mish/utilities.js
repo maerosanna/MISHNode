@@ -16,7 +16,6 @@ function resizeContainers() {
   }
 
   if(mishGA.renderer){
-    console.log("_------_");
     mishGA.renderer.resize(mishGA.workAreaWidth, mishGA.workAreaHeight);
   }
 }

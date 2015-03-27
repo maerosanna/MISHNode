@@ -271,7 +271,7 @@ function zoomTimeRulerDays(centerCellObj, delta) {
 
 
 function calculateXPosOfEventDays(groupTime,eventTime){
-  var difference = moment(eventTime).diff(moment(groupTime),'days');
+  var difference = moment(eventTime).diff(moment(groupTime), 'days');
   return difference * cellWidth;
 }
 

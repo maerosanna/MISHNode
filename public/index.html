@@ -2,228 +2,227 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>MISH</title>
+    <title>MISH</title>
 
-      <!-- Load Style Files -->
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-      <link type="text/css" rel="stylesheet" href="css/flaticons/flaticon.css"/><!-- For more icons: http://www.flaticon.com/ -->
-      <link type="text/css" rel="stylesheet" href="css/mish-white-theme/jquery-ui-1.10.4.custom.css"/>
-      <link type="text/css" rel="stylesheet" href="css/mish-blue-theme/jquery-ui-1.10.4.custom.css"/>
-      <link type="text/css" rel="stylesheet" href="css/mish-black-theme/jquery-ui-1.10.4.custom.css"/>
-      <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
+    <!-- Load Style Files -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="css/flaticons/flaticon.css"/><!-- For more icons: http://www.flaticon.com/ -->
+    <link type="text/css" rel="stylesheet" href="css/mish-white-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mish-blue-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mish-black-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
 
-      <!-- Libraries -->
-      <script src="javascript/lib/jquery-1.11.2.min.js"></script>
-      <script src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
-      <script src="javascript/lib/modernizr-1.6.min.js"></script>
-          <!-- <script src="javascript/lib/momentjs.js"></script> -->
-      <script src="javascript/lib/moment-with-locales.min.js"></script>
-          <!-- <script src="javascript/lib/pixi.js"></script> -->
-      <script src="javascript/lib/cocoon.js"></script>
-      <script src="javascript/lib/canvasquery.js"></script>
-      <script src="javascript/lib/playground.js"></script>
-      <script src="http://localhost:35729/livereload.js"></script>
-
+    <!-- Libraries -->
+    <script src="javascript/lib/jquery-1.11.2.min.js"></script>
+    <script src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="javascript/lib/modernizr-1.6.min.js"></script>
+    <script src="javascript/lib/moment-with-locales.min.js"></script>
+    <script src="javascript/lib/cocoon.js"></script>
+    <script src="javascript/lib/canvasquery.js"></script>
+    <script src="javascript/lib/playground.js"></script>
   </head>
+
   <body id="mish-white-theme">
+    <!-- LOADING ANIMATION -->
+    <div id="loading_container">
+      <div class="ui-widget-overlay loader_overlay">
+      </div>
+      <div class="loader_background">
+        <div class="box">
+          <div class="clock"></div>
+          <p>
+            Procesando...
+          </p>
+        </div>
+      </div>
+    </div>
 
-      <!-- LOADING ANIMATION -->
-      <div id="loading_container">
-          <div class="ui-widget-overlay loader_overlay"></div>
-          <div class="loader_background">
-              <div class="box">
-                  <div class="clock"></div>
-                  <p>Procesando...</p>
+    <!-- HEADER -->
+    <div id="header">
+      <h1>M</h1>
+
+      <div class="headerButtons">
+        <ul>
+          <li class="user_header">
+            <a id="user_header_button" href="#">
+              <div class="flaticon-account4"></div>
+              <span>
+              </span>
+            </a>
+          </li>
+          <li class="login">
+            <a href="#" id="buttLogIn">
+              <div class="flaticon-user157">
               </div>
-          </div>
-      </div>
-
-
-      <!-- HEADER -->
-      <div id="header">
-          <h1>M</h1>
-          <!-- <h3>Mi Sitio en la Historia</h3> -->
-          <div class="headerButtons">
-              <ul>
-                  <li class="user_header">
-                      <a id="user_header_button" href="#">
-                          <div class="flaticon-account4"></div>
-                          <span></span>
-                      </a>
-                  </li>
-                  <li class="login">
-                      <a href="#" id="buttLogIn">
-                       <div class="flaticon-user157"></div>
-                        <span>Soy Usuario</span>
-                      </a>
-                  </li>
-                  <li class="login">
-                      <a href="#" id="buttCreateUser">
-                        <div class="flaticon-add184"></div>
-                        <span>Nuevo Usuario</span>
-                      </a>
-                  </li>
-                  <li class="logout">
-                      <a href="#" id="buttLogOut">Cerrar sesión</a>
-                  </li>
-              </ul>
-          </div>
-
-          <div class="timeline_tools">
-              <ul>
-                  <li>
-                      <a href="#" onclick="saveTimelineBtnAction()" title="Guardar línea de tiempo">
-                        <div class="flaticon-save20"></div>
-                        <span>Guardar línea de tiempo</span>
-                      </a>
-                  </li>
-                  <!-- <li><a href="#">Nuevo periodo</a></li> -->
-                  <!-- <li><a href="#">Nuevo indicador</a></li> -->
-                  <li>
-                      <a href="#" id="footerNewEvent" title="Nuevo Evento">
-                        <div class="flaticon-rounded55"></div>
-                        <span>Nuevo Evento</span>
-                      </a>
-                  </li>
-                  <!-- <li><a href="#">Elegir colores</a></li> -->
-                  <!-- <li><a href="#">Organizar mis datos</a></li> -->
-                  <li>
-                      <a href="#" onclick="createNewTimeline()" title="Nueva Línea">
-                        <div class="flaticon-add179"></div>
-                        <span>Nueva Línea</span>
-                      </a>
-                  </li>
-              </ul>
-             <!--  <ul class="seconda">
-                  <li><a href="#" onclick="createNewTimeline()">Nueva línea</a></li>
-                  <li id="zoom"></li>
-              </ul> -->
-         
-          </div> 
-          <div class="timeline_title">
-              PRUEBAS
-          </div>   
-      </div>
-
-          
-          
-
-      <!-- BODY -->
-      <div id="work-area-container">
-          <div id="work-area-handler" class="ui-draggable">
-              <div id="work-area-handler-sq"></div>
-          </div>
-          
-          <div id="canvas-container" oncontextmenu="return false">
-          </div>
-
-          <div id="timeline-container"></div>
-
-          <div id="user_timelines_container">
-              <div class="ui-widget-overlay user_timelines_overlay"></div>
-              <div class="user_timelines_panel">
-                  <div class="user_timelines_panel_title">
-                      <span>Mis líneas de tiempo</span>
-                      <div class="user_timelines_panel_close">
-                          <div class="flaticon-expand39"></div>
-                      </div>
-                  </div>
-                  <ul class="user_timelines_list_ul">
-                      <li>
-                          <a id="user_timelines_panel_new" href="#">
-                              <div class="flaticon-add182"></div>
-                              <span>
-                                  Nueva línea de tiempo
-                              </span>
-                          </a>
-                      </li>
-                  </ul>
+              <span>
+                Soy Usuario
+              </span>
+            </a>
+          </li>
+          <li class="login">
+            <a href="#" id="buttCreateUser">
+              <div class="flaticon-add184">
               </div>
-          </div>
+              <span>
+                Nuevo Usuario
+              </span>
+            </a>
+          </li>
+          <li class="logout">
+            <a href="#" id="buttLogOut">
+              Cerrar sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div id="work-area-container">
+      <div class="timeline_tools">
+        <ul>
+          <li>
+            <a href="#" onclick="saveTimelineBtnAction()" title="Guardar línea de tiempo">
+              <div class="flaticon-save20"></div>
+              <span>
+                Guardar línea de tiempo
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="footerNewEvent" title="Nuevo Evento">
+              <div class="flaticon-rounded55"></div>
+              <span>
+                Nuevo Evento
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#" onclick="createNewTimeline()" title="Nueva Línea">
+              <div class="flaticon-add179"></div>
+              <span>
+                Nueva Línea
+              </span>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <!-- OTHER ELEMENTS -->
-  <!--
-      <div id="user_header_submenu">
-          <ul>
-              <li>xxx</li>
-              <li>yyy</li>
+      <div class="timeline_title">
+        PRUEBAS
+      </div>
+
+      <div id="work-area-handler" class="ui-draggable">
+        <div id="work-area-handler-sq"></div>
+      </div>
+        
+      <div id="canvas-container" oncontextmenu="return false">
+      </div>
+
+      <div id="timeline-container">
+      </div>
+
+      <div id="user_timelines_container">
+        <div class="ui-widget-overlay user_timelines_overlay"></div>
+        <div class="user_timelines_panel">
+          <div class="user_timelines_panel_title">
+            <span>
+              Mis líneas de tiempo
+            </span>
+            <div class="user_timelines_panel_close">
+              <div class="flaticon-expand39"></div>
+            </div>
+          </div>
+          <ul class="user_timelines_list_ul">
+            <li>
+              <a id="user_timelines_panel_new" href="#">
+                <div class="flaticon-add182"></div>
+                <span>
+                    Nueva línea de tiempo
+                </span>
+              </a>
+            </li>
           </ul>
+        </div>
       </div>
-  -->
+    </div>
 
-      <!-- FOOTER -->
-
-      <div id="footer">
-      </div> 
-
-      <!-- ............................................................ -->
-      <!-- [START] EXTERNAL PAGES -->
-
-      <div id="canvasContextMenu" oncontextmenu="return false"></div>
-
-      
-
-      <!--DIV for the Create New Event page-->
-      <div id="newEventDialog"></div>
-      <!--DIV for the Create New User page-->
-      <div id="newUserDialog"></div>
-      <!--DIV for Log In page-->
-      <div id="logInDialog"></div>
-      <!--DIV for New Timeline page-->
-      <div id="newTimelineDialog"></div>
-      <!--DIV for alerts-->
-      <!-- Overlay
-      <div class="ui-widget-overlay ui-front">
+    <!-- ALERTS -->
+    <div class="alert-message-container">
+      <div class="alert-message">
       </div>
-      -->
+    </div>
 
-      <!-- Message -->
-      <div class="alert-message-container">
-        <div class="alert-message">
+    <!-- EVENT DETAIL -->
+    <div class="mish_detail_container original">
+      <div class="mish_detail_title">
+        <span>
+        </span>
+        <div class="mish_detail_close">
+          <div class="flaticon-clear5"></div>
         </div>
       </div>
 
-      <!-- Event detail -->
-      <div class="mish_detail_container original">
-        <div class="mish_detail_title">
-          <span>
-          </span>
-          <div class="mish_detail_close">
-            <div class="flaticon-clear5"></div>
-          </div>
-        </div>
-
-        <div class="mish_detail_description">
-          <p class="mish_detail_description_img">
-          </p>
-          <p class="mish_detail_description_txt">
-          </p>
-        </div>
+      <div class="mish_detail_description">
+        <p class="mish_detail_description_img">
+        </p>
+        <p class="mish_detail_description_txt">
+        </p>
       </div>
+    </div>
 
-      <!-- [END] EXTERNAL PAGES -->
+    <!-- USER MENU -->
+    <!--
+    <div id="user_header_submenu">
+        <ul>
+            <li>xxx</li>
+            <li>yyy</li>
+        </ul>
+    </div>
+    -->
 
-      <!-- Load MISH JavaScript Files -->
-       <!--MISH -->
-      <script type="text/javascript" src="javascript/mish/messages.js"></script>
-      <script type="text/javascript" src="javascript/mish/utilities.js"></script>
-      <script type="text/javascript" src="javascript/mish/effects.js"></script>
-      <script type="text/javascript" src="javascript/mish/calculations.js"></script>
-      <script type="text/javascript" src="javascript/mish/zoomControl.js"></script>
-      <script type="text/javascript" src="javascript/mish/daysCtrl.js"></script>
-      <script type="text/javascript" src="javascript/mish/weeksCtrl.js"></script>
-      <script type="text/javascript" src="javascript/mish/monthsCtrl.js"></script>
-      <script type="text/javascript" src="javascript/mish/externalPagesLoader.js"></script>
-      <script type="text/javascript" src="javascript/mish/buttonEventsHandler.js"></script>
-      <script type="text/javascript" src="javascript/mish/mouseEventsHandler.js"></script>
-      <script type="text/javascript" src="javascript/mish/timelineControl.js"></script>
-      <script type="text/javascript" src="javascript/mish/canvasControl.js"></script>
-      <script type="text/javascript" src="javascript/mish/renderer.js"></script>
-          <!-- <script type="text/javascript" src="javascript/mish/newCanvas.js"></script> -->
-      <script type="text/javascript" src="javascript/mish/dataBaseOperations.js"></script>
-      <script type="text/javascript" src="javascript/mish/main.js"></script>
-      <script type="text/javascript" src="javascript/mish/MishEvent.js"></script>
+    <!-- FOOTER -->
+    <div id="footer">
+    </div> 
+
+    <!-- ............................................................ -->
+    <!-- ............................................................ -->
+    <!-- [START] EXTERNAL PAGES -->
+
+    <!-- DIV for the context menu (right click) -->
+    <div id="canvasContextMenu" oncontextmenu="return false"></div>
+    <!--DIV for the Create New Event page-->
+    <div id="newEventDialog"></div>
+    <!--DIV for the Create New User page-->
+    <div id="newUserDialog"></div>
+    <!--DIV for Log In page-->
+    <div id="logInDialog"></div>
+    <!--DIV for New Timeline page-->
+    <div id="newTimelineDialog"></div>
+
+    <!-- [END] EXTERNAL PAGES -->
+    <!-- ............................................................ -->
+    <!-- ............................................................ -->
+
+    <!-- Load MISH JavaScript Files -->
+    <!--MISH -->
+    <script type="text/javascript" src="javascript/mish/messages.js"></script>
+    <script type="text/javascript" src="javascript/mish/utilities.js"></script>
+    <script type="text/javascript" src="javascript/mish/effects.js"></script>
+    <script type="text/javascript" src="javascript/mish/calculations.js"></script>
+    <script type="text/javascript" src="javascript/mish/zoomControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/daysCtrl.js"></script>
+    <script type="text/javascript" src="javascript/mish/weeksCtrl.js"></script>
+    <script type="text/javascript" src="javascript/mish/monthsCtrl.js"></script>
+    <script type="text/javascript" src="javascript/mish/externalPagesLoader.js"></script>
+    <script type="text/javascript" src="javascript/mish/buttonEventsHandler.js"></script>
+    <script type="text/javascript" src="javascript/mish/mouseEventsHandler.js"></script>
+    <script type="text/javascript" src="javascript/mish/timelineControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/canvasControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/renderer.js"></script>
+    <script type="text/javascript" src="javascript/mish/dataBaseOperations.js"></script>
+    <script type="text/javascript" src="javascript/mish/main.js"></script>
+    <script type="text/javascript" src="javascript/mish/MishEvent.js"></script>
 
   </body>
 </html>

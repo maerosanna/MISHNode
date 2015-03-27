@@ -153,6 +153,16 @@ function openTimeline(index){
       }
     }
 
+    eventObj.date = moment(eventObj.date).format("DD-MM-YYYY");
+
+    var groupOfDate = findGroupOfEvent(eventObj.time);
+    var eventXPos = 0;
+    if(groupOfDate){
+      eventXPos = calculateXPosOfEvent(groupOfDate, eventObj);
+    }
+    var mishEvent = new Mish.Event(eventObj, groupOfDate, eventXPos, globalPosY, supermish.renderer);
+    supermish.pushEvent(mishEvent);
+
     if(eventObj.image){
       eventsWithImages++;
       getEventImage(eventObj._id, index, function(err, eventIndex, imageData){
@@ -169,6 +179,8 @@ function openTimeline(index){
 
           (mishJsonObjs.eventsJsonElement[eventIndex]).image = arrayBuffer;
           (mishJsonObjs.eventsJsonElement[eventIndex]).imageElement = res;
+
+          mishEvent.imageElement = res;
         }
 
         eventsWithImages--;

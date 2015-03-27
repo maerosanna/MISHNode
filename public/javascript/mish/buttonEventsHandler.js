@@ -77,7 +77,7 @@ function logInBtnAction() {
       }
 
       closeDialog('#logInDialog');
-      jQuery("#user_header_button span").text(username);
+      jQuery("#user_header_button span").text(userObj.username);
       jQuery(".user_header").show();
       jQuery(".logout").show();
       jQuery(".login").hide();
