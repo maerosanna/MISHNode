@@ -606,6 +606,7 @@ div#timeline-container div.date div.normalDate {
 div#timeline-container div.date div.normalDate div.label {
   color: #d1dbef;
   font-size: 11px;
+  text-transform: capitalize;
 
   position: absolute;
   left: 2px;

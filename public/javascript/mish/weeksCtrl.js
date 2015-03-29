@@ -305,7 +305,7 @@ function calculateXPosOfEventWeeks(groupTime,eventTime){
 }
 
 function changeOfLevelWeeks(lastLevel, centerCellObj){
-  var center = jQuery(window).width() / 2;
+  var center = mishGA.workAreaWidth / 2;
   if(lastLevel === "MONTHS" && this.name === "WEEKS"){
     var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
 

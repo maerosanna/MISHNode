@@ -85,9 +85,9 @@ var zoomSubLevels = {
       id: 1,
       name: 'MONTHS',
       parentId: 5,
-      deltaMultiplier: 5,
+      deltaMultiplier: 10,
       initialCellWidth: 30,
-      lastCellWidth: 150,
+      lastCellWidth: 270,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerMonths(nearestCellToCenterDate, nearestCellToCenterPosX);

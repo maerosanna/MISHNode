@@ -274,7 +274,7 @@ function calculateXPosOfEventMonths(groupTime,eventTime){
 }
 
 function changeOfLevelMonths(lastLevel, centerCellObj){
-  var center = jQuery(window).width() / 2;
+  var center = mishGA.workAreaWidth / 2;
   if(lastLevel === "WEEKS"){
     //If the last zoom LEVEL was WEEKS then:
     var dateOfReference = moment('' + centerCellObj.idText, "DDMMYYYY");
@@ -289,7 +289,7 @@ function changeOfLevelMonths(lastLevel, centerCellObj){
     var monthNumber = dateOfReference.month();
 
     //4. Calculate the amount of pixels from the first day of the year to the day of the reference date.
-    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber ) );
+    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( Math.floor(cellWidth/daysInMonth) * dayNumber ) );
     
     //5. Make the reference date as the first day of the year
     centerCellObj.idText = (dateOfReference.startOf('year')).format("DDMMYYYY");
@@ -326,7 +326,7 @@ function changeOfLevelMonths(lastLevel, centerCellObj){
     var daysInMonth = referenceMoment.clone().endOf("month").date();
     var dayNumber = referenceMoment.date();
 
-    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber ) );;
+    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber ) );
     centerCellObj.idText = (referenceMoment.startOf('year')).format("DDMMYYYY");
 
   }
