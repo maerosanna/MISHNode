@@ -48,11 +48,7 @@ module.exports = function(grunt){
       express: {
         files:  [ 
           './api/**/*.js',
-          './models/**/*.js',
-          './public/javascript/mish/**/*.js',
-          './*.js',
-          './public/css/**/*.css',
-          './*.html'
+          './models/**/*.js'
         ],
         tasks:  ['express:dev'],
         options: {

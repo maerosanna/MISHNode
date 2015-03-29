@@ -461,6 +461,7 @@ div.mish_detail_container{
 }
 
 div.mish_detail_container div.mish_detail_title{
+  font-weight: bold;
   display: inline;
 }
 
