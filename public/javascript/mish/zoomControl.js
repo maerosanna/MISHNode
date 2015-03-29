@@ -18,8 +18,8 @@ var zoomSubLevels = {
       id: 1,
       name: 'YEARS',
       parentId: 4,
-      deltaMultiplier: 1,
-      initialCellWidth: 20,
+      deltaMultiplier: 20,
+      initialCellWidth: 30,
       lastCellWidth: 359,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {

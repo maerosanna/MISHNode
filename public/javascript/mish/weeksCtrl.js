@@ -252,15 +252,17 @@ function zoomTimeRulerWeeks(centerCellObj, delta) {
     var lastElementWidth = 0;
     jQuery.each(value.children(".date"), function (index2, value2) {
       var elementWidth = 0;
-      if (cellWidth <= 16
+      /*if (cellWidth <= 16
         && value2.getAttribute("groupedCells") == 1) {
         elementWidth = 16;
       } else {
-        elementWidth = (value2.offsetWidth / lastCellWidth) * cellWidth;
-      }
+        elementWidth = Math.ceil((value2.offsetWidth / lastCellWidth) * cellWidth);
+      }*/
+
+      elementWidth = Math.ceil((value2.offsetWidth / lastCellWidth) * cellWidth);
 
       jQuery(value2).css({
-        "left": lastElementWidth,
+        "left": lastElementWidth + "px",
         "width": elementWidth + "px"
       });
 
@@ -303,8 +305,8 @@ function calculateXPosOfEventWeeks(groupTime,eventTime){
 }
 
 function changeOfLevelWeeks(lastLevel, centerCellObj){
+  var center = jQuery(window).width() / 2;
   if(lastLevel === "MONTHS" && this.name === "WEEKS"){
-    var center = jQuery(window).width() / 2;
     var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
 
     //Calculate the date to use as reference for drawing in weeks

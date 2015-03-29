@@ -274,11 +274,10 @@ function calculateXPosOfEventMonths(groupTime,eventTime){
 }
 
 function changeOfLevelMonths(lastLevel, centerCellObj){
+  var center = jQuery(window).width() / 2;
   if(lastLevel === "WEEKS"){
-    var center = jQuery(window).width() / 2;
-    var dateOfReference = moment('' + centerCellObj.idText, "DDMMYYYY");
-
     //If the last zoom LEVEL was WEEKS then:
+    var dateOfReference = moment('' + centerCellObj.idText, "DDMMYYYY");
 
     //1. Get number of days that has the nearest month to the screen center (reference date).
     var daysInMonth = dateOfReference.clone().endOf("month").date();
@@ -294,5 +293,41 @@ function changeOfLevelMonths(lastLevel, centerCellObj){
     
     //5. Make the reference date as the first day of the year
     centerCellObj.idText = (dateOfReference.startOf('year')).format("DDMMYYYY");
+  }else if(lastLevel === "YEARS"){
+    //If the last zoom LEVEL was YEARS then:
+    var centerYearMoment = moment('' + centerCellObj.idText, "MMYYYY");
+
+    //1. Get the width of each day
+    var dayWidth = centerCellObj.groupWidth / centerYearMoment.clone().endOf("year").dayOfYear();
+
+    //2. Get the distance from the X position of the year to the screen center
+    var distanceToCenter = center - centerCellObj.posX;
+    if(distanceToCenter < 0){
+      //The calculation of the day will be made with the nearest year to the center from the left.
+      //For that reason, if the distance is negative it is necessary to subtract a year
+      centerCellObj.idText = centerYearMoment.subtract(1, 'year').format("YYYY");
+    }
+
+    //3. Get the amount of days of the nearest year (from LEFT) to the screen center
+    var daysOfYear = centerYearMoment.clone().endOf("year").dayOfYear();
+
+    //4. Get the number of days contained in the distance to the center
+    var numberOfDays = Math.ceil(Math.abs(distanceToCenter) / dayWidth);
+    if(distanceToCenter < 0){
+      //If the nearest year to the center is right to it, it is necessary to subtract the
+      //number of days obtained to the number of days of the previous year
+      numberOfDays = daysOfYear - numberOfDays;
+    }
+
+    //5. Get the date for reference from the number of days obtained
+    var referenceMoment = centerYearMoment.clone().dayOfYear(numberOfDays);
+
+    var monthNumber = referenceMoment.month();
+    var daysInMonth = referenceMoment.clone().endOf("month").date();
+    var dayNumber = referenceMoment.date();
+
+    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber ) );;
+    centerCellObj.idText = (referenceMoment.startOf('year')).format("DDMMYYYY");
+
   }
 }

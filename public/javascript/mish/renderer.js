@@ -29,8 +29,8 @@ function createRenderer(){
         }
       }
 
-      //Call the render method in all the events
-      // this.layer.fillStyle("#fff").font("64px Arial").fillText("Hello World!", 200, 200);
+      //Draw a dashed line in the center of the screen for nothing...
+      this.drawCenterLine();
     },
 
     mousedown: function(event) {
@@ -61,6 +61,21 @@ function createRenderer(){
 
     keyup: function(event) {
 
+    },
+
+    drawCenterLine: function(){
+      this.layer.context.lineWidth = 1;
+      this.layer.context.lineCap = 'square';
+      this.layer.context.lineJoin = 'square';
+      this.layer.context.strokeStyle = "#CF6E3E";
+      this.layer.context.setLineDash([5, 10]);
+
+      //Draw the dashed line to de timeline
+      this.layer.context.beginPath();
+      this.layer.context.moveTo(mishGA.workAreaWidth/2, globalPosY);
+      this.layer.context.lineTo(mishGA.workAreaWidth/2, globalPosY + 500);
+      this.layer.context.stroke();
+      this.layer.context.closePath();
     }
 
   });

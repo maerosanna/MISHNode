@@ -5,8 +5,6 @@
  * @returns {undefined}
  */
 function fillTimeRulerYears(dateOfReference, xPosDiff) {
-  console.log("WELCOME TO DECADES ZOOM LEVEL!!!");
-
   //Calculate the center of the window
   var center = mishGA.workAreaWidth / 2;
 
@@ -35,7 +33,7 @@ function fillTimeRulerYears(dateOfReference, xPosDiff) {
         0,//Initial xPos of the inner cells
         groupToDraw,//startDate
         true,//drawSeparator
-        createRulerGroup(groupToDraw.format('YYYY'),//groupID
+        createRulerGroup(groupToDraw.format('MMYYYY'),//groupID
           widthOfGroup,
           xPositionOfGroup,
           true)//PUSH the group in the groups array
@@ -48,7 +46,7 @@ function fillTimeRulerYears(dateOfReference, xPosDiff) {
       //Remove the cells in the group
       value.children('.date').remove();
 
-      var groupID = 'mish-cellsGroup-' + groupToDraw.format('YYYY') + '-' + (index + 1);
+      var groupID = 'mish-cellsGroup-' + groupToDraw.format('MMYYYY') + '-' + (index + 1);
       var widthOfGroup = 10 * cellWidth;
 
       value.attr('id', groupID);
@@ -116,7 +114,7 @@ function addGroupToTimerulerYears(evaluateAdditionToRight) {
         0,//Initial xPos of the inner cells
         newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
-        createRulerGroup(newGroupDate.format('YYYY'),//groupID
+        createRulerGroup(newGroupDate.format('MMYYYY'),//groupID
           widthOfNewGroup,
           xPosNewLastDate,
           true)//PUSH the group in the groups array
@@ -164,7 +162,7 @@ function addGroupToTimerulerYears(evaluateAdditionToRight) {
         0,//Initial xPos of the inner cells
         newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
-        createRulerGroup(newGroupDate.format('YYYY'),//groupID
+        createRulerGroup(newGroupDate.format('MMYYYY'),//groupID
           widthOfNewGroup,
           xPosNewFirstDate,
           false)//UNSHIFT the group in the groups array
@@ -273,26 +271,51 @@ function calculateXPosOfEventYears(groupTime,eventTime){
 }
 
 function changeOfLevelYears(lastLevel, centerCellObj){
+  var center = mishGA.workAreaWidth / 2;
   if(lastLevel === "MONTHS"){
-    var center = mishGA.workAreaWidth / 2;
-    var dateOfReference = moment('' + centerCellObj.idText, "MMYYYY");
+    var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
 
-    //If the last zoom LEVEL was MONTHS then:
+    //Calculate the date to use as reference for drawing in YEARS
 
-    //1. Get number of days that has the nearest month to the screen center (reference date).
-    var daysInYear = dateOfReference.clone().endOf("year").date();
+    //1. Calculate the size of each day in the month
+    //This is done here to ensure that the width of the day is the same in all the cases
+    var dayWidth = centerCellObj.groupWidth / centerMonthMoment.clone().endOf("month").date();
 
-    //2. Get the day number in the nearest month to the screen center (reference date).
-    // @TODO CALCULAR EL DÍA (DEL MES) QUE ESTÁ EN EL CENTRO DE LA PANTALLA
-    var dayNumber = dateOfReference.date();
+    //2. Get the distance from the X position of the month to the screen center
+    var distanceToCenter = center - centerCellObj.posX;
+    if(distanceToCenter < 0){
+      //The calculation of the day will be made with the nearest month to the center from the left.
+      //For that reason, if the distance is negative it is necessary to subtract a month
+      centerCellObj.idText = centerMonthMoment.subtract(1, 'month').format("MMYYYY");
+    }
 
-    //3. Get the month number (0 - 11) of the nearest month to the screen center  (reference date).
-    var monthNumber = dateOfReference.month();
+    //3. Get the amount of days of the nearest month (from the LEFT) to the screen center
+    var daysOfMonth = centerMonthMoment.clone().endOf("month").date();
 
-    //4. Calculate the amount of pixels from the first day of the year to the day of the reference date.
-    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInYear) * dayNumber ) );
-    
-    //5. Make the reference date as the first day of the year
-    centerCellObj.idText = (dateOfReference.startOf('year')).format("DDMMYYYY");
+    //4. Get the number of days contained in the distance to the center
+    var numberOfDays = Math.ceil(Math.abs(distanceToCenter) / dayWidth);
+    if(distanceToCenter < 0){
+      //If the nearest month to the center is right to it, it is necessary to subtract the
+      //number of days obtained to the number of days of the previous month
+      numberOfDays = daysOfMonth - numberOfDays;
+    }
+
+    //5. Get the day of the year for the center date
+    var referenceDateMoment = moment(((numberOfDays > 9) ? "" + numberOfDays : "0" + numberOfDays) + centerCellObj.idText, "DDMMYYYY");
+    var dayOfYear = referenceDateMoment.dayOfYear();
+
+    //6. Calculate the DECADE of the reference date
+    var yearsFromDecade = referenceDateMoment.year() % 10;
+    var decadeOfReferenceDate = referenceDateMoment.year() - yearsFromDecade;
+    centerCellObj.idText = "0101" + decadeOfReferenceDate;
+
+    //6. Get the amount of pixels from the first date of the obtained decade to the day of reference
+    //6.1 Get the amount of pixels from the first day of the obtained decade to the first day of the year to which the reference date belongs
+    var distanceToDecade = yearsFromDecade * cellWidth;
+
+    //6.2 Add the amount of pixels to the day of reference
+    distanceToDecade += ( dayOfYear * cellWidth/referenceDateMoment.clone().endOf("year").dayOfYear() );
+    centerCellObj.posX = center - distanceToDecade;
+
   }
 }
