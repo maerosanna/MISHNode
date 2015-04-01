@@ -6,7 +6,7 @@
  */
 function fillTimeRulerDays(dateOfReference, xPosDiff) {
   //Calculate the center of the window
-  var center = jQuery(window).width() / 2;
+  var center = mishGA.workAreaWidthHalf;
 
   if (xPosDiff !== null) {
     center -= center - xPosDiff;
@@ -245,7 +245,7 @@ function zoomTimeRulerDays(centerCellObj, delta) {
   });
 
   //Get other information needed for the operation
-  var screenCenter = jQuery(window).width() / 2;
+  var screenCenter = mishGA.workAreaWidthHalf;
   if (centerCellObj !== null
     && centerCellObj.posX !== null) {
     screenCenter -= screenCenter - centerCellObj.posX;

@@ -12,8 +12,74 @@ var zoomLevels = {
 var zoomSubLevels = {
   "ERA": {},
   "MILLENNIUM": {},
-  "CENTURY": {},
+  "CENTURY": {
+    1: {
+      id: 1,
+      name: 'YEARS',
+      parentId: 3,
+      deltaMultiplier: 20,
+      initialCellWidth: 30,
+      lastCellWidth: 300,
+      isTheLast: false,
+      fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
+        fillTimeRulerDecades(nearestCellToCenterDate, nearestCellToCenterPosX);
+      },
+      zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
+        zoomTimeRulerDecades(nearestCellToCenterObj, mouseScrollDelta);
+      },
+      addGroupToTimeruler: function (evaluateAdditionToRight) {
+        addGroupToTimerulerDecades(evaluateAdditionToRight);
+      },
+      calculateXPosOfEvent: function (groupTime,eventTime) {
+        return calculateXPosOfEventDecades(groupTime,eventTime);
+      },
+      changeOfLevel: function(lastLevel, centerCellObj){
+        changeOfLevelDecades.call(this, lastLevel, centerCellObj);
+      }
+    }, 2: {
+      id: 'NEXT',
+      parentId: 3,
+      initialCellWidth: 61,
+      lastCellWidth: 61
+    },
+    $scrollAmount: 0,
+    $currentSubLevel: 0,
+    initialSubLevel: 1,
+    lastSubLevel: 1
+    , get zoomSubLevel() {
+      return this[this.$currentSubLevel];
+    }
+    , set currentSubLevel(levelID) {
+      this.$currentSubLevel = levelID;
+    }, set scrollAmount(newScrollAmount) {
+      var lastScrollAmount = this.$scrollAmount;
+      this.$scrollAmount = newScrollAmount;
+      this[this.$currentSubLevel].isTheLast = false;
+
+      if (this.$scrollAmount < this[this.$currentSubLevel].initialCellWidth) {
+        if(this[this.$currentSubLevel - 1]){
+          this.$currentSubLevel--;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
+      } else if (this.$scrollAmount > this[this.$currentSubLevel].lastCellWidth) {
+        if(this[this.$currentSubLevel + 1]){
+          this.$currentSubLevel++;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
+      }
+    }
+  },
   "DECADE": {
+    0: {
+      id: 'PREV',
+      parentId: 4,
+      initialCellWidth: 1,
+      lastCellWidth: 1
+    },
     1: {
       id: 1,
       name: 'YEARS',

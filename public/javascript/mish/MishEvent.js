@@ -62,6 +62,13 @@ Mish.Event.prototype.render = function(){
     }
 
     this.drawDescription();
+
+    //Move the DIV element if exists
+    if(this.detailElement){
+      this.detailElement.css({
+        left: this.x
+      });
+    }
   }
 };
 
@@ -114,23 +121,20 @@ Mish.Event.prototype.mousemove = function(mouseX, mouseY){
     //Verify if the mouse is over the event point
     if(mouseX >= this.x - 10 && mouseX <= this.x + 10
         && mouseY >= this.y - 10 && mouseY <= this.y + 10){
+      //THE CURSOR IS OVER THE EVENT POINT
       if(this.mouseOver === false){
         this.mouseOver = true;
-        this.descTween = this.renderer.tween(this.descAlpha).to({alpha: 1}, 1.2);
+        jQuery("#work-area-handler-sq").css({cursor: "pointer"});
+        //  this.descTween = this.renderer.tween(this.descAlpha).to({alpha: 1}, 1.2);
       }
     }else{
+      //THE CURSOR IS OUT THE EVENT POINT
       if(this.mouseOver === true){
         this.mouseOver = false;
-        this.descTween.end().stop();
-        this.descTween = this.renderer.tween(this.descAlpha).to({alpha: 0}, 0.5);
+        jQuery("#work-area-handler-sq").css({cursor: "e-resize"});
+        //  this.descTween.end().stop();
+        //  this.descTween = this.renderer.tween(this.descAlpha).to({alpha: 0}, 0.5);
       }
-    }
-
-    //Move the DIV element if exists
-    if(this.detailElement){
-      this.detailElement.css({
-        left: this.x
-      });
     }
   }
 };

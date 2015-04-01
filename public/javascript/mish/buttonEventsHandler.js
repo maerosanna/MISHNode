@@ -203,6 +203,7 @@ function resetTimeruler(){
 
   mishJsonObjs.timelineJson = null;
   mishJsonObjs.eventsJsonElement = [];
+  supermish.clearEvents();
 
   //Clean the title of the open timeline
   jQuery("div.timeline_title").slideUp(function(){

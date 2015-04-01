@@ -10,10 +10,6 @@ function assignMouseEventsListeners() {
     wah.addEventListener("mousewheel", mouseScrollEvent, false);
     //Firefox
     wah.addEventListener("DOMMouseScroll", mouseScrollEvent, false);
-
-    /*wah.addEventListener("mousemove", function(event){
-    });*/
-
   } else {
     //Others
     wah.attachEvent("onmousewheel", mouseScrollEvent);

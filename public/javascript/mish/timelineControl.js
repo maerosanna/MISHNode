@@ -122,6 +122,9 @@ function fillUserTimelinesList() {
  * 
  */
 function openTimeline(index){
+  //Clear all the data of the current timeline
+  resetTimeruler();
+
   //Remove the canvas
   if(mishGA.canvasObject){
     mishGA.canvasObject.clearAndPause();

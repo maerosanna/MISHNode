@@ -537,7 +537,7 @@ TIME RULER STYLES
 div#timeline-container {
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   left: 0;
   z-index: 15;
 }
@@ -981,6 +981,7 @@ div#loading_container{
 }
 
 div#loading_container div.loader_overlay{
+  background: #13829f;
   z-index: 152;
 }
 

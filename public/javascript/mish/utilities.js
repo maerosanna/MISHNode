@@ -5,7 +5,8 @@
  */
 function resizeContainers() {
   mishGA.workAreaWidth = jQuery(window).width();
-  mishGA.workAreaHeight = jQuery(window).height() - 75 - 40;
+  mishGA.workAreaHeight = jQuery(window).height() - 75;
+  mishGA.workAreaWidthHalf = mishGA.workAreaWidth / 2;
 
   jQuery("#work-area-container").css("width", mishGA.workAreaWidth);
   jQuery("#work-area-container").css("height", mishGA.workAreaHeight);

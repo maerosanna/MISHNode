@@ -17,6 +17,10 @@ Mish.prototype.pushEvent = function(eventToPush){
   this.timelineEvents.push(eventToPush);
 };
 
+Mish.prototype.clearEvents = function(){
+  this.timelineEvents = [];
+};
+
 /*
 --------------------------------
 MISH Global Attributes
@@ -26,6 +30,7 @@ var mishGA = {
   canvasObject: null,
   workAreaWidth: jQuery(window).width(),
   workAreaHeight: jQuery(window).height(),
+  workAreaWidthHalf: this.workAreaWidth / 2,
   timeRulerGroups: [],
   timeRulerXPos: 0,
   /*Attributes for zoom control*/
