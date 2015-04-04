@@ -30,7 +30,7 @@ function createRenderer(){
       }
 
       //Draw a dashed line in the center of the screen for nothing...
-        this.drawCenterLine();
+      //  this.drawCenterLine();
     },
 
     mousedown: function(event) {
@@ -72,8 +72,8 @@ function createRenderer(){
 
       //Draw the dashed line to de timeline
       this.layer.context.beginPath();
-      this.layer.context.moveTo(mishGA.workAreaWidth/2, globalPosY);
-      this.layer.context.lineTo(mishGA.workAreaWidth/2, globalPosY + 500);
+      this.layer.context.moveTo(mishGA.workAreaWidth/2, mishGA.workAreaHeight - 200);
+      this.layer.context.lineTo(mishGA.workAreaWidth/2, mishGA.workAreaHeight);
       this.layer.context.stroke();
       this.layer.context.closePath();
     }

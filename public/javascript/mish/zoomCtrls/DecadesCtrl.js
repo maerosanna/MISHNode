@@ -18,18 +18,18 @@ function fillTimeRulerDecades(dateOfReference, xPosDiff) {
 
   var firstGroupDate = dateOfReference.clone().subtract(1000, "years");//10 CENTURIES behind
 
-  var yearsFromFirstGroup = 1000;
-  var initialXPos = ((( (yearsFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
+  var decadesFromFirstGroup = 100;
+  var initialXPos = ((( (decadesFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
 
   var groupToDraw = firstGroupDate.clone().startOf("year");
   var xPositionOfGroup = initialXPos - mishGA.timeRulerXPos;
 
   if (mishGA.timeRulerGroups.length === 0) {
     for (var i = 0; i <= 20; i++) {
-      var widthOfGroup = 100 * cellWidth;//A CENTURY has 100 years...
+      var widthOfGroup = 10 * cellWidth;//A CENTURY has 10 DECADES...
 
       fillDateRangeDecades(1,//begin: All years start with 1
-        100,//end
+        10,//end
         0,//Initial xPos of the inner cells
         groupToDraw,//startDate
         true,//drawSeparator
@@ -47,14 +47,14 @@ function fillTimeRulerDecades(dateOfReference, xPosDiff) {
       value.children('.date').remove();
 
       var groupID = 'mish-cellsGroup-' + groupToDraw.format('MMYYYY') + '-' + (index + 1);
-      var widthOfGroup = 100 * cellWidth;//A CENTURY has 100 years...
+      var widthOfGroup = 10 * cellWidth;//A CENTURY has 100 years...
 
       value.attr('id', groupID);
       value.width(widthOfGroup);
       value.css('left', xPositionOfGroup);
 
       fillDateRangeDecades(1,//begin: All months start with 1
-        100,//end
+        10,//end
         0,//xPos
         groupToDraw,//startDate
         true,//drawSeparator
@@ -95,12 +95,12 @@ function addGroupToTimerulerDecades(evaluateAdditionToRight) {
       var newGroupDate = moment(jQuery(lastDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "MMYYYY").add(100, "year");
 
       //2. Get the X position for the first date of the new group
-      var widthOfNewGroup = 100 * cellWidth;
+      var widthOfNewGroup = 10 * cellWidth;
       var xPosNewLastDate = xPosLastDate + lastDateOfTimeRuler.width();
 
       //3. Create the new group of cells)
       fillDateRangeDecades(1,//begin: All months start with 1
-        100,//end
+        10,//end
         0,//Initial xPos of the inner cells
         newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
@@ -138,12 +138,12 @@ function addGroupToTimerulerDecades(evaluateAdditionToRight) {
       var newGroupDate = moment(jQuery(firstDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "MMYYYY").subtract(100, "year");
 
       //2. Get the X position for the first date of the new group
-      var widthOfNewGroup = 100 * cellWidth;
+      var widthOfNewGroup = 10 * cellWidth;
       var xPosNewFirstDate = xPosFirstDate - widthOfNewGroup;
 
       //3. Create the new group of cells)
       fillDateRangeDecades(1,//begin: All months start with 1
-        100,//end
+        10,//end
         0,//Initial xPos of the inner cells
         newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
@@ -246,7 +246,7 @@ function zoomTimeRulerDecades(centerCellObj, delta) {
 
 function calculateXPosOfEventDecades(groupTime, eventTime){
   var difference = moment(eventTime).diff(moment(groupTime),'days');
-  var daysWidth = cellWidth / 365;
+  var daysWidth = (cellWidth/10) / 365;
   return difference * daysWidth;
 }
 
@@ -256,7 +256,7 @@ function changeOfLevelDecades(lastLevel, centerCellObj){
     //If the last zoom LEVEL was YEARS then:
     var centerYearMoment = moment('' + centerCellObj.idText, "MMYYYY");
 
-    //1. Get the width of each day
+    //1. Get the width of each day in the previous zoom level
     var dayWidth = centerCellObj.groupWidth / centerYearMoment.clone().endOf("year").dayOfYear();
 
     //2. Get the distance from the X position of the year to the screen center
@@ -300,8 +300,9 @@ function changeOfLevelDecades(lastLevel, centerCellObj){
     //10. Get the amount of pixels from the decade of reference to the year of the reference date
     distanceToCentury += yearsFromDecade * cellWidth/10;
 
-    //8 Add the amount of pixels to the day of reference
-    distanceToCentury += numberOfDays * ( (cellWidth/10) / referenceMoment.clone().endOf("year").dayOfYear() );
+    //11. Add the amount of pixels to the day of reference
+    //      distanceToCentury += numberOfDays * ( (cellWidth/10) / referenceMoment.clone().endOf("year").dayOfYear() );
+    distanceToCentury += numberOfDays * ( (cellWidth/10) / 365 );
     centerCellObj.posX = center - distanceToCentury;
   }
 }

@@ -82,7 +82,7 @@ Mish.Event.prototype.drawLine = function(){
   //Draw the dashed line to de timeline
   this.layer.context.beginPath();
   this.layer.context.moveTo(this.x, this.y);
-  this.layer.context.lineTo(this.x, this.y + 2000);
+  this.layer.context.lineTo(this.x, mishGA.workAreaHeight);
   this.layer.context.stroke();
   this.layer.context.closePath();
 };

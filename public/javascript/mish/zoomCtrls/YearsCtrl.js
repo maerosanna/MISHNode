@@ -306,6 +306,51 @@ function changeOfLevelYears(lastLevel, centerCellObj){
     //6.2 Add the amount of pixels to the day of reference
     distanceToDecade += ( dayOfYear * cellWidth/referenceDateMoment.clone().endOf("year").dayOfYear() );
     centerCellObj.posX = center - distanceToDecade;
+  } else if(lastLevel === "DECADES"){
+    var centerDecadeMoment = moment('' + centerCellObj.idText, "MMYYYY");
+
+    //1. Get the width of each day
+    var dayWidth = (centerCellObj.groupWidth / 10) / 365;
+
+    //2. Get the distance from the screen center to the nearest cell to center
+    var distanceToCenter = center - centerCellObj.posX;
+    if(distanceToCenter < 0){
+      //The calculation of the day will be made with the nearest year to the center from the left.
+      //For that reason, if the distance is negative it is necessary to subtract a year
+      centerDecadeMoment.subtract(10, 'year');
+    }
+
+    //3. Get the decade of reference for the reference date to use
+    var decadeOfReference = centerDecadeMoment.year();
+    centerCellObj.idText = "0101" + decadeOfReference;
+
+    //4. Get the number of the year (within the decade) nearest to the center
+    var yearNearestToCenter = Math.abs(distanceToCenter) / (centerCellObj.groupWidth / 10);
+    if(distanceToCenter < 0){
+      yearNearestToCenter = 10 - Math.ceil(yearNearestToCenter);
+    }else{
+      yearNearestToCenter = Math.floor(yearNearestToCenter);
+    }
+    centerDecadeMoment.add(yearNearestToCenter, "year");
+
+    //5. Get the amount of days of the nearest year (from LEFT) to the screen center
+    var daysOfYear = centerDecadeMoment.clone().endOf("year").dayOfYear();
+
+    //6. Get the number of days contained in the distance to the center from the decade of reference
+    var numberOfDays = 0;
+    if(distanceToCenter < 0){
+      numberOfDays = Math.floor((center - (centerCellObj.posX - centerCellObj.groupWidth)) / dayWidth);
+    }else{
+      numberOfDays = Math.floor(Math.abs(distanceToCenter) / dayWidth);
+    }
+    numberOfDays -= yearNearestToCenter * 365;
+
+    //7. Get the amount of pixels from the first day of the obtained decade to the first day of the year to which the reference date belongs
+    var distanceToDecade = yearNearestToCenter * cellWidth;
+
+    //8. Add the amount of pixels to the day of reference
+    distanceToDecade += ( numberOfDays * (cellWidth / daysOfYear) );
+    centerCellObj.posX = center - distanceToDecade;
 
   }
 }

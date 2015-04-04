@@ -15,11 +15,11 @@ var zoomSubLevels = {
   "CENTURY": {
     1: {
       id: 1,
-      name: 'YEARS',
+      name: 'DECADES',
       parentId: 3,
       deltaMultiplier: 20,
-      initialCellWidth: 30,
-      lastCellWidth: 300,
+      initialCellWidth: 50,
+      lastCellWidth: 450,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerDecades(nearestCellToCenterDate, nearestCellToCenterPosX);
@@ -76,17 +76,15 @@ var zoomSubLevels = {
   "DECADE": {
     0: {
       id: 'PREV',
-      parentId: 4,
-      initialCellWidth: 1,
-      lastCellWidth: 1
+      parentId: 4
     },
     1: {
       id: 1,
       name: 'YEARS',
       parentId: 4,
-      deltaMultiplier: 20,
-      initialCellWidth: 30,
-      lastCellWidth: 359,
+      deltaMultiplier: 15,
+      initialCellWidth: 45,
+      lastCellWidth: 360,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerYears(nearestCellToCenterDate, nearestCellToCenterPosX);
@@ -105,9 +103,7 @@ var zoomSubLevels = {
       }
     }, 2: {
       id: 'NEXT',
-      parentId: 4,
-      initialCellWidth: 61,
-      lastCellWidth: 61
+      parentId: 4
     },
     $scrollAmount: 0,
     $currentSubLevel: 0,
@@ -143,9 +139,7 @@ var zoomSubLevels = {
   "YEAR": {
     0: {
       id: 'PREV',
-      parentId: 5,
-      initialCellWidth: 1,
-      lastCellWidth: 1
+      parentId: 5
     },
     1: {
       id: 1,
@@ -172,9 +166,7 @@ var zoomSubLevels = {
       }
     }, 2: {
       id: 'NEXT',
-      parentId: 5,
-      initialCellWidth: 61,
-      lastCellWidth: 61
+      parentId: 5
     },
     $scrollAmount: 0,
     $currentSubLevel: 0,
@@ -210,16 +202,14 @@ var zoomSubLevels = {
   "MONTH": {
     0: {
       id: 'PREV',
-      parentId: 6,
-      initialCellWidth: 1,
-      lastCellWidth: 1
+      parentId: 6
     },
     1: {
       id: 1,
       name: 'WEEKS',
       parentId: 6,
-      initialCellWidth: 9,
-      lastCellWidth: 19,
+      initialCellWidth: 10,
+      lastCellWidth: 20,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerWeeks(nearestCellToCenterDate, nearestCellToCenterPosX);
