@@ -12,10 +12,6 @@ var zoomLevels = {
 var zoomSubLevels = {
   "ERA": {},
   "MILLENNIUM": {
-    // 0: {
-    //   id: 'PREV',
-    //   parentId: 3
-    // },
     1: {
       id: 1,
       name: 'CENTURIES',
@@ -40,10 +36,10 @@ var zoomSubLevels = {
         changeOfLevelCenturies.call(this, lastLevel, centerCellObj);
       }
     },
-    // 2: {
-    //   id: 'NEXT',
-    //   parentId: 3
-    // },
+    2: {
+      id: 'NEXT',
+      parentId: 3
+    },
     $scrollAmount: 0,
     $currentSubLevel: 0,
     initialSubLevel: 1,
