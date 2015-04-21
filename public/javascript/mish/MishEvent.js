@@ -10,6 +10,7 @@ Mish.Event = function(storeableData, containerGroup, x, y, renderer){
   this.imageElement = null;
   this.imageWidth = 80;
   this.detailElement = null;
+  this.positionRelativeToEvents = null;
   
   this.draw = false;
   this.mouseOver = false;
@@ -57,6 +58,7 @@ Mish.Event.prototype.render = function(){
     this.drawLine();
     this.drawPoint();
     this.drawTitle();
+    this.drawDate();
     if(this.imageElement){
       this.drawImage();
     }
@@ -96,7 +98,7 @@ Mish.Event.prototype.drawPoint = function(){
 };
 
 Mish.Event.prototype.drawTitle = function(){
-  //Define the properties of the event to draw
+  //Define the properties of the event title to draw
   this.layer.context.font = "20px sans-serif";
   this.layer.context.fillStyle = "#499AAF";
 
@@ -104,8 +106,17 @@ Mish.Event.prototype.drawTitle = function(){
   this.layer.context.fillText(this.storeableData.title, this.x + 20, this.y + 6);
 };
 
+Mish.Event.prototype.drawDate = function(){
+  //Define the properties of the event date to draw
+  this.layer.context.font = "12px sans-serif";
+  this.layer.context.fillStyle = "#499AAF";
+
+  //Draw the title of the event
+  this.layer.context.fillText(this.storeableData.date, this.x + 20, this.y + 18);
+};
+
 Mish.Event.prototype.drawImage = function(){
-  this.layer.context.drawImage(this.imageElement, this.x + 20, this.y + 16, this.imageWidth, this.imageWidth);
+  this.layer.context.drawImage(this.imageElement, this.x + 20, this.y + 26, this.imageWidth, this.imageWidth);
 };
 
 Mish.Event.prototype.drawDescription = function(){

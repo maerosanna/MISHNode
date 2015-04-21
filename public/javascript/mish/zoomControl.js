@@ -17,7 +17,7 @@ var zoomSubLevels = {
       name: 'CENTURIES',
       parentId: 2,
       deltaMultiplier: 30,
-      initialCellWidth: 50,
+      initialCellWidth: 80,
       lastCellWidth: 500,
       isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
