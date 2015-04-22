@@ -11,6 +11,7 @@ Mish.Event = function(storeableData, containerGroup, x, y, renderer){
   this.imageWidth = 80;
   this.detailElement = null;
   this.positionRelativeToEvents = null;
+  this.hideImage = false;
   
   this.draw = false;
   this.mouseOver = false;
@@ -18,6 +19,7 @@ Mish.Event = function(storeableData, containerGroup, x, y, renderer){
     alpha: 0
   };
   this.descTween = null;
+  this.width = 0;
 };
 
 //Definition of constructor
@@ -41,6 +43,32 @@ Mish.Event.prototype.step = function(){
   if (this.x < mishGA.workAreaWidth
       && this.x >= 0) {
     this.draw = true;
+
+    //Calculate the Y position of the event based on its proximity to
+    //other events
+    if(this.positionRelativeToEvents > 0){
+      //Get the event to the left
+      var leftEvent = supermish.timelineEvents[this.positionRelativeToEvents - 1];
+      if(leftEvent.draw === true && this.draw === true
+          && leftEvent.x + leftEvent.width > this.x - 5){
+        //The event to the left is close
+        //1. Hide the image of the event
+        leftEvent.hideImage = true;
+
+        //2. Down my Y position
+        this.y = globalPosY + 30 * this.positionRelativeToEvents;
+        this.hideImage = true;
+      }else{
+        
+        if(this.positionRelativeToEvents === 1){
+          leftEvent.hideImage = false;
+        }
+        this.hideImage = false;
+        this.y = globalPosY;
+        
+      }
+    }
+
   }else{
     this.draw = false;
     if(this.detailElement){
@@ -104,6 +132,8 @@ Mish.Event.prototype.drawTitle = function(){
 
   //Draw the title of the event
   this.layer.context.fillText(this.storeableData.title, this.x + 20, this.y + 6);
+
+  this.width = 20 + this.storeableData.title.length * 10;
 };
 
 Mish.Event.prototype.drawDate = function(){
@@ -116,7 +146,12 @@ Mish.Event.prototype.drawDate = function(){
 };
 
 Mish.Event.prototype.drawImage = function(){
-  this.layer.context.drawImage(this.imageElement, this.x + 20, this.y + 26, this.imageWidth, this.imageWidth);
+  if(this.hideImage === false){
+    this.layer.context.drawImage(this.imageElement, this.x + 20, this.y + 26, this.imageWidth, this.imageWidth);
+    if(this.width < this.imageWidth + 20){
+      this.width = this.imageWidth + 20;
+    }
+  }
 };
 
 Mish.Event.prototype.drawDescription = function(){
