@@ -30,7 +30,7 @@ function createRenderer(){
       }
 
       //Draw a dashed line in the center of the screen for nothing...
-          this.drawCenterLine();
+      //    this.drawCenterLine();
     },
 
     mousedown: function(event) {

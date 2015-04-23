@@ -3,7 +3,10 @@ var messagesObject = {
     //Create Event Dialog
     "dialog.createEvent.title": "Crear nuevo evento",
     "dialog.createEvent.error.eventName.empty": "Debe darle un nombre al evento",
+    "dialog.createEvent.error.eventName.size": "El título no puede tener más de 70 caracteres",
+    "dialog.createEvent.error.eventDescription.size": "La descripción no puede tener más de 800 caracteres",
     "dialog.createEvent.error.eventDate.empty": "Debe ingresar una fecha",
+    "dialog.createEvent.error.eventImage.exceedSize": "El tamaño de la imagen no puede ser superior a 1 MB",
     //Create User Dialog
     "dialog.createUser.title": "Crear nuevo usuario",
     "dialog.createUser.error.username.empty": "Debe ingresar un nombre de usuario",

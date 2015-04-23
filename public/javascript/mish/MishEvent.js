@@ -20,6 +20,7 @@ Mish.Event = function(storeableData, containerGroup, x, y, renderer){
   };
   this.descTween = null;
   this.width = 0;
+  this.titleMetrics = null;
 };
 
 //Definition of constructor
@@ -57,15 +58,13 @@ Mish.Event.prototype.step = function(){
 
         //2. Down my Y position
         this.y = globalPosY + 30 * this.positionRelativeToEvents;
-        this.hideImage = true;
+        //    this.hideImage = true;
       }else{
-        
         if(this.positionRelativeToEvents === 1){
           leftEvent.hideImage = false;
         }
         this.hideImage = false;
         this.y = globalPosY;
-        
       }
     }
 
@@ -132,8 +131,11 @@ Mish.Event.prototype.drawTitle = function(){
 
   //Draw the title of the event
   this.layer.context.fillText(this.storeableData.title, this.x + 20, this.y + 6);
+  if(!this.titleMetrics){
+    this.titleMetrics = this.layer.context.measureText(this.storeableData.title);
+  }
 
-  this.width = 20 + this.storeableData.title.length * 10;
+  this.width = 20 + this.titleMetrics.width + 10;
 };
 
 Mish.Event.prototype.drawDate = function(){

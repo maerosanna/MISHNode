@@ -224,6 +224,8 @@ function resetTimeruler(){
  * 
  */
 function createMISHEventBtnAction() {
+  var imageOfEvent = null;
+
   //Hide the showed errors
   showErrorMsg("#errorNewEvent",false);
 
@@ -249,6 +251,24 @@ function createMISHEventBtnAction() {
   if(newEventObj.title === "") {
     appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
     showError = true;
+  }else if(newEventObj.title.length > 70){
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.size");
+    showError = true;
+  }
+
+  if(newEventObj.description && newEventObj.description.length > 800){
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDescription.size");
+    showError = true;
+  }
+
+  if(newEventObj.image){
+    imageOfEvent = document.getElementById("eventImg");
+    //Get the file size of the picked image for preventing the upload of heavy files
+    var imageSize = (imageOfEvent.files[0].size/1024)/1024;
+    if(imageSize > 1){
+      appendErrorMessage(containerDIV, "dialog.createEvent.error.eventImage.exceedSize");
+      showError = true;
+    }
   }
 
   if(newEventObj.date === "") {
@@ -273,10 +293,8 @@ function createMISHEventBtnAction() {
     var mishEvent = new Mish.Event(newEventObj, groupOfDate, eventXPos, globalPosY, supermish.renderer);
     supermish.pushEvent(mishEvent);
 
-    var imageOfEvent = document.getElementById("eventImg");
-
-    if(imageOfEvent.files && imageOfEvent.files[0]){
-      readImageURL(imageOfEvent, function(imageData){
+    if(imageOfEvent && imageOfEvent.files && imageOfEvent.files[0]){
+        readImageURL(imageOfEvent, function(imageData){
         newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
 
