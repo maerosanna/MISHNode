@@ -38,7 +38,9 @@ Mish.Event.prototype.set = function(attr, value){
 Mish.Event.prototype.step = function(){
   if(this.containerGroup){
     this.containerGroup = findGroupOfEvent(this.storeableData.time);
-    this.x = calculateXPosOfEvent(this.containerGroup, this.storeableData);
+    if(this.containerGroup){
+      this.x = calculateXPosOfEvent(this.containerGroup, this.storeableData);
+    }
   }
 
   if (this.x < mishGA.workAreaWidth

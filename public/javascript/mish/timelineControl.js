@@ -37,6 +37,11 @@ function clearTimeline() {
  * @returns {string}
  */
 function createRulerGroup(date, widthAmount, xPositionOfGroup, push) {
+  /*//replace("-", "") >> necessary for negative years
+  if(date.indexOf("-") != -1){
+    date += "-A.C.";
+    date = date.replace("-", "");
+  }*/
   var groupID = 'mish-cellsGroup-' + date + '-' + (mishGA.timeRulerGroups.length + 1);
   var divObject = jQuery('<div/>', {
     id: groupID
@@ -66,6 +71,11 @@ function createRulerGroup(date, widthAmount, xPositionOfGroup, push) {
  * @param dateWidth
  */
 function createTimelineCell(id, xPosition, cellClass, cellText, groupID, dateWidth) {
+  /*//replace("-", "") >> necessary for negative years
+  if(id.indexOf("-") != -1){
+    id += "-A.C.";
+    id = id.replace("-", "");
+  }*/
   jQuery('<div/>', {
     id: 'mish-label-' + id,
     class: 'label'

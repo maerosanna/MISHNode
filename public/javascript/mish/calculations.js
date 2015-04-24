@@ -111,15 +111,17 @@ function findNearestCellToCenter() {
  */
 function findGroupOfEvent(eventTime) {
   //1. Verify if the event date is between the first date and the last date of the time ruler groups
-  if( eventTime < getTimeOfGroupId(mishGA.timeRulerGroups[0])
-      || eventTime > getTimeOfGroupId(mishGA.timeRulerGroups[mishGA.timeRulerGroups.length - 1]) ){
+  if(getTimeOfGroupId(mishGA.timeRulerGroups[0]) > 0 
+      && (eventTime < getTimeOfGroupId(mishGA.timeRulerGroups[0])
+      || eventTime > getTimeOfGroupId(mishGA.timeRulerGroups[mishGA.timeRulerGroups.length - 1])) ){
     return null;
   }
 
   //2. Search the group for the event date
   var groupOfDate = null;
   mishGA.timeRulerGroups.forEach(function(groupObj, index){
-    if(eventTime >= getTimeOfGroupId(groupObj)){
+    var groupTime = getTimeOfGroupId(groupObj);
+    if(groupTime > 0 && eventTime >= groupTime){
       groupOfDate = groupObj;
     }
   });
