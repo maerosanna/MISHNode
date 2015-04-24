@@ -143,7 +143,7 @@ Mish.Event.prototype.drawTitle = function(){
 Mish.Event.prototype.drawDate = function(){
   //Define the properties of the event date to draw
   this.layer.context.font = "12px sans-serif";
-  this.layer.context.fillStyle = "#499AAF";
+  this.layer.context.fillStyle = "#346D7C";
 
   //Draw the title of the event
   this.layer.context.fillText(this.storeableData.date, this.x + 20, this.y + 18);

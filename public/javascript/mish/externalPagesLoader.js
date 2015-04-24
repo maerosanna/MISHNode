@@ -38,11 +38,29 @@ function loadExternalPages() {
     createBasicDialog('#newEventDialog', 'dialog.createEvent.title');
     //Assign button listeners
     jQuery("#newEventCancel").click(function () {
+      jQuery("#buttonCreateEvent").hide();
+      jQuery("#buttonEditEvent").hide();
       closeDialog("#newEventDialog");
     });
+    jQuery("#buttonCreateEvent").hide();
     jQuery("#buttonCreateEvent").click(createMISHEventBtnAction);
+    jQuery("#buttonEditEvent").hide();
+    //jQuery("#buttonEditEvent").click(editMISHEventBtnAction);
     //Hide the error section
     jQuery("#errorNewEvent").hide();
+  });
+
+  //Load deleteEventForm.html
+  jQuery("#deleteEventDialog").load("pages/deleteEventForm.html", function () {
+    //Create and configure the 'Create Event' dialog
+    createBasicDialog('#deleteEventDialog', 'dialog.deleteEvent.title');
+    //Assign button listeners
+    jQuery("#deleteEventCancel").click(function () {
+      closeDialog("#deleteEventDialog");
+    });
+    
+    //jQuery("#buttonDeleteEvent").click(deleteMISHEventBtnAction);
+    
   });
 
   //Load newTimelineForm.html
@@ -68,6 +86,7 @@ function loadExternalPages() {
     //Assign Create Event function
     jQuery("#contextCreateEvent").click(function () {
       jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+      jQuery("#buttonCreateEvent").show();
       jQuery('#newEventDialog').dialog('open');
       closeMenu();
     });
@@ -86,6 +105,7 @@ function loadExternalPages() {
   */
     jQuery("#footerNewEvent").click(function () {
         jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+        jQuery("#buttonCreateEvent").show();
         jQuery('#newEventDialog').dialog('open');
         closeMenu();
     });

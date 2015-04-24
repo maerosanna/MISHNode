@@ -264,6 +264,27 @@ function createEventDetail(eventObj){
     detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_date"}).text("" + eventObj.storeableData.date));
     detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_description_text"}).text(eventObj.storeableData.description));
 
+    //Bind the event for removing the MishEvent
+    detailElementClone.find("div.mish_detail_buttons input.deleteEventBtn").bind( "click", {sourceMishEvent: eventObj}, function(e) {
+      var eventObj = e.data.sourceMishEvent;
+      jQuery("div.formMISH-error-messages b").text(eventObj.storeableData.title);
+      jQuery('#deleteEventDialog').dialog('open');
+    });
+
+    //Bind the event for editing the MishEvent
+    detailElementClone.find("div.mish_detail_buttons input.editEventBtn").bind( "click", {sourceMishEvent: eventObj}, function(e) {
+      var eventObj = e.data.sourceMishEvent;
+      jQuery('#newEventDialog').dialog("option", "title", msg["dialog.editEvent.title"]);
+      jQuery('#newEventDialog').dialog('open');
+      jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+      jQuery("#eventName").val(eventObj.storeableData.title);
+      jQuery("#eventDescription").val(eventObj.storeableData.description);
+      jQuery("#eventDate").val(eventObj.storeableData.date);
+      jQuery("#eventImgFake").val(eventObj.storeableData.image.name);
+      jQuery("#eventUrl").val(eventObj.storeableData.url);
+      jQuery("#buttonEditEvent").show();
+    });
+
     jQuery(detailElementClone).appendTo("body");
     detailElementClone.show("fade");
 
