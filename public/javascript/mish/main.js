@@ -1,11 +1,22 @@
+/**
+ * Mish main object.
+ * 
+ * @type {[type]}
+ */
 var Mish = Mish || {};
 
 Mish = function(){
   this.timelineEvents = [];
   this.renderer = null;
+  this.eventToUpdate = null;
+  this.eventToDelete = null;
 };
 
 Mish.prototype.constructor = Mish;
+
+Mish.prototype.get = function(attr){
+  return this[attr];
+};
 
 Mish.prototype.set = function(attr, value){
   this[attr] = value;
@@ -26,6 +37,11 @@ Mish.prototype.pushEvent = function(eventToPush){
   //Push the event
   this.timelineEvents.push(eventToPush);
 
+  //Sort the array of events
+  this.sortEvents();
+};
+
+Mish.prototype.sortEvents = function(){
   //Sort the array of events by time
   this.timelineEvents.sort(function(a, b){
     return a.storeableData.time - b.storeableData.time;

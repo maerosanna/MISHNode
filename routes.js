@@ -33,5 +33,6 @@ module.exports = function (app) {
   app.get('/eventImage', eventAPI.findEventImage);
   app.post('/event', eventAPI.saveEvent);
   app.post('/events', eventAPI.createEvents);
+  app.put('/events', eventAPI.updateEvents);
 
 };

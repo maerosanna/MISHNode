@@ -280,9 +280,12 @@ function createEventDetail(eventObj){
       jQuery("#eventName").val(eventObj.storeableData.title);
       jQuery("#eventDescription").val(eventObj.storeableData.description);
       jQuery("#eventDate").val(eventObj.storeableData.date);
-      jQuery("#eventImgFake").val(eventObj.storeableData.image.name);
+      jQuery("#eventImgFake").val(eventObj.storeableData.image.name || eventObj.storeableData.imageName);
       jQuery("#eventUrl").val(eventObj.storeableData.url);
       jQuery("#buttonEditEvent").show();
+
+      //Set the event to update in the Mish main object
+      supermish.set("eventToUpdate", eventObj.positionRelativeToEvents);
     });
 
     jQuery(detailElementClone).appendTo("body");

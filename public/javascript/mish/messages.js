@@ -6,7 +6,7 @@ var messagesObject = {
     "dialog.createEvent.error.eventName.empty": "Debe darle un nombre al evento",
     "dialog.createEvent.error.eventName.size": "El título no puede tener más de 70 caracteres",
     "dialog.createEvent.error.eventDescription.size": "La descripción no puede tener más de 800 caracteres",
-    "dialog.createEvent.error.eventDate.empty": "Debe ingresar una fecha",
+    "dialog.createEvent.error.eventDate.empty": "Debe ingresar una fecha para el evento",
     "dialog.createEvent.error.eventImage.exceedSize": "El tamaño de la imagen no puede ser superior a 1 MB",
     //Delete Event Dialog
     "dialog.deleteEvent.title": "Eliminar evento",
@@ -31,6 +31,9 @@ var messagesObject = {
     //Save events
     "createEvents.error.noEventsToSave": "No hay eventos para guardar.",
     "createEvents.error.events.creation": "Error al guardar eventos.",
+    //Update events
+    "updateEvents.error.noEventsToUpdate": "No hay eventos para actualizar.",
+    "updateEvents.error.events.update": "Error al actualizar eventos.",
     //Open timeline
     "eventDetail.error.noEvent": "No se encontró información sobre el evento.",
     "eventDetail.error.noImage": "No se encontró la imagen del evento.",

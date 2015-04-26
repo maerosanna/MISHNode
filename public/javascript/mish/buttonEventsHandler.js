@@ -202,7 +202,7 @@ function resetTimeruler(){
   center_date = moment();
 
   mishJsonObjs.timelineJson = null;
-  mishJsonObjs.eventsJsonElement = [];
+  //  mishJsonObjs.eventsJsonElement = [];
   supermish.clearEvents();
 
   //Clean the title of the open timeline
@@ -227,7 +227,7 @@ function createMISHEventBtnAction() {
   var imageOfEvent = null;
 
   //Hide the showed errors
-  showErrorMsg("#errorNewEvent",false);
+  showErrorMsg("#errorNewEvent", false);
 
   //Boolean that show xor hide the error message
   var showError = false;
@@ -278,12 +278,11 @@ function createMISHEventBtnAction() {
 
   if (showError) {
     showErrorMsg("#errorNewEvent",true);
-    user_loggedIn = false;
   } else {
-    //Get the ID that the event will have
+    /*//Get the ID that the event will have
     var eventsArrayLastPos = mishJsonObjs.eventsJsonElement.length;
     var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
-    newEventObj.id = eventID;
+    newEventObj.id = eventID;*/
 
     var groupOfDate = findGroupOfEvent(newEventObj.time);
     var eventXPos = 0;
@@ -294,17 +293,131 @@ function createMISHEventBtnAction() {
     supermish.pushEvent(mishEvent);
 
     if(imageOfEvent && imageOfEvent.files && imageOfEvent.files[0]){
-        readImageURL(imageOfEvent, function(imageData){
+      readImageURL(imageOfEvent, function(imageData){
         newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
 
         mishEvent.imageElement = imageData;
 
         //Add the created event object to the array of events of the timeline
-        mishJsonObjs.eventsJsonElement.push(newEventObj);
+        //  mishJsonObjs.eventsJsonElement.push(newEventObj);
       });
     }else{
-      mishJsonObjs.eventsJsonElement.push(newEventObj);
+      //  mishJsonObjs.eventsJsonElement.push(newEventObj);
+    }
+
+    jQuery('#newEventDialog').dialog('close');
+
+  }
+}
+
+/**
+ * Function that validates the fields for Editing an existing Event and updates
+ * the information in the respective arrays.
+ * 
+ */
+function updateMISHEventBtnAction() {
+  var imageOfEvent = null;
+
+  //Hide the showed errors
+  showErrorMsg("#errorNewEvent", false);
+
+  //Boolean that show xor hide the error message
+  var showError = false;
+
+  //The ID of the error's container DIV
+  var containerDIV = "#newEventErrorMsg";
+
+  //Delete the last error message
+  clearErrorMessages(containerDIV);
+
+  //Create an event object with the info to update
+  var newEventObj = {
+    "title": jQuery("#eventName").val(),
+    "description": jQuery("#eventDescription").val(),
+    "date": jQuery("#eventDate").val(),
+    "time": (moment(jQuery("#eventDate").val(), "DD-MM-YYYY")).valueOf(),
+    "image": jQuery("#eventImg").val(),
+    "url": jQuery("#eventUrl").val()
+  };
+
+  //Validate the data of the event
+  if(newEventObj.title === "") {
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
+    showError = true;
+  }else if(newEventObj.title.length > 70){
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.size");
+    showError = true;
+  }
+
+  if(newEventObj.description && newEventObj.description.length > 800){
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDescription.size");
+    showError = true;
+  }
+
+  if(newEventObj.image){
+    imageOfEvent = document.getElementById("eventImg");
+    //Get the file size of the picked image for preventing the upload of heavy files
+    var imageSize = (imageOfEvent.files[0].size/1024)/1024;
+    if(imageSize > 1){
+      appendErrorMessage(containerDIV, "dialog.createEvent.error.eventImage.exceedSize");
+      showError = true;
+    }
+  }
+
+  if(newEventObj.date === "") {
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.empty");
+    showError = true;
+  }
+
+  if (showError) {
+    showErrorMsg("#errorNewEvent",true);
+    user_loggedIn = false;
+  } else {
+    //Get the event to update
+    var eventPos = supermish.get("eventToUpdate");
+    if(eventPos < 0){
+      console.log("ERROR: Index of event to update is -1");
+      return;
+    }
+
+    var eventToUpdate = supermish.timelineEvents[eventPos];
+    if(!eventToUpdate){
+      console.log("ERROR: Getting event for update");
+      return;
+    }
+
+    var groupOfDate = findGroupOfEvent(newEventObj.time);
+    var eventXPos = 0;
+    if(groupOfDate){
+      eventXPos = calculateXPosOfEvent(groupOfDate, newEventObj);
+      eventToUpdate.containerGroup = groupOfDate;
+      eventToUpdate.x = eventXPos;
+    }else{
+      eventToUpdate.containerGroup = null;
+      eventToUpdate.x = -1;
+    }
+
+    eventToUpdate.storeableData.title = newEventObj.title;
+    eventToUpdate.storeableData.description = newEventObj.description;
+    eventToUpdate.storeableData.date = newEventObj.date;
+    eventToUpdate.storeableData.time = newEventObj.time;
+    eventToUpdate.storeableData.updated = true;
+    eventToUpdate.updateDetailElement();
+    supermish.sortEvents();
+
+    if(imageOfEvent && imageOfEvent.files && imageOfEvent.files[0]){
+      readImageURL(imageOfEvent, function(imageData){
+        newEventObj.image = imageOfEvent.files[0];
+        newEventObj.imageElement = imageData;
+        eventToUpdate.imageElement = imageData;
+
+        //  @TODO update this array...
+        //  mishJsonObjs.eventsJsonElement.push(newEventObj);
+      });
+    }else{
+      //  @TODO update this array...
+      //  mishJsonObjs.eventsJsonElement.push(newEventObj);
     }
 
     jQuery('#newEventDialog').dialog('close');

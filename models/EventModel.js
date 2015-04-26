@@ -39,6 +39,11 @@ var EventSchema = new Schema({
 
 EventSchema.pre('save', function(next, done){
   var _me = this;
+
+  if(!_me.imageName){
+    return next();
+  }
+
   var gfs = gridFS(mongoose.connection.db);
   var writestream = gfs.createWriteStream({
     filename: _me.imageName
@@ -48,7 +53,6 @@ EventSchema.pre('save', function(next, done){
   writestream.on('close', function (file) {
     _me.image = file._id;
     _me.imageURL = undefined;
-    _me.imageName = undefined;
     return next();
   });
 });
@@ -86,6 +90,36 @@ EventSchema.statics.findEventImage = function(eventId, response, callback) {
     });
 
   });
+};
+
+EventSchema.statics.updateEvents = function(eventsToUpdate, callback){
+  var _me = this;
+  var pendingEvents = eventsToUpdate.length;
+  var updatedEvents = [];
+  eventsToUpdate.forEach(function(eventObj, index){
+    var eventId = eventObj._id;
+    delete eventObj._id;
+    _me.findByIdAndUpdate(eventId, {$set:eventObj}, function(err, updatedEvent){
+      pendingEvents--;
+      if(err){
+        console.log("ERROR: DB event not updated");
+        return;
+      }
+
+      updatedEvents.push(updatedEvent);
+      if(pendingEvents <= 0){
+        callback(null, updatedEvents);
+        return;
+      }
+    });
+  });
+
+  /*Model.findOne({ name: 'borne' }, function (err, doc){
+    doc.name = 'jason borne';
+    doc.visits.$inc();
+    doc.save();
+  });*/
+
 };
 
 /**

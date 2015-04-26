@@ -13,40 +13,9 @@ function calculateDistance(date1, date2) {
  * @returns {moment}
  */
 function findCenterDate() {
-  return (moment(mishJsonObjs.eventsJsonElement[0].date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
-
-
-  // @TODO Calculate the real center date for the timeline.
-
-  if (mishJsonObjs.eventsJsonElement.length > 0) {
-    var menor = null;
-    var mayor = null;
-    mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
-      var eventDateMoment = moment(eventObj.date, "DD-MM-YYYY");
-      if (menor == null) {
-        menor = eventDateMoment;
-      }
-      else {
-        if (eventDateMoment.isBefore(menor)) {
-          menor = eventDateMoment;
-        }
-      }
-
-      if (mayor == null) {
-        mayor = eventDateMoment;
-      } else {
-        if (mayor.isBefore(eventDateMoment)) {
-          mayor = eventDateMoment;
-        }
-      }
-
-    });
-
-    var mitad = menor.clone().add('' + zoom_local, calculateDistance(menor, mayor) / 2);
-    return mitad.format('DD-MM-YYYY');
-  } else {
-    return null;
-  }
+  //  return (moment(mishJsonObjs.eventsJsonElement[0].date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
+  var eventInMiddle = Math.floor(supermish.timelineEvents.length / 2);
+  return (moment(supermish.timelineEvents[eventInMiddle].storeableData.date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
 }
 
 /**

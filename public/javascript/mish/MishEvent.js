@@ -36,11 +36,9 @@ Mish.Event.prototype.set = function(attr, value){
  * 
  */
 Mish.Event.prototype.step = function(){
+  this.containerGroup = findGroupOfEvent(this.storeableData.time);
   if(this.containerGroup){
-    this.containerGroup = findGroupOfEvent(this.storeableData.time);
-    if(this.containerGroup){
-      this.x = calculateXPosOfEvent(this.containerGroup, this.storeableData);
-    }
+    this.x = calculateXPosOfEvent(this.containerGroup, this.storeableData);
   }
 
   if (this.x < mishGA.workAreaWidth
@@ -193,4 +191,11 @@ Mish.Event.prototype.mousedown = function(mouseX, mouseY){
   if(this.mouseOver){
     createEventDetail(this);
   }
+};
+
+Mish.Event.prototype.updateDetailElement = function(){
+  this.detailElement.find(".mish_detail_title span").text(this.storeableData.title);
+  this.detailElement.find("div.mish_detail_description p.mish_detail_description_img img").attr("src", this.imageElement.src);
+  this.detailElement.find("div.mish_detail_description p.mish_detail_description_txt div.mish_detail_date").text("" + this.storeableData.date);
+  this.detailElement.find("div.mish_detail_description p.mish_detail_description_txt div.mish_detail_description_text").text(this.storeableData.description);
 };

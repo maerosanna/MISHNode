@@ -38,6 +38,10 @@ function loadExternalPages() {
     createBasicDialog('#newEventDialog', 'dialog.createEvent.title');
     //Assign button listeners
     jQuery("#newEventCancel").click(function () {
+      //Clear the event to update
+      if(supermish.get("eventToUpdate")){
+        supermish.set("eventToUpdate", -1);
+      }
       jQuery("#buttonCreateEvent").hide();
       jQuery("#buttonEditEvent").hide();
       closeDialog("#newEventDialog");
@@ -45,7 +49,7 @@ function loadExternalPages() {
     jQuery("#buttonCreateEvent").hide();
     jQuery("#buttonCreateEvent").click(createMISHEventBtnAction);
     jQuery("#buttonEditEvent").hide();
-    //jQuery("#buttonEditEvent").click(editMISHEventBtnAction);
+    jQuery("#buttonEditEvent").click(updateMISHEventBtnAction);
     //Hide the error section
     jQuery("#errorNewEvent").hide();
   });

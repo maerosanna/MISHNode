@@ -155,10 +155,10 @@ function openTimeline(index){
   mishJsonObjs.timelineJson = user_timelines[index];
 
   //2. Get the events of the loaded timeline
-  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
+  //  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
 
   //2.1 Set some required information (if it's necessary) to the timeline events
-  mishJsonObjs.eventsJsonElement.forEach(function (eventObj, index) {
+  mishJsonObjs.timelineJson.events.forEach(function (eventObj, index) {
     if (eventObj.date) {
       //If the event hasn't time information, calculate it
       if (!eventObj.time) {
@@ -190,9 +190,11 @@ function openTimeline(index){
           var res = new Image();
           res.src = 'data:image/png;base64,' + encode(bytes);
 
-          (mishJsonObjs.eventsJsonElement[eventIndex]).image = arrayBuffer;
-          (mishJsonObjs.eventsJsonElement[eventIndex]).imageElement = res;
+          //  (mishJsonObjs.eventsJsonElement[eventIndex]).image = arrayBuffer;
+          //  (mishJsonObjs.eventsJsonElement[eventIndex]).imageElement = res;
 
+          mishEvent.storeableData.image = arrayBuffer;
+          mishEvent.storeableData.imageElement = res;
           mishEvent.imageElement = res;
         }
 
