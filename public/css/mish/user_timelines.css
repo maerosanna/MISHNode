@@ -1,0 +1,137 @@
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADED TIMELINES CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#user_timelines_container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: none;
+
+  z-index: 60;
+}
+
+div#user_timelines_container div.user_timelines_overlay {
+  position: relative;
+  z-index: 61;
+}
+
+div#user_timelines_container div.user_timelines_panel {
+  width: 30%;
+  height: inherit;
+  background-color: #13829f;
+  color: #AB643F;
+  float: right;
+  
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  z-index: 62;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title {
+  background-color: #024252;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title span {
+  font-size: 1.5em;
+  color: #dadada;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close{
+  height: inherit;
+  color: #cacaca;
+  /*background-color: #032D38;*/
+  cursor: pointer;
+
+  float: right;
+
+  -webkit-transition: all .3s !important;
+  -moz-transition: all .3s !important;
+  -o-transition: all .3s !important;
+  transition: all .3s !important;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close:hover{
+  /*background-color: #0A809E;*/
+  color: #fafafa;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39,
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39:before{
+  font-size: 1.4em;
+  text-align: center;
+  margin-left: 0px;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul{
+  color: #fafafa;
+  line-height: 35px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li:first-child{
+  border-bottom: 1px dashed #34C5EB;
+  display: inline;
+  text-align: center;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li{
+  width: 100%;
+  float: left;
+  direction: ltr;
+  border: none;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a {
+  display: block; /*Esto hace que se ocupe todo el espacio*/
+  width: auto;
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 15px; /*0 - top/down | 15 left/right*/
+  vertical-align: middle;
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:hover {
+  background-color: #0A3F50;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:active {
+  background-color: #009999;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a span{
+  vertical-align: middle;
+  display: inline;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182{
+  font-size: 1.6em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182:before{
+  margin-left: 0px;
+}

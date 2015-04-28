@@ -22,11 +22,11 @@ exports.updateTimeline = function(req, res){
   //   cuáles han sido modificados y cuáles permenecieron intactos.
   var timelineObj = req.body;
 
-  if(!timelineObj || !timelineObj.eventsToAdd || timelineObj.eventsToAdd.length == 0){
+  if(!timelineObj || (timelineObj && !timelineObj.centerDate && !timelineObj.eventsToAdd)){
     return res.status(400).send({code:'error.operation'});
   }
 
-  TimelineModel.addEventsToTimeline(timelineObj._id, timelineObj.eventsToAdd, function(err, timelineUpdated){
+  TimelineModel.updateTimeline(timelineObj._id, timelineObj, function(err, timelineUpdated){
     if(err){
       console.log('No se pudo actualizar el timeline', err);
       return res.status(400).send(err);

@@ -1,0 +1,161 @@
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADING ANIMATION
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#loading_container{
+  width: 100%;
+  height: 100%;
+  z-index: 150;
+  display: none;
+}
+
+div#loading_container div.loader_overlay{
+  background: #13829f;
+  z-index: 152;
+}
+
+div#loading_container div.loader_background{
+  width: 100%;
+  height: 130px;
+  text-align: center;
+  background-color: #13829f;
+  overflow: hidden;
+
+  position: absolute;
+  top: 28%;
+  top: -webkit-calc(50% - 100px);
+  top: calc(50% - 100px);
+
+  z-index: 154;
+}
+
+div#loading_container div.loader_background div.box{
+  display: inline-block;
+  height: 100px;
+  width: 100%;
+  float:left;
+  position: relative;
+  z-index: 155;
+  /*margin:0 -4px -5px -2px;*/
+  transition: all .2s ease;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 700px){
+  div#loading_container div.loader_background div.box{
+    width: 50%;
+  }
+
+  div#loading_container div.loader_background div.box:nth-child(2n-1){
+    background-color: inherit;
+  }
+
+  div#loading_container div.loader_background div.box:nth-child(4n),.box:nth-child(4n-3) {
+    background-color: rgba(0,0,0,0.05);
+  }
+
+}
+
+@media (max-width: 420px){
+  div#loading_container div.loader_background div.box{
+    width: 100%;
+  }
+
+  div#loading_container div.loader_background div.box:nth-child(4n),.box:nth-child(4n-3){
+    background-color: inherit;
+  }
+
+  div#loading_container div.loader_background div.box:nth-child(2n-1){
+    background-color:rgba(0,0,0,0.05);
+  }
+
+}
+
+/* -------------- Clock -------------- */
+
+div#loading_container div.loader_background div.clock{
+  border-radius: 60px;
+  border: 3px solid #fff;
+  height: 80px;
+  width: 80px;
+  position: relative;
+
+  top: 28%;
+  top: -webkit-calc(50% - 43px);
+  top: calc(50% - 43px);
+  left: 35%;
+  left: -webkit-calc(50% - 43px);
+  left: calc(50% - 43px);
+}
+
+div#loading_container div.loader_background div.clock:after{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  top:2px;
+  left: 48%;
+  height: 38px;
+  width: 4px;
+  border-radius: 5px;
+  -webkit-transform-origin: 50% 97%;
+      transform-origin: 50% 97%;
+  -webkit-animation: grdAiguille 2s linear infinite;
+      animation: grdAiguille 2s linear infinite;
+}
+
+@-webkit-keyframes grdAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes grdAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+div#loading_container div.loader_background div.clock:before{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  top:6px;
+  left: 48%;
+  height: 35px;
+  width: 4px;
+  border-radius: 5px;
+  -webkit-transform-origin: 50% 94%;
+      transform-origin: 50% 94%;
+  -webkit-animation: ptAiguille 12s linear infinite;
+      animation: ptAiguille 12s linear infinite;
+}
+
+@-webkit-keyframes ptAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes ptAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+div#loading_container div.loader_background div.box p{
+  color: #777;
+  font-family:  Lato,"Helvetica Neue" ;
+  font-weight: 300;
+  position: absolute;
+  font-size: 20px;
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  bottom: 0px;
+  margin: 0;
+  top:100px;
+  background-color: #fff;
+  text-transform: uppercase;
+  transition: all .2s ease;
+  z-index: 155;
+}

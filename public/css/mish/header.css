@@ -1,0 +1,201 @@
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+HEADER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#header {
+  width: 100%;
+  height: 75px;
+  line-height: 75px;
+
+  color: white;
+  background: #13829f;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 50;
+}
+
+div#header h1 {
+  float: left;
+  color: #073341;
+  font-size: 2.5em;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px;
+  background-color: #13829f;
+  border: none;
+  cursor: default;
+
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+div#header h1:hover {
+  color: #EDEDED;
+  background-color: #073341;
+}
+
+div#header h3 {
+  float: none;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  color: #fdffc7;
+  padding: 0;
+  margin: 0 0 0 40px;
+}
+
+div#header div.headerButtons {
+  height: auto;
+  line-height: 75px;
+  border: none;
+  position: absolute;
+  right: 0px;
+}
+
+
+
+div#header div.headerButtons ul {
+  height: auto;
+  line-height: 75px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div#header div.headerButtons li {
+  height: auto;
+  float: left;
+
+  padding: 0;
+  margin: 0;
+
+  direction: ltr;
+
+  line-height: 75px;
+
+  border: none;
+}
+
+div#header div.headerButtons li:last-of-type a {
+  border-right: none;
+}
+
+div#header div.headerButtons ul li a {
+  display: block; /*Esto hace que se ocupe todo el espacio*/
+  width: auto;
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 15px; /*0 - top/down | 15 left/right*/
+  line-height: 75px; /*Esto hace que se centre el texto*/
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#header div.headerButtons ul li a:hover {
+  background-color: #073341;
+  color: white;
+}
+
+div#header div.headerButtons ul li a:active {
+  background-color: #009999;
+  color: white;
+}
+
+div#header div.headerButtons li.user_header {
+  background-color: #073341;
+  height: 75px;
+  display: none;
+}
+
+div#header div.headerButtons li.user_header a{
+  height: inherit;
+}
+
+div#header div.headerButtons li.user_header a:hover {
+  background-color: #05B3DE;
+}
+
+div#header div.headerButtons li.user_header a span{
+  vertical-align: middle;
+  display: inline;
+}
+div#header div.headerButtons ul li a div.flaticon-user157{
+  font-size: 2em;
+  display: none;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons ul li a div.flaticon-user157:before{
+  margin-left: 0px;
+}
+
+@media all and (max-width: 500px) {
+  div#header div.headerButtons ul li a div.flaticon-user157{ 
+    display: inline;  
+  }
+  div#header div.headerButtons ul li a span{
+    display: none;
+  }
+}
+
+
+div#header div.headerButtons ul li a div.flaticon-add184{
+  font-size: 2em;
+  display: none;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons ul li a div.flaticon-add184:before{
+  margin-left: 0px;
+}
+
+@media all and (max-width: 500px) {
+  div#header div.headerButtons ul li a div.flaticon-add184{ 
+    display: inline;  
+  }
+  div#header div.headerButtons ul li a span{
+    display: none;
+  }
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4{
+  font-size: 2em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4:before{
+  margin-left: 0px;
+}
+
+div#header div.headerButtons li.logout {
+  color: #E6EA85;
+  background-color: #66211F;
+  display: none;
+}
+
+div#header div.headerButtons li.logout a {
+  
+}
+
+div#header div.headerButtons ul li.logout a:hover {
+  color: #E6EA3E;
+  background-color: #E64A45;
+}
+
+div#header div.headerButtons ul li.logout a:active {
+  background-color: #7F2926;
+  color: #888C25;
+}

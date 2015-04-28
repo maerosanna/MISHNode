@@ -32,15 +32,24 @@ var TimelineSchema = new Schema({
  */
 
 
-TimelineSchema.statics.addEventsToTimeline = function(timelineId, eventsToAdd, callback) {
+TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, callback) {
   var query = {_id: new ObjectId(timelineId)};
-  this.findOneAndUpdate(query,
-    { $addToSet:{ 
-      events: { 
-        $each: eventsToAdd 
-      } 
-    } 
-    }, function(err, timelineUpdatedObj){
+  var dataToUpdate = {};
+  if(newTimelineData.eventsToAdd){
+    dataToUpdate.$addToSet = {
+      events:{
+        $each: newTimelineData.eventsToAdd 
+      }
+    };
+  }
+
+  if(newTimelineData.centerDate){
+    dataToUpdate.$set = {
+      centerDate: newTimelineData.centerDate
+    };
+  }
+
+  this.findOneAndUpdate(query, dataToUpdate, function(err, timelineUpdatedObj){
       if(err){
         return callback({message:"ERROR IN OPERATION"}, null);
       }

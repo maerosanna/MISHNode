@@ -1,0 +1,84 @@
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+TIME RULER STYLES
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+div#timeline-container {
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  z-index: 15;
+}
+
+div#timeline-container div.rulerGroup {
+  height: 40px;
+  display: inline;
+  position: absolute;
+}
+
+div#timeline-container div.date {
+  height: 40px;
+  background: #262f26;
+  position: absolute;
+}
+
+div#timeline-container div.date div.centerDate {
+  height: inherit;
+  border-left: solid;
+  border-left-color: #13829f;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.centerDate div.label {
+  width: 100px;
+  color: #EEEEEE;
+  font-size: 14px;
+  background: #13829f;
+  padding: 5px;
+  margin: 0px;
+
+  position: absolute;
+  top: -30px;
+}
+
+div#timeline-container div.date div.separatorDate {
+  height: inherit;
+
+  border-left: solid;
+  border-left-color: #f2edf4;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.separatorDate div.label {
+  width: 115px;
+
+  color: #d1dbef;
+  font-size: 11px;
+
+  position: absolute;
+  left: 2px;
+  z-index: 16;
+}
+
+div#timeline-container div.date div.normalDate {
+  height: inherit;
+
+  position: absolute;
+  top: 20px;
+
+  border-left: solid;
+  border-left-color: #f2edf4;
+  border-left-width: thin;
+}
+
+div#timeline-container div.date div.normalDate div.label {
+  color: #d1dbef;
+  font-size: 11px;
+  text-transform: capitalize;
+
+  position: absolute;
+  left: 2px;
+}

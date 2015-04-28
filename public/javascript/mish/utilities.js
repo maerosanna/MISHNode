@@ -260,7 +260,9 @@ function createEventDetail(eventObj){
       e.data.parentElement.hide("fade");
     });
 
-    detailElementClone.find("div.mish_detail_description p.mish_detail_description_img").append(jQuery("<img/>").attr("src", eventObj.imageElement.src));
+    if(eventObj.imageElement){
+      detailElementClone.find("div.mish_detail_description p.mish_detail_description_img").append(jQuery("<img/>").attr("src", eventObj.imageElement.src));
+    }
     detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_date"}).text("" + eventObj.storeableData.date));
     detailElementClone.find("div.mish_detail_description p.mish_detail_description_txt").append(jQuery("<div/>",{class:"mish_detail_description_text"}).text(eventObj.storeableData.description));
 
