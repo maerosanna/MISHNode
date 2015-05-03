@@ -43,6 +43,16 @@ TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, ca
     };
   }
 
+  if(newTimelineData.eventsToDelete){
+    console.log("TIMELINE WILL LOSE SOME EVENTS", newTimelineData.eventsToDelete);
+    dataToUpdate.$pullAll = {
+      events: []
+    };
+    newTimelineData.eventsToDelete.forEach(function(eventId){
+      dataToUpdate.$pullAll.events.push(eventId);
+    });
+  }
+
   if(newTimelineData.centerDate){
     dataToUpdate.$set = {
       centerDate: newTimelineData.centerDate
@@ -51,6 +61,7 @@ TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, ca
 
   this.findOneAndUpdate(query, dataToUpdate, function(err, timelineUpdatedObj){
       if(err){
+        console.log("ERROR: DB operation in TimelineSchema.statics.updateTimeline\n", err);
         return callback({message:"ERROR IN OPERATION"}, null);
       }
 

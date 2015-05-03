@@ -10,6 +10,7 @@ Mish = function(){
   this.renderer = null;
   this.eventToUpdate = null;
   this.eventToDelete = null;
+  this.eventsToDelete = [];
 };
 
 Mish.prototype.constructor = Mish;

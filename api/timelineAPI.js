@@ -22,7 +22,11 @@ exports.updateTimeline = function(req, res){
   //   cuáles han sido modificados y cuáles permenecieron intactos.
   var timelineObj = req.body;
 
-  if(!timelineObj || (timelineObj && !timelineObj.centerDate && !timelineObj.eventsToAdd)){
+  if(!timelineObj 
+      || (timelineObj 
+            && !timelineObj.centerDate 
+            && !timelineObj.eventsToAdd
+            && !timelineObj.eventsToDelete)){
     return res.status(400).send({code:'error.operation'});
   }
 

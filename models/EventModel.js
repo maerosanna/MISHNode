@@ -57,6 +57,21 @@ EventSchema.pre('save', function(next, done){
   });
 });
 
+EventSchema.pre('remove', function(next, done){
+  var _me = this;
+
+  if(_me.image || _me.imageName){
+    GridStore.unlink(mongoose.connection.db, _me.imageName, function(err, gridStore) {
+      if(err){
+        console.log("ERROR: On image deletion");
+        return;
+      }
+    });
+  }
+
+  return next();
+});
+
 /**
  * --------------------------------------------------
  * STATICS
@@ -101,6 +116,7 @@ EventSchema.statics.updateEvents = function(eventsToUpdate, callback){
     delete eventObj._id;
     _me.findByIdAndUpdate(eventId, {$set:eventObj}, function(err, updatedEvent){
       pendingEvents--;
+
       if(err){
         console.log("ERROR: DB event not updated");
         return;
@@ -114,12 +130,31 @@ EventSchema.statics.updateEvents = function(eventsToUpdate, callback){
     });
   });
 
-  /*Model.findOne({ name: 'borne' }, function (err, doc){
-    doc.name = 'jason borne';
-    doc.visits.$inc();
-    doc.save();
-  });*/
+};
 
+EventSchema.statics.deleteEvents = function(eventsToDelete, callback){
+  var _me = this;
+  var pendingEvents = eventsToDelete.length;
+  var deletedEvents = [];
+
+  eventsToDelete.forEach(function(eventId, index){
+    var query = {_id: new ObjectId(eventId)};
+    _me.findOne(query, function(err, eventObj){
+      if(err){
+        console.log("ERROR: No event found before deletion");
+        return callback({message:"ERROR IN OPERATION"}, null);
+      }
+
+      eventObj.remove();
+      pendingEvents--;
+
+      deletedEvents.push(eventObj);
+      if(pendingEvents <= 0){
+        callback(null, deletedEvents);
+        return;
+      }
+    });
+  });
 };
 
 /**

@@ -271,6 +271,9 @@ function createEventDetail(eventObj){
       var eventObj = e.data.sourceMishEvent;
       jQuery("div.formMISH-error-messages b").text(eventObj.storeableData.title);
       jQuery('#deleteEventDialog').dialog('open');
+
+      //Set the event to delete in the Mish main object
+      supermish.set("eventToDelete", eventObj.positionRelativeToEvents);
     });
 
     //Bind the event for editing the MishEvent

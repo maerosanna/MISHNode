@@ -306,7 +306,7 @@ function createMISHEventBtnAction() {
       //  mishJsonObjs.eventsJsonElement.push(newEventObj);
     }
 
-    jQuery('#newEventDialog').dialog('close');
+    closeDialog('#newEventDialog');
 
   }
 }
@@ -420,9 +420,38 @@ function updateMISHEventBtnAction() {
       //  mishJsonObjs.eventsJsonElement.push(newEventObj);
     }
 
-    jQuery('#newEventDialog').dialog('close');
+    closeDialog('#newEventDialog');
 
   }
+}
+
+/**
+ * Function that marks the selected event in MISH.eventToDelete for
+ * deletion and removes it from the canvas.
+ * 
+ */
+function deleteMISHEventBtnAction(){
+  //Get the event to update
+  var eventPos = supermish.get("eventToDelete");
+  if(eventPos < 0){
+    console.log("ERROR: Index of event to delete is -1");
+    return;
+  }
+
+  //Remove the event to delete from the "supermish.timelineEvents" array
+  var eventToDelete = supermish.timelineEvents.splice(eventPos, 1)[0];
+  supermish.sortEvents();
+  if(!eventToDelete){
+    console.log("ERROR: Getting event for delete");
+    return;
+  }
+
+  //Put the event to delete in the "supermish.eventsToDelete" array
+  eventToDelete.detailElement.hide("fade");
+  supermish.eventsToDelete.push(eventToDelete);
+
+  //Close the popup
+  closeDialog("#deleteEventDialog");
 }
 
 /**
@@ -437,6 +466,8 @@ function saveTimelineBtnAction() {
     if(mishJsonObjs.timelineJson && mishJsonObjs.timelineJson.name){
       //The timeline to save already exists in DB
       updateTimeline(function(err, updatedTimeline){
+        supermish.eventsToDelete = [];
+
         if(err){
           showAlertMessage(true, err.msg);
           return;

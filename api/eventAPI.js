@@ -116,3 +116,21 @@ exports.updateEvents = function(req, res){
   });
 
 };
+
+exports.deleteEvents = function(req, res){
+  var eventsToDelete = req.body.eventsId;
+  
+  if(!eventsToDelete || !eventsToDelete.length || eventsToDelete.length === 0){
+    return res.status(400).send({code:"deleteEvents.error.noEventsToDelete"});
+  }
+
+  EventModel.deleteEvents(eventsToDelete, function(err, deletedEvents){
+    if(err || !deletedEvents || (deletedEvents && deletedEvents.length === 0)){
+      console.log('No se pudo eliminar el arreglo de eventos', err);
+      return res.status(400).send({code:"deleteEvents.error.events.delete"});
+    }
+
+    return res.status(200).send(deletedEvents);
+  });
+
+};

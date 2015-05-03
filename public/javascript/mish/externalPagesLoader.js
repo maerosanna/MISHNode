@@ -60,11 +60,15 @@ function loadExternalPages() {
     createBasicDialog('#deleteEventDialog', 'dialog.deleteEvent.title');
     //Assign button listeners
     jQuery("#deleteEventCancel").click(function () {
+      //Clear the evento to delete from the MISH object
+      supermish.set("eventToDelete", -1);
+
+      //Close the popup
       closeDialog("#deleteEventDialog");
     });
-    
-    //jQuery("#buttonDeleteEvent").click(deleteMISHEventBtnAction);
-    
+
+    jQuery("#buttonDeleteEvent").click(deleteMISHEventBtnAction);
+
   });
 
   //Load newTimelineForm.html

@@ -204,7 +204,7 @@ function openTimeline(index){
           showLoadingAnimation(false);
 
           //Show the timeline title
-          jQuery(".timeline_title").append(mishJsonObjs.timelineJson.name);
+          jQuery(".timeline_title").append(msg["timeline.title"] + "" + mishJsonObjs.timelineJson.name);
           jQuery(".timeline_title").slideDown();
 
           drawTimeRuler();

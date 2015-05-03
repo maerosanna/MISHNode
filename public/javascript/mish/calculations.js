@@ -13,9 +13,12 @@ function calculateDistance(date1, date2) {
  * @returns {moment}
  */
 function findCenterDate() {
-  //  return (moment(mishJsonObjs.eventsJsonElement[0].date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
-  var eventInMiddle = Math.floor(supermish.timelineEvents.length / 2);
-  return (moment(supermish.timelineEvents[eventInMiddle].storeableData.date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
+  if(supermish.timelineEvents && supermish.timelineEvents.length > 0){
+    var eventInMiddle = Math.floor(supermish.timelineEvents.length / 2);
+    return (moment(supermish.timelineEvents[eventInMiddle].storeableData.date, 'DD-MM-YYYY')).format('DD-MM-YYYY');
+  }else{
+    return moment().format('DD-MM-YYYY');
+  }
 }
 
 /**

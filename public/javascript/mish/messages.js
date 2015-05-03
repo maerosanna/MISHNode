@@ -34,9 +34,13 @@ var messagesObject = {
     //Update events
     "updateEvents.error.noEventsToUpdate": "No hay eventos para actualizar.",
     "updateEvents.error.events.update": "Error al actualizar eventos.",
+    //Delete events
+    "deleteEvents.error.noEventsToDelete": "No hay eventos para eliminar.",
+    "deleteEvents.error.events.delete": "Error al eliminar eventos.",
     //Open timeline
     "eventDetail.error.noEvent": "No se encontró información sobre el evento.",
     "eventDetail.error.noImage": "No se encontró la imagen del evento.",
+    "timeline.title": "Línea de tiempo: ",
     //GENERAL ERRORS
     "error.operation":"Ha ocurrido un error inesperado. Inténtelo nuevamente."
   }

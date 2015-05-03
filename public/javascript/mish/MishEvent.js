@@ -42,7 +42,8 @@ Mish.Event.prototype.step = function(){
   }
 
   if (this.x < mishGA.workAreaWidth
-      && this.x >= 0) {
+      && this.x >= 0
+      && this.storeableData.deleted !== true) {
     this.draw = true;
 
     //Calculate the Y position of the event based on its proximity to
@@ -195,7 +196,9 @@ Mish.Event.prototype.mousedown = function(mouseX, mouseY){
 
 Mish.Event.prototype.updateDetailElement = function(){
   this.detailElement.find(".mish_detail_title span").text(this.storeableData.title);
-  this.detailElement.find("div.mish_detail_description p.mish_detail_description_img img").attr("src", this.imageElement.src);
+  if(this.imageElement){
+    this.detailElement.find("div.mish_detail_description p.mish_detail_description_img img").attr("src", this.imageElement.src);
+  }
   this.detailElement.find("div.mish_detail_description p.mish_detail_description_txt div.mish_detail_date").text("" + this.storeableData.date);
   this.detailElement.find("div.mish_detail_description p.mish_detail_description_txt div.mish_detail_description_text").text(this.storeableData.description);
 };

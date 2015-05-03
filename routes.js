@@ -34,5 +34,6 @@ module.exports = function (app) {
   app.post('/event', eventAPI.saveEvent);
   app.post('/events', eventAPI.createEvents);
   app.put('/events', eventAPI.updateEvents);
+  app.delete('/events', eventAPI.deleteEvents);
 
 };

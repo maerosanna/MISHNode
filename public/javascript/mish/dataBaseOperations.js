@@ -160,22 +160,31 @@ function updateTimeline(callback){
 
   //1. Verify if the events in the timeline has changed
   var eventsToCreate = [];
-  var eventsToUpdate = []; // @TODO Fill this when the application lets the user interact with its events
-  // var eventsToDelete = []; // @TODO Fill this when the application lets the user interact with its events
+  var eventsToUpdate = [];
+  var eventsToDelete = []; // @TODO Fill this when the application lets the user interact with its events
 
-  //  mishJsonObjs.eventsJsonElement.forEach(function(eventObj){
-  supermish.timelineEvents.forEach(function(eventObj){
-    if(!eventObj.storeableData._id){
-      //The event doesn't have an _ID attribute. This is a new event in the timeline so....
-      eventsToCreate.push(eventObj);
-    }else if(eventObj.storeableData._id 
-        && eventObj.storeableData.updated === true){
-      eventsToUpdate.push(eventObj);
-    }
-  });
+  if(supermish.timelineEvents && supermish.timelineEvents.length > 0){
+    supermish.timelineEvents.forEach(function(eventObj){
+      if(!eventObj.storeableData._id){
+        //The event doesn't have an _ID attribute. This is a new event in the timeline so....
+        eventsToCreate.push(eventObj);
+      }else{
+        if(eventObj.storeableData.updated === true){
+          eventsToUpdate.push(eventObj);
+        }
 
-  if(eventsToCreate.length == 0
-      && eventsToUpdate.length == 0){
+        if(eventObj.storeableData.deleted === true){
+          eventsToDelete.push(eventObj);
+        }
+      }
+    });
+  }
+
+  eventsToDelete = eventsToDelete.concat(supermish.eventsToDelete);
+
+  if(eventsToCreate.length === 0
+      && eventsToUpdate.length === 0
+      && eventsToDelete.length === 0){
     callback(null, mishJsonObjs.timelineJson);
     return;
   }
@@ -240,6 +249,50 @@ function updateTimeline(callback){
         _id: mishJsonObjs.timelineJson._id,
         centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
       };
+
+      //3. Send the object to database
+      jQuery.ajax({
+        "url": "/timeline",
+        "type": "PUT",
+        "data": timelineToUpdate,
+        "dataType": "JSON"
+      }).done(function (timelineObjUpdated) {
+        if(!timelineObjUpdated){
+          errObj.msg = "error.operation";
+          return callback(errObj, null);
+        }
+
+        return callback(null, timelineObjUpdated);
+      }).fail(function(err){
+        errObj.msg = "error.operation";
+        if(err.responseJSON && err.responseJSON.code){
+          errObj.msg = err.responseJSON.code;
+        }
+
+        return callback(errObj, null);
+      });
+    });
+  }
+
+  //3. Delete the events marked as "deleted" from the DB
+  if(eventsToDelete.length > 0){
+    deleteTimelineEvents(eventsToDelete, function(err, deletedEvents){
+      if(err){
+        errObj.msg = "error.operation";
+        return callback(errObj, null);
+      }
+
+      //2. Create the object to use for update the databse
+      var centerDate = findCenterDate();
+      var timelineToUpdate = {
+        _id: mishJsonObjs.timelineJson._id,
+        eventsToDelete: [],
+        centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
+      };
+
+      deletedEvents.forEach(function(eventObj){
+        timelineToUpdate.eventsToDelete.push(eventObj._id);
+      });
 
       //3. Send the object to database
       jQuery.ajax({
@@ -358,6 +411,48 @@ function updateTimelineEvents(events, callback){
     cache: false,
     contentType: false,
     processData: false
+  }).done(function (data) {
+    showLoadingAnimation(false);
+
+    if(!data){
+      errObj.msg = "error.operation";
+      return callback(errObj, null);
+    }
+
+    return callback(null, data);
+  }).fail(function(err){
+    showLoadingAnimation(false);
+
+    errObj.msg = "error.operation";
+    if(err.responseJSON && err.responseJSON.code){
+      errObj.msg = err.responseJSON.code;
+    }
+
+    callback(errObj, null);
+  });
+}
+
+/**
+ * Function that deletes from database the deleted events in 
+ * the current timeline.
+ * 
+ * @param  {array}   events      The Array of events to delete in DB
+ * @param  {Function} callback   The function to call after completing the deletion task
+ */
+function deleteTimelineEvents(events, callback){
+  showLoadingAnimation(true);
+
+  var errObj = {msg:''};
+
+  var eventsToDelete = [];
+  events.forEach(function(eventObj){
+    eventsToDelete.push(eventObj.storeableData._id);
+  });
+
+  jQuery.ajax({
+    url: '/events',
+    data: {eventsId: eventsToDelete},
+    type: 'DELETE'
   }).done(function (data) {
     showLoadingAnimation(false);
 
