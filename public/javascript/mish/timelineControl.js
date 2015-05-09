@@ -104,6 +104,8 @@ function fillUserTimelinesList() {
     return;
   }
 
+  jQuery(".user_timeline_removable").remove();
+
   user_timelines.forEach(function(timelineObj, index){
     jQuery('<li/>', {
       "id": 'timeline-' + index,
@@ -141,10 +143,6 @@ function openTimeline(index){
   }
 
   showLoadingAnimation(true);
-  //Clean the title of the last open timeline
-  jQuery("div.timeline_title").slideUp(function(){
-    jQuery("div.timeline_title").empty();
-  });
 
   var eventsWithImages = 0;
 
@@ -154,9 +152,9 @@ function openTimeline(index){
   //1. Get the timeline information and assign it to the mishJsonObjs.timelineJson object
   mishJsonObjs.timelineJson = user_timelines[index];
 
-  //2. Get the events of the loaded timeline
-  //  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
+  updateTimelineTitleBar(mishJsonObjs.timelineJson.name);
 
+  //2. Get the events of the loaded timeline
   //2.1 Set some required information (if it's necessary) to the timeline events
   mishJsonObjs.timelineJson.events.forEach(function (eventObj, index) {
     if (eventObj.date) {
@@ -190,9 +188,6 @@ function openTimeline(index){
           var res = new Image();
           res.src = 'data:image/png;base64,' + encode(bytes);
 
-          //  (mishJsonObjs.eventsJsonElement[eventIndex]).image = arrayBuffer;
-          //  (mishJsonObjs.eventsJsonElement[eventIndex]).imageElement = res;
-
           mishEvent.storeableData.image = arrayBuffer;
           mishEvent.storeableData.imageElement = res;
           mishEvent.imageElement = res;
@@ -202,10 +197,6 @@ function openTimeline(index){
         if(eventsWithImages <= 0){
           //Hide the loading animation
           showLoadingAnimation(false);
-
-          //Show the timeline title
-          jQuery(".timeline_title").append(msg["timeline.title"] + "" + mishJsonObjs.timelineJson.name);
-          jQuery(".timeline_title").slideDown();
 
           drawTimeRuler();
         }

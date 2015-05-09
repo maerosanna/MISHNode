@@ -89,10 +89,9 @@ function saveTimeline(callback) {
     //1. Find the center date of all the events of the current timeline
     var centerDate = findCenterDate();
 
-    if (centerDate != null) {
+    if (supermish.timelineEvents && supermish.timelineEvents.length > 0) {
 
       //1. Save the events in database for getting the _ID of each one
-      //  saveTimelineEvents(mishJsonObjs.eventsJsonElement, function(err, savedEvents){
       saveTimelineEvents(supermish.timelineEvents, function(err, savedEvents){
         if(err){
           errObj.msg = "error.operation";
@@ -129,6 +128,8 @@ function saveTimeline(callback) {
             return callback(errObj,null);
           }
 
+          data.events = savedEvents;
+
           return callback(null, data);
         }).fail(function(err){
           errObj.msg = "error.operation";
@@ -140,8 +141,8 @@ function saveTimeline(callback) {
 
       });
 
-
-    } else {
+    }else {
+      console.log("...........");
       errObj.msg = "dialog.createTimeline.error.noEvents";
       callback(errObj,null);
     }

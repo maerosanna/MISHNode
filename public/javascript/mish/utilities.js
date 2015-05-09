@@ -240,6 +240,28 @@ function readImageURL(input, callback) {
   }
 }
 
+function updateTimelineTitleBar(newTitle){
+  //Clean the title of the last open timeline
+  jQuery("div.timeline_title").slideUp(200, function(){
+    jQuery("div.timeline_title").empty();
+
+    //Show the timeline title
+    jQuery("div.timeline_title").append(msg["timeline.title"] + "" + newTitle);
+    jQuery("div.timeline_title").slideDown(400);
+  });
+}
+
+function updateCenterDateDiv(){
+  var oldCenterDateID = center_date.format('DDMMYYYY');
+  jQuery("#mish-cell-" + oldCenterDateID).attr("class", normalDateCssClass);
+  jQuery("#mish-label-" + oldCenterDateID).text(center_date.date());
+
+  center_date = moment(mishJsonObjs.timelineJson.centerDate);
+  var centerDateCellID = center_date.format('DDMMYYYY');
+  jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
+  jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
+}
+
 /**
  * Function that creates a DIV with all the information of an event.
  * 

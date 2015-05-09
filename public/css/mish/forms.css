@@ -26,6 +26,14 @@ FORMS
   width: 100%;
 }
 
+.formMISH-row-info {
+  clear: both;
+  display: table;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  width: 100%;
+}
+
 .formMISH-error-container{
   display: inline-block;
   float: left;
@@ -35,13 +43,24 @@ FORMS
 }
 
 .formMISH-error-container .formMISH-error-messages{
-  background-color: #f2dede;
-  border: 1px solid #d3bfbf;
-  color: #2f2f2f;
+  background-color: #D22C04;
+  border: 1px solid #D22C04;
+  color: #EfEfEf;
   width: 100%;
 }
 
 .formMISH-error-container .formMISH-error-messages p{
+  padding-left: 5px;
+}
+
+.formMISH-error-container .formMISH-info-messages{
+  background-color: #34C5EB;
+  border: 1px solid #34C5EB;
+  color: #2f2f2f;
+  width: 100%;
+}
+
+.formMISH-error-container .formMISH-info-messages p{
   padding-left: 5px;
 }
 

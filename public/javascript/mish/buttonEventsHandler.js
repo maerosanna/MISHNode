@@ -6,6 +6,7 @@
 function assignButtonsListeners() {
   //Assign click event for Create User button
   jQuery("#buttCreateUser").click(function () {
+    clearErrorMessages("#createUserInfoMsg");
     jQuery('#newUserDialog').dialog('open');
     closeMenu();
   });
@@ -77,7 +78,7 @@ function logInBtnAction() {
       }
 
       closeDialog('#logInDialog');
-      jQuery("#user_header_button span").text(userObj.username);
+      jQuery("#user_header_button span").text(msg["myAccount.title"]);
       jQuery(".user_header").show();
       jQuery(".logout").show();
       jQuery(".login").hide();
@@ -473,16 +474,26 @@ function saveTimelineBtnAction() {
           return;
         }
 
+        mishJsonObjs.timelineJson = updatedTimeline;
+        mishJsonObjs.timelineJson.events = supermish.timelineEvents;
+
+        updateCenterDateDiv();
+
         showAlertMessage(false, "dialog.createTimeline.timeline.saved", ": " + updatedTimeline.name);
       });
     }else{
       //This is a new timeline for the logged in user
       jQuery("#newTimelineDialog").dialog('open');
     }
-  }
-  else {
+  }else {
     //No user logged in...it is necessaty to register one for saving the timeline
-    jQuery("#buttCreateUser").click();
+    //Put a message on the user creation dialog for showing the reason of opening it
+    showErrorMsg("#infoCreateUser",false);
+    var containerDIV = "#createUserInfoMsg";
+    appendErrorMessage(containerDIV, "dialog.createUser.info.user.creation.required");
+    showErrorMsg("#infoCreateUser",true);
+    jQuery('#newUserDialog').dialog('open');
+    closeMenu();
   }
 }
 
@@ -519,7 +530,22 @@ function createTimelineBtnAction() {
         return;
       }
 
+      //Show a message for notifying the successfully of the operation
       showAlertMessage(false, "dialog.createTimeline.timeline.saved");
+
+      //Set the created timeline as the current timeline for the application
+      mishJsonObjs.timelineJson = createdTimeline;
+
+      updateTimelineTitleBar(mishJsonObjs.timelineJson.name);
+
+      //Add the timeline to the list of timelines of the user
+      user_timelines.push(createdTimeline);
+
+      //Update the list of timelines of the user
+      fillUserTimelinesList();
+
+      updateCenterDateDiv();
+
       jQuery('#newTimelineDialog').dialog('close');
 
     });

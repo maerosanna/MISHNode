@@ -12,6 +12,7 @@ var messagesObject = {
     "dialog.deleteEvent.title": "Eliminar evento",
     //Create User Dialog
     "dialog.createUser.title": "Crear nuevo usuario",
+    "dialog.createUser.info.user.creation.required": "Para guardar la línea de tiempo debe iniciar sesión o crear un usuario",
     "dialog.createUser.error.username.empty": "Debe ingresar un nombre de usuario",
     "dialog.createUser.error.password.empty": "Debe ingresar la contraseña para su usuario",
     "dialog.createUser.error.password.matches": "Las contraseñas no coinciden",
@@ -40,7 +41,9 @@ var messagesObject = {
     //Open timeline
     "eventDetail.error.noEvent": "No se encontró información sobre el evento.",
     "eventDetail.error.noImage": "No se encontró la imagen del evento.",
+    //TITLES
     "timeline.title": "Línea de tiempo: ",
+    "myAccount.title": "Mi cuenta",
     //GENERAL ERRORS
     "error.operation":"Ha ocurrido un error inesperado. Inténtelo nuevamente."
   }

@@ -783,7 +783,7 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 #mish-blue-theme .ui-widget {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 1.0em;
 }
 #mish-blue-theme .ui-widget .ui-widget {
@@ -793,7 +793,7 @@ body .ui-tooltip {
 #mish-blue-theme .ui-widget select,
 #mish-blue-theme .ui-widget textarea,
 #mish-blue-theme .ui-widget button {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 1em;
 }
 #mish-blue-theme .ui-widget-content {
