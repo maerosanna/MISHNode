@@ -162,7 +162,8 @@ function updateTimeline(callback){
   //1. Verify if the events in the timeline has changed
   var eventsToCreate = [];
   var eventsToUpdate = [];
-  var eventsToDelete = []; // @TODO Fill this when the application lets the user interact with its events
+  var eventsToDelete = [];
+  var operationsToEject = 0;
 
   if(supermish.timelineEvents && supermish.timelineEvents.length > 0){
     supermish.timelineEvents.forEach(function(eventObj){
@@ -183,10 +184,20 @@ function updateTimeline(callback){
 
   eventsToDelete = eventsToDelete.concat(supermish.eventsToDelete);
 
-  if(eventsToCreate.length === 0
-      && eventsToUpdate.length === 0
-      && eventsToDelete.length === 0){
-    callback(null, mishJsonObjs.timelineJson);
+  if(eventsToCreate.length > 0){
+    operationsToEject++;
+  }
+
+  if(eventsToUpdate.length > 0){
+    operationsToEject++;
+  }
+
+  if(eventsToDelete.length > 0){
+    operationsToEject++;
+  }
+
+  if(operationsToEject === 0){
+    callback(null, mishJsonObjs.timelineJson, operationsToEject, null);
     return;
   }
 
@@ -195,8 +206,10 @@ function updateTimeline(callback){
     saveTimelineEvents(eventsToCreate, function(err, savedEvents){
       if(err){
         errObj.msg = "error.operation";
-        return callback(errObj, null);
+        return callback(errObj, null, operationsToEject, null);
       }
+
+      //UNCOMMENT:  return callback(errObj, null, operationsToEject, {"toAdd": savedEvents});
 
       //2. Create the object to use for update the databse
       var centerDate = findCenterDate();

@@ -150,11 +150,19 @@ function openTimeline(index){
   showTimelinesPanel(false);
 
   //1. Get the timeline information and assign it to the mishJsonObjs.timelineJson object
-  mishJsonObjs.timelineJson = user_timelines[index];
+  mishJsonObjs.timelineJson = cloneObj(user_timelines[index]);
+  mishJsonObjs.timelineJson.index = index;
 
   updateTimelineTitleBar(mishJsonObjs.timelineJson.name);
+  console.log("The opened one....");
+  console.log(mishJsonObjs.timelineJson.events);
 
-  //2. Get the events of the loaded timeline
+  //2. Clone the events of the loaded timeline
+  mishJsonObjs.timelineJson.events = [];
+  user_timelines[index].events.forEach(function(_event, index){
+    mishJsonObjs.timelineJson.events.push(cloneObj(_event));
+  });
+
   //2.1 Set some required information (if it's necessary) to the timeline events
   mishJsonObjs.timelineJson.events.forEach(function (eventObj, index) {
     if (eventObj.date) {
