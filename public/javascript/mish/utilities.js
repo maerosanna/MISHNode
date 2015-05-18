@@ -11,11 +11,6 @@ function resizeContainers() {
   jQuery("#work-area-container").css("width", mishGA.workAreaWidth);
   jQuery("#work-area-container").css("height", mishGA.workAreaHeight);
 
-  if (mishGA.canvasObject !== null) {
-    mishGA.canvasObject.setAttribute("width", mishGA.workAreaWidth);
-    mishGA.canvasObject.setAttribute("height", mishGA.workAreaHeight);
-  }
-
   if(mishGA.renderer){
     mishGA.renderer.resize(mishGA.workAreaWidth, mishGA.workAreaHeight);
   }

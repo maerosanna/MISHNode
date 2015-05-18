@@ -203,7 +203,6 @@ function resetTimeruler(){
   center_date = moment();
 
   mishJsonObjs.timelineJson = null;
-  //  mishJsonObjs.eventsJsonElement = [];
   supermish.clearEvents();
 
   //Clean the title of the open timeline
@@ -277,14 +276,14 @@ function createMISHEventBtnAction() {
     showError = true;
   }
 
+  if(newEventObj.time > moment().valueOf()){
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.afterToday");
+    showError = true;
+  }
+
   if (showError) {
     showErrorMsg("#errorNewEvent",true);
   } else {
-    /*//Get the ID that the event will have
-    var eventsArrayLastPos = mishJsonObjs.eventsJsonElement.length;
-    var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
-    newEventObj.id = eventID;*/
-
     var groupOfDate = findGroupOfEvent(newEventObj.time);
     var eventXPos = 0;
     if(groupOfDate){
@@ -299,12 +298,7 @@ function createMISHEventBtnAction() {
         newEventObj.imageElement = imageData;
 
         mishEvent.imageElement = imageData;
-
-        //Add the created event object to the array of events of the timeline
-        //  mishJsonObjs.eventsJsonElement.push(newEventObj);
       });
-    }else{
-      //  mishJsonObjs.eventsJsonElement.push(newEventObj);
     }
 
     closeDialog('#newEventDialog');
@@ -412,13 +406,7 @@ function updateMISHEventBtnAction() {
         newEventObj.image = imageOfEvent.files[0];
         newEventObj.imageElement = imageData;
         eventToUpdate.imageElement = imageData;
-
-        //  @TODO update this array...
-        //  mishJsonObjs.eventsJsonElement.push(newEventObj);
       });
-    }else{
-      //  @TODO update this array...
-      //  mishJsonObjs.eventsJsonElement.push(newEventObj);
     }
 
     closeDialog('#newEventDialog');

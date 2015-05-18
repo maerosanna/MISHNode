@@ -26,15 +26,6 @@ Mish.prototype.set = function(attr, value){
 Mish.prototype.init = function(){};
 
 Mish.prototype.pushEvent = function(eventToPush){
-  /*
-  //Push the event keeping the order, by time, of the array 
-  //1. Get the time for the event
-  var eventTime = eventToPush.storeableData.time;
-  //2. Find the position for the event
-  var eventPos = this.findPositionForEvent(eventTime);
-  eventToPush.positionRelativeToEvents = eventPos;
-  */
-
   //Push the event
   this.timelineEvents.push(eventToPush);
 
@@ -54,36 +45,12 @@ Mish.prototype.sortEvents = function(){
   });
 };
 
-/*
-Mish.prototype.findPositionForEvent = function(arrayForSearch, eventTime){
-  if(arrayForSearch.length < 5){
-    var position = -1;
-    for (var i=0; i<arrayForSearch.length; i++) {
-      if(eventTime >= arrayForSearch[i].storeableData.time){
-        position = i+1;
-      }else{
-        break;
-      }
-    }
-    return position;
-  }else{
-    //Get the time of the event in the middle of the array
-    var middleEvent = arrayForSearch[Math.floor(arrayForSearch.length/2) - 1];
-    var middleTime = middleEvent.storeableData.time;
-    if(eventTime === middleTime){
-      return middleEvent.positionRelativeToEvents+1;
-    }else if(eventTime < middleTime){
-      //Search in the first half of the array
-      this.findPositionForEvent(arrayForSearch.);
-    }else{
-      //Search in the second half of the array
-    }
-
-  }
-};
-*/
-
 Mish.prototype.clearEvents = function(){
+  this.timelineEvents.forEach(function(eventObj){
+    if(eventObj.detailElement){
+      eventObj.detailElement.hide("fade");
+    }
+  });
   this.timelineEvents = [];
 };
 
@@ -206,12 +173,8 @@ jQuery(document).ready(function () {
 
   //Draw the basis time ruler
   drawTimeRuler();
-
-  //Create pixi.js canvas
-  // createPixiCanvas();
   
-  // ----------------------------
-  //Create the renderer...
+  //Create the renderer
   createRenderer();
 });
 

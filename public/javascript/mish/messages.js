@@ -7,6 +7,7 @@ var messagesObject = {
     "dialog.createEvent.error.eventName.size": "El título no puede tener más de 70 caracteres",
     "dialog.createEvent.error.eventDescription.size": "La descripción no puede tener más de 800 caracteres",
     "dialog.createEvent.error.eventDate.empty": "Debe ingresar una fecha para el evento",
+    "dialog.createEvent.error.eventDate.afterToday": "La fecha del evento no puede ser superior a la fecha actual",
     "dialog.createEvent.error.eventImage.exceedSize": "El tamaño de la imagen no puede ser superior a 1 MB",
     //Delete Event Dialog
     "dialog.deleteEvent.title": "Eliminar evento",

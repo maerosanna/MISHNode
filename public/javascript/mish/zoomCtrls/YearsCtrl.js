@@ -65,16 +65,6 @@ function fillTimeRulerYears(dateOfReference, xPosDiff) {
       groupToDraw.add(10, "year");
     });
   }
-
-  //Create the canvas if necessary
-  if (mishGA.canvasObject === null) {
-    //Set the global X position in the window's center
-    globalPosX = center;
-
-    mishGA.canvasObject = canvasApp(globalPosX, globalPosY);
-  }else if(mishGA.canvasObject.render === false){
-    mishGA.canvasObject.continueRender();
-  }
 }
 
 /**

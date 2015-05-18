@@ -15,6 +15,10 @@ function loadExternalPages() {
       closeDialog("#newUserDialog");
     });
     jQuery("#buttonCreateUser").click(createUserBtnAction);
+    
+    //Hide the info section
+    jQuery("#infoCreateUser").hide();
+    
     //Hide the error section
     jQuery("#errorCreateUser").hide();
   });

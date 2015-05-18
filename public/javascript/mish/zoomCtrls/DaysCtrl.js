@@ -70,16 +70,6 @@ function fillTimeRulerDays(dateOfReference, xPosDiff) {
   var centerDateCellID = center_date.format('DDMMYYYY');
   jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
   jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
-
-  //Create the canvas if necessary
-  if (mishGA.canvasObject === null) {
-    //Set the global X position in the window's center
-    globalPosX = center;
-
-    mishGA.canvasObject = canvasApp(globalPosX, globalPosY);
-  }else if(mishGA.canvasObject.render === false){
-    mishGA.canvasObject.continueRender();
-  }
 }
 
 /**
