@@ -25,8 +25,7 @@ exports.updateTimeline = function(req, res){
   if(!timelineObj
       || (timelineObj
             && !timelineObj.centerDate 
-            && !timelineObj.eventsToAdd
-            && !timelineObj.eventsToDelete)){
+            && !timelineObj.events)){
     return res.status(400).send({code:'error.operation'});
   }
 

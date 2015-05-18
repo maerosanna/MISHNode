@@ -301,8 +301,12 @@ function createEventDetail(eventObj){
     //Bind the event for editing the MishEvent
     detailElementClone.find("div.mish_detail_buttons input.editEventBtn").bind( "click", {sourceMishEvent: eventObj}, function(e) {
       var eventObj = e.data.sourceMishEvent;
+
+      jQuery("#buttonCreateEvent").hide();
+      jQuery("#buttonEditEvent").show();
       jQuery('#newEventDialog').dialog("option", "title", msg["dialog.editEvent.title"]);
       jQuery('#newEventDialog').dialog('open');
+      
       jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
       jQuery("#eventName").val(eventObj.storeableData.title);
       jQuery("#eventDescription").val(eventObj.storeableData.description);
@@ -311,7 +315,6 @@ function createEventDetail(eventObj){
         jQuery("#eventImgFake").val(eventObj.storeableData.image.name || eventObj.storeableData.imageName);
       }
       jQuery("#eventUrl").val(eventObj.storeableData.url);
-      jQuery("#buttonEditEvent").show();
 
       //Set the event to update in the Mish main object
       supermish.set("eventToUpdate", eventObj.positionRelativeToEvents);

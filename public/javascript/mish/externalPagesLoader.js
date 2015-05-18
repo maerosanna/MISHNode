@@ -94,6 +94,7 @@ function loadExternalPages() {
     //Assign Create Event function
     jQuery("#contextCreateEvent").click(function () {
       jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+      jQuery("#buttonEditEvent").hide();
       jQuery("#buttonCreateEvent").show();
       jQuery('#newEventDialog').dialog('open');
       closeMenu();
@@ -113,6 +114,7 @@ function loadExternalPages() {
   */
     jQuery("#footerNewEvent").click(function () {
         jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+        jQuery("#buttonEditEvent").hide();
         jQuery("#buttonCreateEvent").show();
         jQuery('#newEventDialog').dialog('open');
         closeMenu();

@@ -153,7 +153,6 @@ function saveTimeline(callback) {
       });
 
     }else {
-      console.log("...........");
       errObj.msg = "dialog.createTimeline.error.noEvents";
       callback(errObj,null);
     }
@@ -176,9 +175,7 @@ function updateTimeline(){
   var eventsToDelete = [];
   var operationsToEject = 0;
   var ejectedOperations = 0;
-
   var addedEvents = [];
-  var deletedEvents = [];
 
   if(supermish.timelineEvents && supermish.timelineEvents.length > 0){
     supermish.timelineEvents.forEach(function(eventObj){
@@ -223,8 +220,6 @@ function updateTimeline(){
     }else{
       if(operationData.toAdd){
         addedEvents = operationData.toAdd;
-      }else if(operationData.toDelete){
-        deletedEvents = operationData.toDelete;
       }
     }
 
@@ -238,22 +233,15 @@ function updateTimeline(){
       var centerDate = findCenterDate();
       var timelineToUpdate = {
         _id: mishJsonObjs.timelineJson._id,
-        eventsToAdd: [],
-        eventsToDelete: [],
+        events: [],
         centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
       };
 
       //Assign the _IDs of the events to create
       if(addedEvents.length > 0){
-        //Set the _IDs of the created events in the array
-        //of events of the timeline object to send to database
-        //and set the _ID for each event in the application
+        //Search the event in the array of events of the application and set
+        //its created _ID
         addedEvents.forEach(function(eventObj){
-          //Add the event _ID to the list of events of the timeline
-          timelineToUpdate.eventsToAdd.push(eventObj._id);
-
-          //Search the event in the array of events of the application and set
-          //its created _ID
           for (var i = 0; i < supermish.timelineEvents.length; i++) {
             if(!supermish.timelineEvents[i].storeableData._id
                 && supermish.timelineEvents[i].storeableData.title === eventObj.title
@@ -265,12 +253,10 @@ function updateTimeline(){
         });
       }
 
-      //Assign the _IDs of the events to delete
-      if(deletedEvents.length > 0){
-        deletedEvents.forEach(function(eventObj){
-          timelineToUpdate.eventsToDelete.push(eventObj._id);
-        });
-      }
+      //Assign the _IDs of the events to set in the timeline
+      supermish.timelineEvents.forEach(function(eventObj){
+        timelineToUpdate.events.push(eventObj.storeableData._id);
+      });
 
       //Send the timeline object to database
       jQuery.ajax({
@@ -323,7 +309,6 @@ function saveEventsChanges(eventsToCreate, eventsToUpdate, eventsToDelete, callb
 
   //1. Add the new events to the database
   if(eventsToCreate.length > 0){
-    console.log("Events to add: ", eventsToCreate.length);
     saveTimelineEvents(eventsToCreate, function(err, savedEvents){
       if(err){
         errObj.msg = "error.operation";
@@ -331,50 +316,11 @@ function saveEventsChanges(eventsToCreate, eventsToUpdate, eventsToDelete, callb
       }
 
       return callback(null, null, {"toAdd": savedEvents});
-
-/*
-      //2. Create the object to use for update the databse
-      var centerDate = findCenterDate();
-      var timelineToUpdate = {
-        _id: mishJsonObjs.timelineJson._id,
-        eventsToAdd: [],
-        centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
-      };
-
-      //2.1 Assign the _IDs of the events to create
-      savedEvents.forEach(function(eventObj){
-        timelineToUpdate.eventsToAdd.push(eventObj._id);
-      });
-
-      //3. Send the object to database
-      jQuery.ajax({
-        "url": "/timeline",
-        "type": "PUT",
-        "data": timelineToUpdate,
-        "dataType": "JSON"
-      }).done(function (timelineObjUpdated) {
-        if(!timelineObjUpdated){
-          errObj.msg = "error.operation";
-          return callback(errObj, null);
-        }
-
-        return callback(null, timelineObjUpdated);
-      }).fail(function(err){
-        errObj.msg = "error.operation";
-        if(err.responseJSON && err.responseJSON.code){
-          errObj.msg = err.responseJSON.code;
-        }
-
-        return callback(errObj, null);
-      });
-*/
-
     });
   }
 
   //2. Update the modified events in the database
   if(eventsToUpdate.length > 0){
-    console.log("Events to update: ", eventsToUpdate.length);
     updateTimelineEvents(eventsToUpdate, function(err, updatedEvents){
       if(err){
         errObj.msg = "error.operation";
@@ -382,45 +328,11 @@ function saveEventsChanges(eventsToCreate, eventsToUpdate, eventsToDelete, callb
       }
 
       return callback(null, null, {});
-
-/*
-      //2. Create the object to use for update the databse
-      var centerDate = findCenterDate();
-      var timelineToUpdate = {
-        _id: mishJsonObjs.timelineJson._id,
-        centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
-      };
-
-      //3. Send the object to database
-      jQuery.ajax({
-        "url": "/timeline",
-        "type": "PUT",
-        "data": timelineToUpdate,
-        "dataType": "JSON"
-      }).done(function (timelineObjUpdated) {
-        if(!timelineObjUpdated){
-          errObj.msg = "error.operation";
-          return callback(errObj, null);
-        }
-
-        return callback(null, timelineObjUpdated);
-      }).fail(function(err){
-        errObj.msg = "error.operation";
-        if(err.responseJSON && err.responseJSON.code){
-          errObj.msg = err.responseJSON.code;
-        }
-
-        return callback(errObj, null);
-      });
-*/
-
-
     });
   }
 
   //3. Delete the events marked as "deleted" from the DB
   if(eventsToDelete.length > 0){
-    console.log("Events to delete: ", eventsToDelete.length);
     deleteTimelineEvents(eventsToDelete, function(err, deletedEvents){
       if(err){
         errObj.msg = "error.operation";
@@ -428,45 +340,6 @@ function saveEventsChanges(eventsToCreate, eventsToUpdate, eventsToDelete, callb
       }
 
       return callback(null, null, {"toDelete": deletedEvents});
-
-
-/*
-      //2. Create the object to use for update the databse
-      var centerDate = findCenterDate();
-      var timelineToUpdate = {
-        _id: mishJsonObjs.timelineJson._id,
-        eventsToDelete: [],
-        centerDate: moment(centerDate, 'DD-MM-YYYY').format('MM-DD-YYYY')
-      };
-
-      deletedEvents.forEach(function(eventObj){
-        timelineToUpdate.eventsToDelete.push(eventObj._id);
-      });
-
-      //3. Send the object to database
-      jQuery.ajax({
-        "url": "/timeline",
-        "type": "PUT",
-        "data": timelineToUpdate,
-        "dataType": "JSON"
-      }).done(function (timelineObjUpdated) {
-        if(!timelineObjUpdated){
-          errObj.msg = "error.operation";
-          return callback(errObj, null);
-        }
-
-        return callback(null, timelineObjUpdated);
-      }).fail(function(err){
-        errObj.msg = "error.operation";
-        if(err.responseJSON && err.responseJSON.code){
-          errObj.msg = err.responseJSON.code;
-        }
-
-        return callback(errObj, null);
-      });
-*/
-
-
     });
   }
 }

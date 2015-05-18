@@ -33,28 +33,21 @@ var TimelineSchema = new Schema({
 
 
 TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, callback) {
+  var query = {_id: new ObjectId(timelineId)};
   var dataToUpdate = {};
-  if(newTimelineData.eventsToAdd){
-    dataToUpdate.$addToSet = {
-      events:{
-        $each: newTimelineData.eventsToAdd 
-      }
-    };
-  }
 
-  if(newTimelineData.eventsToDelete){
-    dataToUpdate.$pullAll = {
+  if(newTimelineData.events){
+    dataToUpdate.$set = {
       events: []
     };
-    newTimelineData.eventsToDelete.forEach(function(eventId){
-      dataToUpdate.$pullAll.events.push(eventId);
+    newTimelineData.events.forEach(function(eventId){
+      dataToUpdate.$set.events.push(new ObjectId(eventId));
     });
   }
 
   if(newTimelineData.centerDate){
-    dataToUpdate.$set = {
-      centerDate: newTimelineData.centerDate
-    };
+    dataToUpdate.$set = dataToUpdate.$set || {};
+    dataToUpdate.$set.centerDate = newTimelineData.centerDate;
   }
 
   this.findOneAndUpdate(query, dataToUpdate, function(err, timelineUpdatedObj){
