@@ -33,7 +33,6 @@ var TimelineSchema = new Schema({
 
 
 TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, callback) {
-  var query = {_id: new ObjectId(timelineId)};
   var dataToUpdate = {};
   if(newTimelineData.eventsToAdd){
     dataToUpdate.$addToSet = {
@@ -44,7 +43,6 @@ TimelineSchema.statics.updateTimeline = function(timelineId, newTimelineData, ca
   }
 
   if(newTimelineData.eventsToDelete){
-    console.log("TIMELINE WILL LOSE SOME EVENTS", newTimelineData.eventsToDelete);
     dataToUpdate.$pullAll = {
       events: []
     };

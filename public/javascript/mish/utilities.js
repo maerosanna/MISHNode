@@ -307,7 +307,9 @@ function createEventDetail(eventObj){
       jQuery("#eventName").val(eventObj.storeableData.title);
       jQuery("#eventDescription").val(eventObj.storeableData.description);
       jQuery("#eventDate").val(eventObj.storeableData.date);
-      jQuery("#eventImgFake").val(eventObj.storeableData.image.name || eventObj.storeableData.imageName);
+      if(eventObj.storeableData.image || eventObj.storeableData.imageName){
+        jQuery("#eventImgFake").val(eventObj.storeableData.image.name || eventObj.storeableData.imageName);
+      }
       jQuery("#eventUrl").val(eventObj.storeableData.url);
       jQuery("#buttonEditEvent").show();
 

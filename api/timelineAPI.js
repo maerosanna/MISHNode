@@ -22,8 +22,8 @@ exports.updateTimeline = function(req, res){
   //   cuáles han sido modificados y cuáles permenecieron intactos.
   var timelineObj = req.body;
 
-  if(!timelineObj 
-      || (timelineObj 
+  if(!timelineObj
+      || (timelineObj
             && !timelineObj.centerDate 
             && !timelineObj.eventsToAdd
             && !timelineObj.eventsToDelete)){

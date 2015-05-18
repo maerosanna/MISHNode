@@ -26,6 +26,7 @@ var messagesObject = {
     //Create Timeline Dialog
     "dialog.createTimeline.title": "Guardar línea de tiempo",
     "dialog.createTimeline.timeline.saved": "Se ha guardado la línea de tiempo",
+    "dialog.createTimeline.timeline.noChanges": "No hay cambios para guardar",
     "dialog.createTimeline.error.timelineName": "Debe darle un nombre a la línea de tiempo",
     "dialog.createTimeline.error.noEvents": "Debe crear al menos un evento para guardar la línea de tiempo.",
     "dialog.createTimeline.error.timeline.creation": "No se pudo guardar la línea de tiempo. Inténtelo de nuevo.",

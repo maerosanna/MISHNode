@@ -154,8 +154,6 @@ function openTimeline(index){
   mishJsonObjs.timelineJson.index = index;
 
   updateTimelineTitleBar(mishJsonObjs.timelineJson.name);
-  console.log("The opened one....");
-  console.log(mishJsonObjs.timelineJson.events);
 
   //2. Clone the events of the loaded timeline
   mishJsonObjs.timelineJson.events = [];
