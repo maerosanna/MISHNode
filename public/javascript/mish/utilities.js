@@ -10,6 +10,7 @@ function resizeContainers() {
 
   jQuery("#work-area-container").css("width", mishGA.workAreaWidth);
   jQuery("#work-area-container").css("height", mishGA.workAreaHeight);
+  jQuery(".arrow-up").css("left", mishGA.workAreaWidthHalf - parseInt(jQuery(".arrow-up").css("border-left-width")));
 
   if(mishGA.renderer){
     mishGA.renderer.resize(mishGA.workAreaWidth, mishGA.workAreaHeight);

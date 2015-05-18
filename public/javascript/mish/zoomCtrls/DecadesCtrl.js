@@ -185,10 +185,14 @@ function fillDateRangeDecades(begin, end, xPos, startDate, drawSeparator, groupI
   for (var i = begin; i <= end; i++) {
     var theYear = startDate.clone().add(yearsToAdd, "years");
     var cellID = theYear.format('MMYYYY');
+    var cellText = parseInt(theYear.format('YYYY'));
+    if(cellText < 0){
+      cellText = Math.abs(cellText) + " A.C.";
+    }
     if (i === begin && drawSeparator === true) {
-      createTimelineCell(cellID, xPos, separatorDateCssClass, theYear.format('YYYY'), groupID, cellWidth);
+      createTimelineCell(cellID, xPos, separatorDateCssClass, cellText, groupID, cellWidth);
     } else {
-      createTimelineCell(cellID, xPos, normalDateCssClass, theYear.format('YYYY'), groupID, cellWidth);
+      createTimelineCell(cellID, xPos, normalDateCssClass, cellText, groupID, cellWidth);
     }
     yearsToAdd+=10;
     xPos = xPos + cellWidth;

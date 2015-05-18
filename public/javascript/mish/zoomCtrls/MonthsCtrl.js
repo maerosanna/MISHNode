@@ -199,7 +199,11 @@ function fillDateRangeMonths(begin, end, xPos, startDate, drawSeparator, groupID
     var theDay = startDate.clone().add(daysToAdd, "months");
     var cellID = theDay.format('MMYYYY');
     if (i === begin && drawSeparator === true) {
-      createTimelineCell(cellID, xPos, separatorDateCssClass, theDay.format('YYYY'), groupID, cellWidth);
+      var cellText = parseInt(theDay.format('YYYY'));
+      if(cellText < 0){
+        cellText = Math.abs(cellText) + " A.C.";
+      }
+      createTimelineCell(cellID, xPos, separatorDateCssClass, cellText, groupID, cellWidth);
     } else {
       createTimelineCell(cellID, xPos, normalDateCssClass, theDay.format('MMM'), groupID, cellWidth);
     }

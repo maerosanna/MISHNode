@@ -201,7 +201,15 @@ function fillDateRangeDays(begin, end, xPos, startDate, drawSeparator, groupID) 
     var theDay = startDate.clone().add(daysToAdd, "days");
     var cellID = theDay.format('DDMMYYYY');
     if (i === begin && drawSeparator === true) {
-      createTimelineCell(cellID, xPos, separatorDateCssClass, theDay.format('DD-MMMM-YYYY'), groupID, cellWidth);
+      var cellText = theDay.format('DD-MMMM');
+      var year = theDay.year();
+      if(year < 0){
+        year = Math.abs(year) + " A.C.";
+      }
+      cellText += "-" + year;
+
+      //  Before: theDay.format('DD-MMMM-YYYY')
+      createTimelineCell(cellID, xPos, separatorDateCssClass, cellText, groupID, cellWidth);
     } else {
       createTimelineCell(cellID, xPos, normalDateCssClass, i, groupID, cellWidth);
     }

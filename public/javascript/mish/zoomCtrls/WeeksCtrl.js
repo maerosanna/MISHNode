@@ -209,7 +209,15 @@ function fillDateRangeWeeks(begin, end, xPos, startDate, drawSeparator, groupID)
         if (theDay.weekday() === 0) {
           if (separatorDrawed === false) {
             separatorDrawed = true;
-            createTimelineCell(weekCellID, xPos, separatorDateCssClass, weekToDraw.format('DD-MMMM-YYYY'), groupID, widthForCell);
+            var cellText = weekToDraw.format('DD-MMMM');
+            var year = weekToDraw.year();
+            if(year < 0){
+              year = Math.abs(year) + " A.C.";
+            }
+            cellText += "-" + year;
+
+            //  Before: weekToDraw.format('DD-MMMM-YYYY')
+            createTimelineCell(weekCellID, xPos, separatorDateCssClass, cellText, groupID, widthForCell);
           } else {
             createTimelineCell(weekCellID, xPos, normalDateCssClass, dayNumToDraw, groupID, widthForCell);
           }
