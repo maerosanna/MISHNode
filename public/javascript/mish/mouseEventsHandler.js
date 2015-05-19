@@ -121,7 +121,6 @@ function mouseScrollEvent(e) {
   }
 
   var centerCellObj = findNearestCellToCenter();
-  // console.log("centerCellObj", centerCellObj);
 
   if (zoomSubLevelChange) {
     if (zoomLevelChange) {
@@ -131,6 +130,10 @@ function mouseScrollEvent(e) {
 
     //Create a moment with the date of the nearest cell to the center
     var nearestCellToCenterDate = moment('' + centerCellObj.idText, "DDMMYYYY");
+    if(centerCellObj.negativeYear === true){
+      nearestCellToCenterDate.year(nearestCellToCenterDate.year() * -1);
+    }
+    console.log("nearestCellToCenterDate.year", nearestCellToCenterDate.year());
 
     //Call the function that fill the time ruler
     mishGA.zoomData.fillTimeRuler(nearestCellToCenterDate, centerCellObj.posX);

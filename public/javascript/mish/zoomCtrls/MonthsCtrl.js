@@ -272,6 +272,9 @@ function changeOfLevelMonths(lastLevel, centerCellObj){
   if(lastLevel === "WEEKS"){
     //If the last zoom LEVEL was WEEKS then:
     var dateOfReference = moment('' + centerCellObj.idText, "DDMMYYYY");
+    if(centerCellObj.negativeYear === true){
+      dateOfReference.year(dateOfReference.year() * -1);
+    }
 
     //1. Get number of days that has the nearest month to the screen center (reference date).
     var daysInMonth = dateOfReference.clone().endOf("month").date();
@@ -290,6 +293,9 @@ function changeOfLevelMonths(lastLevel, centerCellObj){
   }else if(lastLevel === "YEARS"){
     //If the last zoom LEVEL was YEARS then:
     var centerYearMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerYearMoment.year(centerYearMoment.year() * -1);
+    }
 
     //1. Get the width of each day
     var dayWidth = centerCellObj.groupWidth / centerYearMoment.clone().endOf("year").dayOfYear();

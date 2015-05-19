@@ -258,6 +258,9 @@ function changeOfLevelYears(lastLevel, centerCellObj){
   var center = mishGA.workAreaWidthHalf;
   if(lastLevel === "MONTHS"){
     var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerMonthMoment.year(centerMonthMoment.year() * -1);
+    }
 
     //Calculate the date to use as reference for drawing in YEARS
 
@@ -291,6 +294,9 @@ function changeOfLevelYears(lastLevel, centerCellObj){
     //6. Calculate the DECADE of the reference date
     var yearsFromDecade = referenceDateMoment.year() % 10;
     var decadeOfReferenceDate = referenceDateMoment.year() - yearsFromDecade;
+    if(centerCellObj.negativeYear === true){
+      decadeOfReferenceDate *= -1;
+    }
     centerCellObj.idText = "0101" + decadeOfReferenceDate;
 
     //6. Get the amount of pixels from the first date of the obtained decade to the day of reference
@@ -302,6 +308,9 @@ function changeOfLevelYears(lastLevel, centerCellObj){
     centerCellObj.posX = center - distanceToDecade;
   } else if(lastLevel === "DECADES"){
     var centerDecadeMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerDecadeMoment.year(centerDecadeMoment.year() * -1);
+    }
 
     //1. Get the width of each day
     var dayWidth = (centerCellObj.groupWidth / 10) / 365;

@@ -257,8 +257,10 @@ function calculateXPosOfEventCenturies(groupTime, eventTime){
 function changeOfLevelCenturies(lastLevel, centerCellObj){
   var center = mishGA.workAreaWidthHalf;
   if(lastLevel === "DECADES"){
-
     var centerDecadeMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerDecadeMoment.year(centerDecadeMoment.year() * -1);
+    }
 
     //1. Get the width of each day
     var dayWidth = (centerCellObj.groupWidth / 10) / 365;

@@ -259,6 +259,9 @@ function changeOfLevelDecades(lastLevel, centerCellObj){
   if(lastLevel === "YEARS"){
     //If the last zoom LEVEL was YEARS then:
     var centerYearMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerYearMoment.year(centerYearMoment.year() * -1);
+    }
 
     //1. Get the width of each day in the previous zoom level
     var dayWidth = centerCellObj.groupWidth / centerYearMoment.clone().endOf("year").dayOfYear();
@@ -310,6 +313,9 @@ function changeOfLevelDecades(lastLevel, centerCellObj){
     centerCellObj.posX = center - distanceToCentury;
   }else if(lastLevel === "CENTURIES"){
     var centerDecadeMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerDecadeMoment.year(centerDecadeMoment.year() * -1);
+    }
 
     //1. Get the width of each day
     var dayWidth = (centerCellObj.groupWidth / 10) / 365;

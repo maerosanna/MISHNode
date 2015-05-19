@@ -67,11 +67,19 @@ function findNearestCellToCenter() {
   });
 
   var nearestCellToCenter = jQuery(cellsInGroup[nearestCellToCenterIndex]);
+  var _idSplit = nearestCellToCenter.attr('id').split('-');//Get the nearest cell to center ID for create a moment()
+  var _idText = _idSplit[1];
+  var _negativeYear = false;
+  if(_idSplit.length > 2){
+    _idText += "-" + _idSplit[2];
+    _negativeYear = true;
+  }
   return {
     groupWidth: nearestCellToCenter.width(),
     groupPosX: xPosOfGroup,
     posX: nearestCellToCenter.position().left + xPosOfGroup,//Get the nearest cell to center X position for accurate calculations
-    idText: (nearestCellToCenter.attr('id').split('-')[1])//Get the nearest cell to center ID for create a moment()
+    idText: _idText,
+    negativeYear: _negativeYear
   };
 }
 

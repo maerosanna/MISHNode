@@ -306,6 +306,9 @@ function changeOfLevelWeeks(lastLevel, centerCellObj){
   var center = mishGA.workAreaWidthHalf;
   if(lastLevel === "MONTHS" && this.name === "WEEKS"){
     var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
+    if(centerCellObj.negativeYear === true){
+      centerMonthMoment.year(centerMonthMoment.year() * -1);
+    }
 
     //Calculate the date to use as reference for drawing in weeks
 

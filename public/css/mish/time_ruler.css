@@ -65,7 +65,7 @@ div#timeline-container div.date div.separatorDate div.label {
 
 div#timeline-container div.date div.normalDate {
   height: inherit;
-  width: 90%;
+  width: 100%;
 
   position: absolute;
   top: 20px;
