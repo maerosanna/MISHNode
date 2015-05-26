@@ -133,7 +133,6 @@ function mouseScrollEvent(e) {
     if(centerCellObj.negativeYear === true){
       nearestCellToCenterDate.year(nearestCellToCenterDate.year() * -1);
     }
-    console.log("nearestCellToCenterDate.year", nearestCellToCenterDate.year());
 
     //Call the function that fill the time ruler
     mishGA.zoomData.fillTimeRuler(nearestCellToCenterDate, centerCellObj.posX);

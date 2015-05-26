@@ -8,7 +8,7 @@ function fillTimeRulerDecades(dateOfReference, xPosDiff) {
   //Calculate the center of the window
   var center = mishGA.workAreaWidthHalf;
 
-  if (xPosDiff !== null) {
+  if (xPosDiff !== null && !isNaN(xPosDiff)) {
     center -= center - xPosDiff;
   }
 
@@ -20,7 +20,7 @@ function fillTimeRulerDecades(dateOfReference, xPosDiff) {
 
   var decadesFromFirstGroup = 100;
   var initialXPos = ((( (decadesFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
-
+  
   var groupToDraw = firstGroupDate.clone().startOf("year");
   var xPositionOfGroup = initialXPos - mishGA.timeRulerXPos;
 
@@ -348,6 +348,9 @@ function changeOfLevelDecades(lastLevel, centerCellObj){
 
     //8. Get the amount of years from the decade of reference to the century of reference
     var decadesToCentury = (decadeOfReference%centuryOfReference);
+    if(isNaN(decadesToCentury)){
+      decadesToCentury = (decadeOfReference%yearsFromCentury);
+    }
 
     //9. Calculate the amount of pixels from the century of reference to the decade of reference
     //  The obtained decades are divided by 10 because each cell represents 10 years
