@@ -176,6 +176,33 @@ jQuery(document).ready(function () {
   
   //Create the renderer
   createRenderer();
+
+  //Verify if there is an opened session
+  autoLogin(function(err, userObj){
+    if(err){
+      showAlertMessage(true, "autoLogin.error");
+      user_loggedIn = false;
+      return;
+    }
+
+    if(!userObj){
+      return;
+    }
+
+    showAlertMessage(false, "autoLogin.success");
+
+    jQuery("#user_header_button span").text(msg["myAccount.title"]);
+    jQuery(".user_header").show();
+    jQuery(".logout").show();
+    jQuery(".login").hide();
+
+    user_loggedIn = true;
+    logged_user_id = userObj._id;
+    user_timelines = userObj.timelines;
+
+    fillUserTimelinesList();
+  });
+
 });
 
 //Assign listener for window resizing

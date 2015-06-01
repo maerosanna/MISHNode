@@ -24,6 +24,9 @@ var messagesObject = {
     "dialog.logIn.error.empty.fields": "Debe llenar todos los campos",
     "dialog.logIn.error.user.notfound": "No se ha encontrado el usuario ingresado",
     "dialog.logIn.error.user.wrong.password": "El usuario y la contraseña no coinciden",
+    //Auto Log IN
+    "autoLogin.error": "Hubo un error al iniciar automáticamente la sesión",
+    "autoLogin.success": "Bienvenido!",
     //Create Timeline Dialog
     "dialog.createTimeline.title": "Guardar línea de tiempo",
     "dialog.createTimeline.timeline.saved": "Se ha guardado la línea de tiempo",

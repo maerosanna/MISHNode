@@ -38,6 +38,47 @@ function loginUser(username, password, callback){
   });
 }
 
+function logoutUser(){
+  var errObj = {msg:''};
+
+  jQuery.ajax({
+    "url": "/userLogout",
+    "type": "GET"
+  }).done(function (data){
+  }).fail(function(err){
+  });
+}
+
+/**
+ * Function that looks if there is an opened session for the user.
+ * 
+ */
+function autoLogin(callback){
+  var errObj = {msg:''};
+
+  jQuery.ajax({
+    "url": "/userAuth",
+    "type": "GET",
+    "dataType": "JSON"
+  }).done(function (data){
+    if (!data || !data.user) {
+      return callback(null, null);
+    }
+
+    var userObj = data.user;
+    userObj.timelines = data.timelines;
+
+    callback(null, userObj);
+  }).fail(function(err){
+    errObj.msg = "error.operation";
+    if(err.responseJSON && err.responseJSON.code){
+      errObj.msg = err.responseJSON.code;
+    }
+
+    callback(errObj, null);
+  });
+}
+
 /**
  * Function that creates a new user and save it in database.
  * 

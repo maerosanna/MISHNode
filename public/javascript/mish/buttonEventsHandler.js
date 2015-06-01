@@ -77,6 +77,8 @@ function logInBtnAction() {
         return;
       }
 
+      showAlertMessage(false, "autoLogin.success");
+
       closeDialog('#logInDialog');
       jQuery("#user_header_button span").text(msg["myAccount.title"]);
       jQuery(".user_header").show();
@@ -191,6 +193,9 @@ function logOutBtnAction(){
   showTimelinesPanel(false);
 
   user_loggedIn = false;
+
+  //Terminate the login session in the server
+  logoutUser();
 }
 
 /**

@@ -8,15 +8,13 @@ var timelineAPI = require('./api/timelineAPI');
 var eventAPI = require('./api/eventAPI');
 
 module.exports = function (app) {
-  app.get('/', function(req, res){
-    res.render('index.html');
-  });
-
   //- - - - - - - - - - - - - - - - - - - - - - - -
   //User routes (API)
   //- - - - - - - - - - - - - - - - - - - - - - - -
   app.get('/user', userAPI.findUser);
+  app.get('/userAuth', userAPI.findUserSession);
   app.get('/userDetail', userAPI.findUserDetail);
+  app.get('/userLogout', userAPI.logoutUser);
   app.post('/user', userAPI.saveUser);
 
   //- - - - - - - - - - - - - - - - - - - - - - - -

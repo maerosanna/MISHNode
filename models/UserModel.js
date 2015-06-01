@@ -13,6 +13,31 @@ var UserSchema = new Schema({
   password: { type:String }
 });
 
+UserSchema.statics.authenticate = function(username, password, callback) {
+  var query = {
+    $or:[
+      {username: username},
+      {email: username}
+    ]
+  };
+
+  this.findOne(query).exec(function(err, userObj){
+    if(err){
+      return callback({code:'error.operation'});
+    }
+
+    if(!userObj){
+      return callback({code:'dialog.logIn.error.user.notfound'});
+    }
+
+    if(userObj.password !== password){
+      return callback({code:'dialog.logIn.error.user.wrong.password'});
+    }
+
+    return callback(null, userObj);
+  });
+};
+
 /**
  * --------------------------------------------------
  * MONGOOSE MODEL CREATION AND EXPORTATION
