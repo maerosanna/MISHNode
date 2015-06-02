@@ -77,7 +77,7 @@ function logInBtnAction() {
         return;
       }
 
-      showAlertMessage(false, "autoLogin.success");
+      showAlertMessage(false, "autoLogin.success", {username: userObj.username});
 
       closeDialog('#logInDialog');
       jQuery("#user_header_button span").text(msg["myAccount.title"]);
@@ -157,9 +157,11 @@ function createUserBtnAction() {
         return;
       }
 
+      showAlertMessage(false, "autoLogin.success", {username: newUserObj.username});
+
       user_loggedIn = true;
 
-      jQuery("#user_header_button span").text(newUserObj.username);
+      jQuery("#user_header_button span").text(msg["myAccount.title"]);
       jQuery(".user_header").show();
       jQuery(".logout").show();
       jQuery(".login").hide();

@@ -136,10 +136,16 @@ function getTimeOfGroupId(groupObj){
  * @param  {string} messageCode The code to search in "messages.js"
  * 
  */
-function showAlertMessage(isErrorMessage, messageCode){
+function showAlertMessage(isErrorMessage, messageCode, params){
   if(showing_alert_message === false){
     showing_alert_message = true;
-    jQuery(".alert-message").append(msg[messageCode] || messageCode);
+    var message = msg[messageCode] || messageCode;
+    if(params){
+      for(param in params){
+        message = message.replace("{" + param + "}", params[param]);
+      }
+    }
+    jQuery(".alert-message").append(message);
     for(var i=2; i<arguments.length ;i++){
       jQuery(".alert-message").append(arguments[i]);
     }

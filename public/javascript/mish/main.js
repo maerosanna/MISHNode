@@ -189,7 +189,7 @@ jQuery(document).ready(function () {
       return;
     }
 
-    showAlertMessage(false, "autoLogin.success");
+    showAlertMessage(false, "autoLogin.success", {username: userObj.username});
 
     jQuery("#user_header_button span").text(msg["myAccount.title"]);
     jQuery(".user_header").show();

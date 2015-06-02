@@ -66,7 +66,9 @@ exports.findUserDetail = function(req, res, next){
 };
 
 exports.logoutUser = function(req, res){
-  req.logout();
+  if(req.isAuthenticated()){
+    req.logout();
+  }
   res.redirect('/');
 };
 
@@ -90,7 +92,7 @@ exports.findUserSession = function(req, res){
   }
 };
 
-exports.saveUser = function(req, res){
+exports.saveUser = function(req, res, next){
   var newUser = req.body;
   var userObj = new UserModel(newUser);
 
@@ -100,6 +102,22 @@ exports.saveUser = function(req, res){
       return res.status(400).send(err);
     }
 
-    return res.status(200).send(savedUser);
+    passport.authenticate('local', function(err, userObj) {
+      if(err){
+        return res.status(400).send(err);
+      }
+
+      req.logIn(userObj, function(err){
+        if(err){
+          return res.status(400).send(err);
+        }
+
+        return res.status(200).send(savedUser);
+      });
+      
+    })(req, res, next);
+
   });
+
+
 };
