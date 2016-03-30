@@ -16,6 +16,7 @@ ALL
 @import url('/css/mish/alerts.css');
 @import url('/css/mish/user_timelines.css');
 @import url('/css/mish/loading_animation.css');
+@import.url('/css/mish/introjs');
 
 html, body {
   margin: 0;

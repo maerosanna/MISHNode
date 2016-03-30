@@ -13,6 +13,10 @@
     <link type="text/css" rel="stylesheet" href="css/mish-blue-theme/jquery-ui-1.10.4.custom.css"/>
     <link type="text/css" rel="stylesheet" href="css/mish-black-theme/jquery-ui-1.10.4.custom.css"/>
     <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/demo-style.css">
+<link rel="stylesheet" type="text/css" href="css/introjs/introjs.min.css">
+
 
     <!-- Libraries -->
     <script src="javascript/lib/jquery-1.11.2.min.js"></script>
@@ -23,6 +27,8 @@
     <script src="javascript/lib/canvasquery.js"></script>
     <script src="javascript/lib/playground.js"></script>
     <script src="http://localhost:35729/livereload.js"></script>
+    <script type="text/javascript" src="http://demo.hongkiat.com/_nav/js/nav.js"></script>
+  <script src="javascript/lib/intro.js" src="js/intro.js"></script>
   </head>
 
   <body id="mish-white-theme">
@@ -40,9 +46,14 @@
       </div>
     </div>
 
+
+
+
     <!-- HEADER -->
     <div id="header">
-      <h1>Mish</h1>
+   
+
+      <h1 data-step="1"  data-intro="holahola 1" onclick="javascript:introJs().start();"data-position="right">Mish</h1>
 
       <div class="headerButtons">
         <ul>
@@ -57,7 +68,7 @@
             <a href="#" id="buttLogIn">
               <div class="flaticon-user157">
               </div>
-              <span>
+              <span data-step="2" data-intro="crea tu usuario" >
                 Soy Usuario
               </span>
             </a>
@@ -80,6 +91,11 @@
       </div>
     </div>
 
+
+
+
+
+
     <!-- BODY -->
     <div id="work-area-container">
       <div class="timeline_tools">
@@ -93,7 +109,7 @@
             </a>
           </li>
           <li>
-            <a href="#" id="footerNewEvent" title="Nuevo Evento">
+            <a  href="#" id="footerNewEvent" title="Nuevo Evento">
               <div class="flaticon-rounded55"></div>
               <span>
                 Nuevo Evento
@@ -180,6 +196,10 @@
         <input type="button" value="Editar" class="editEventBtn">
       </div>
     </div>
+
+
+
+
 
     <!-- FOOTER -->
     <div id="footer">

@@ -208,6 +208,12 @@ jQuery(document).ready(function () {
 //Assign listener for window resizing
 window.addEventListener("resize", resizeContainers);
 
+$("#flexi_form_start").click(function() {
+    introJs().start();
+  });
+
+
+
 
 /**
  * TEMPORAL
