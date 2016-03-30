@@ -15,6 +15,7 @@ var messagesObject = {
     "dialog.createUser.title": "Crear nuevo usuario",
     "dialog.createUser.info.user.creation.required": "Para guardar la línea de tiempo debe iniciar sesión o crear un usuario",
     "dialog.createUser.error.username.empty": "Debe ingresar un nombre de usuario",
+    "dialog.createUser.error.useremail.incorrect": "El correo electrónico no tiene un formato válido",
     "dialog.createUser.error.password.empty": "Debe ingresar la contraseña para su usuario",
     "dialog.createUser.error.password.matches": "Las contraseñas no coinciden",
     "dialog.createUser.error.user.creation": "No se pudo crear el usuario. Inténtelo de nuevo.",

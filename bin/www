@@ -4,7 +4,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.server.listen(app.get('port'), process.env.IP, function(){
   if(process.env.PORT){
-    console.log('Server up!');
+    console.log('Server up on port 3000!');
   }else{
     console.log('Server up on port 3000!');
   }

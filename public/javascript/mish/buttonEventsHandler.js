@@ -105,39 +105,50 @@ function logInBtnAction() {
  *
  */
 function createUserBtnAction() {
-  //Hide the showed errors
-  showErrorMsg("#errorCreateUser",false);
+  // RegExp that validates an eMail address
+  var emailRegexp = /^\b[A-Z0-9._%+-]+@[A-Z0-9-]+\.[A-Z]{2,}\b/i;
 
-  //Boolean that show xor hide the error message
+  // hide the showed errors
+  showErrorMsg("#errorCreateUser", false);
+
+  // boolean that show xor hide the error message
   var showError = false;
 
-  //The ID of the error's container DIV
+  // the ID of the error's container DIV
   var containerDIV = "#createUserErrorMsg";
 
-  //Delete the last error message
+  // delete the last error message
   clearErrorMessages(containerDIV);
 
-  //Create the object with the user data
+  // create the object with the user data
   var newUserObj = {
     username: jQuery("#userName").val(),
     useremail: jQuery("#userEMail").val(),
     password: jQuery("#userPassword").val()
   };
 
-  //Validate the user name
+  //v alidate the user name
   if (newUserObj.username !== "") {
-    //TODO: Validate format
+    //TODO: Validate format (maybe username with at least 6 characters?)
   } else {
     appendErrorMessage(containerDIV, "dialog.createUser.error.username.empty");
     showError = true;
   }
 
-  //Validate the password
+  // validate the user email
+  if (newUserObj.useremail !== "") {
+    if (emailRegexp.test(newUserObj.useremail) === false) {
+      appendErrorMessage(containerDIV, "dialog.createUser.error.useremail.incorrect");
+      showError = true;
+    }
+  }
+
+  // validate the password
   var passwordConfirm = jQuery("#userPasswordDos").val();
   if (newUserObj.password !== "") {
     //TODO: Validate format
 
-    //Verify if password matches
+    // verify if password matches
     if (newUserObj.password !== passwordConfirm) {
       appendErrorMessage(containerDIV, "dialog.createUser.error.password.matches");
       showError = true;
