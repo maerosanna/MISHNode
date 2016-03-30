@@ -59,7 +59,7 @@ app.use(function(err, req, res, next){
 //Configure routes
 require('./routes.js')(app);
 
-/*
+
 app.listen(process.env.PORT || 3000, process.env.IP, function(){
   if(process.env.PORT){
     console.log('Server up!');
@@ -67,10 +67,3 @@ app.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log('Server up on port 3000!');
   }
 });
-*/
-
-//- - - - - - - - - - - - - - - - - - - - - -
-//Set server and export module
-//- - - - - - - - - - - - - - - - - - - - - -
-app.server = require('http').Server(app);
-module.exports = app;
