@@ -89,22 +89,61 @@ function findNearestCellToCenter() {
  * @param eventTime : number
  * @returns object
  */
-function findGroupOfEvent(eventTime) {
+function findGroupOfEvent(eventTime, isBC) {
   //1. Verify if the event date is between the first date and the last date of the time ruler groups
-  if(getTimeOfGroupId(mishGA.timeRulerGroups[0]) > 0 
-      && (eventTime < getTimeOfGroupId(mishGA.timeRulerGroups[0])
-      || eventTime > getTimeOfGroupId(mishGA.timeRulerGroups[mishGA.timeRulerGroups.length - 1])) ){
+  if (eventTime < getTimeOfGroupId(mishGA.timeRulerGroups[0]) &&
+      eventTime > getTimeOfGroupId(mishGA.timeRulerGroups[mishGA.timeRulerGroups.length - 1]) ){
     return null;
   }
 
   //2. Search the group for the event date
   var groupOfDate = null;
-  mishGA.timeRulerGroups.forEach(function(groupObj, index){
-    var groupTime = getTimeOfGroupId(groupObj);
-    if(groupTime > 0 && eventTime >= groupTime){
-      groupOfDate = groupObj;
+
+  if (!isBC || isBC === false) {
+    for (var i = mishGA.timeRulerGroups.length - 1; i >= 0; i--) {
+      // ignore years of more of 4 digits in dates A.C.
+      if (mishGA.timeRulerGroups[i].attr('id').split('-')[2].length > 6 &&
+          mishGA.timeRulerGroups[i].attr('id').split('-').length === 4) {
+        // ! mishGA.timeRulerGroups[i].attr('id').split('-').length === 4 represents dates A.C.
+        //   dates B.C. are of length 5 because de '-' sign of the date
+        continue;
+      }
+
+      var groupTime = getTimeOfGroupId(mishGA.timeRulerGroups[i], false);
+      if (eventTime >= groupTime) {
+        groupOfDate = mishGA.timeRulerGroups[i];
+        break;
+      }
     }
-  });
+  }
+  else {
+    // console.log("eventTime", eventTime);
+    for (var i = 0; i < mishGA.timeRulerGroups.length; i++) {
+      // ignore years of more of 4 digits in dates B.C.
+      if (mishGA.timeRulerGroups[i].attr('id').split('-')[3].length > 6 &&
+          mishGA.timeRulerGroups[i].attr('id').split('-').length === 5) {
+        // ! mishGA.timeRulerGroups[i].attr('id').split('-').length === 4 represents dates A.C.
+        //   dates B.C. are of length 5 because de '-' sign of the date
+        continue;
+      }
+
+      var groupTime = getTimeOfGroupId(mishGA.timeRulerGroups[i], true);
+      if (mishGA.timeRulerGroups[i].attr('id').split('-').length === 5) {
+        groupTime *= -1;
+      }
+      
+      if (test === false) {
+        // console.log("groupTime[%s]", i, groupTime);
+      }
+      
+      if (eventTime >= groupTime) {
+        groupOfDate = mishGA.timeRulerGroups[i];
+        // break;
+      }
+    }
+  }
+
+  test = true;
 
   //3. Return the found group
   return groupOfDate;

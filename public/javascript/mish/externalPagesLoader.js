@@ -130,15 +130,14 @@ function createDateField(targetId) {
     dateFormat: "dd-mm-yy",
     changeMonth: true,
     changeYear: true,
-    minDate: new Date(1900, 0, 1),
+    minDate: new Date(0, 0, 1),
     maxDate: new Date(),
     showWeek: true,
-    yearRange: "1900:+0", // dates in thic component can't be less than 1900
+    yearRange: "1800:+0", // dates in thic component can't be less than 1900
     dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
     weekHeader: "Sem",
     monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
     nextText: "Sig",
     prevText: "Ant"
   });
-  $.datepicker.regional[ "es" ];
 }

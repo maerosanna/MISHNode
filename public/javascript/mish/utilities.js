@@ -126,8 +126,17 @@ function hideErrorMessages(element) {
  * @param groupObj : jQuery
  * @returns {number}
  */
-function getTimeOfGroupId(groupObj){
-  return ( moment( '01' + groupObj.attr('id').split('-')[2] , 'DDMMYYYY') ).valueOf();
+function getTimeOfGroupId(groupObj, isBC){
+  if (!isBC || isBC === false){
+    return ( moment( '01' + groupObj.attr('id').split('-')[2], 'DDMMYYYY') ).valueOf();
+  }
+
+  if (groupObj.attr('id').split('-').length === 4) {
+    return ( moment( '01' + groupObj.attr('id').split('-')[2], 'DDMMYYYY') ).valueOf();
+  }
+  else if (groupObj.attr('id').split('-').length === 5) {
+    return ( moment( '01' + groupObj.attr('id').split('-')[2] + groupObj.attr('id').split('-')[3], 'DDMMYYYY') ).valueOf();
+  }
 }
 
 /**

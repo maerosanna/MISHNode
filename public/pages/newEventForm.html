@@ -14,7 +14,8 @@
     <label for="eventName" class="label">Nombre del Evento:</label>
 
     <div class="formMISH-fieldDiv">
-      <input type="text" name="newEventName" id="eventName" class="formMISH-field" maxlength="70">
+      <input type="text" name="newEventName" id="eventName"
+        class="formMISH-field" maxlength="70">
     </div>
   </div>
 
@@ -23,16 +24,21 @@
     <label for="eventDescription" class="label">Descripción del Evento:</label>
 
     <div class="formMISH-fieldDiv">
-      <textarea rows="4" cols="50" name="newEventDescription" id="eventDescription" class="formMISH-field" maxlength="800"></textarea>
+      <textarea name="newEventDescription" id="eventDescription"
+        rows="4" cols="50" class="formMISH-field" maxlength="800",
+        placeholder="Máximo 800 caracteres"></textarea>
     </div>
   </div>
 
   <!-- EVENT IMAGE -->
   <div class="formMISH-row">
     <label for="eventImgFake" class="label">Imagen para el evento:</label>
-    <input type="file" accept="image/*" name="newEventImg" id="eventImg" class="formMISH-field" style="display: none;" onchange="copyFileName(this);">
+    <input type="file" accept="image/*" name="newEventImg" id="eventImg"
+      class="formMISH-field" style="display: none;" onchange="copyFileName(this);">
     <div class="formMISH-fieldDiv">
-      <input type="text" name="newEventName" id="eventImgFake" class="formMISH-field" onclick="openFileChooser();" onfocus="this.blur();">
+      <input type="text" name="newEventName" id="eventImgFake"
+        class="formMISH-field" onclick="openFileChooser();"
+        onfocus="this.blur();" placeholder="Máximo 1MB">
     </div>
   </div>
 
@@ -41,7 +47,10 @@
     <label for="eventDate" class="label">Fecha del evento:</label>
 
     <div class="formMISH-fieldDiv">
-      <input type="text" name="newEventDate" id="eventDate" class="formMISH-field">
+      <input type="text" name="newEventDate" id="eventDate"
+        class="formMISH-field" placeholder="dd-mm-yyyy">
+      <span>Si la fecha es inferior a 1900, ingresa el año manualmente</span>
+      <!-- <span>Si quieres ingresar una fecha A.C., pon el año como un número negativo</span> -->
     </div>
   </div>
 

@@ -4,7 +4,7 @@
  * @type {[type]}
  */
 var Mish = Mish || {};
-
+var test = false;
 Mish = function(){
   this.timelineEvents = [];
   this.renderer = null;

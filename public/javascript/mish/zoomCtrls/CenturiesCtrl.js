@@ -249,8 +249,8 @@ function zoomTimeRulerCenturies(centerCellObj, delta) {
 }
 
 function calculateXPosOfEventCenturies(groupTime, eventTime){
-  var difference = moment(eventTime).diff(moment(groupTime),'days');
-  var daysWidth = (cellWidth/100) / 365;//Each cell represents 100 years, and each year has 365 days
+  var difference = moment(eventTime).diff(moment(groupTime), 'days');
+  var daysWidth = (cellWidth/100) / 365;// each cell represents 100 years, and each year has 365 days
   return difference * daysWidth;
 }
 

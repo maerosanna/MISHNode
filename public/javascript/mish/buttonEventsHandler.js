@@ -269,7 +269,8 @@ function createMISHEventBtnAction() {
     "date": jQuery("#eventDate").val(),
     "time": (moment(jQuery("#eventDate").val(), "DD-MM-YYYY")).valueOf(),
     "image": jQuery("#eventImg").val(),
-    "url": jQuery("#eventUrl").val()
+    "url": jQuery("#eventUrl").val(),
+    "isBC": (jQuery("#eventDate").val().split("-").length === 4) ? true : false
   };
 
   if(newEventObj.title === "") {
@@ -308,11 +309,13 @@ function createMISHEventBtnAction() {
   if (showError) {
     showErrorMsg("#errorNewEvent",true);
   } else {
-    var groupOfDate = findGroupOfEvent(newEventObj.time);
+    // create the event
+    var groupOfDate = findGroupOfEvent(newEventObj.time, newEventObj.isBC);
     var eventXPos = 0;
-    if(groupOfDate){
+    if (groupOfDate) {
       eventXPos = calculateXPosOfEvent(groupOfDate, newEventObj);
     }
+
     var mishEvent = new Mish.Event(newEventObj, groupOfDate, eventXPos, globalPosY, supermish.renderer);
     supermish.pushEvent(mishEvent);
 
@@ -326,7 +329,6 @@ function createMISHEventBtnAction() {
     }
 
     closeDialog('#newEventDialog');
-
   }
 }
 

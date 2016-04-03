@@ -36,14 +36,15 @@ Mish.Event.prototype.set = function(attr, value){
  * 
  */
 Mish.Event.prototype.step = function(){
-  this.containerGroup = findGroupOfEvent(this.storeableData.time);
+  this.containerGroup = findGroupOfEvent(this.storeableData.time, this.storeableData.isBC);
   if(this.containerGroup){
     this.x = calculateXPosOfEvent(this.containerGroup, this.storeableData);
   }
 
-  if (this.x < mishGA.workAreaWidth
-      && this.x >= 0
-      && this.storeableData.deleted !== true) {
+  if (this.containerGroup &&
+      this.x < mishGA.workAreaWidth &&
+      this.x >= 0 &&
+      this.storeableData.deleted !== true) {
     this.draw = true;
 
     //Calculate the Y position of the event based on its proximity to
@@ -68,8 +69,8 @@ Mish.Event.prototype.step = function(){
         this.y = globalPosY;
       }
     }
-
-  }else{
+  }
+  else {
     this.draw = false;
     if(this.detailElement){
       this.detailElement.hide("fade");

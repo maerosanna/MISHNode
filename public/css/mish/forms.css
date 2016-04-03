@@ -87,6 +87,11 @@ and provide a clean left edge to which all the form filds align.
   width: 50%;
 }
 
+.formMISH-fieldDiv span {
+  font-size: 14px;
+  color: #818181;
+}
+
 .formMISH-fieldDiv-100 {
   display: inline-block;
   float: left;
