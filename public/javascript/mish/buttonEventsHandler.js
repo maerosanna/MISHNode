@@ -129,7 +129,10 @@ function createUserBtnAction() {
 
   //v alidate the user name
   if (newUserObj.username !== "") {
-    //TODO: Validate format (maybe username with at least 6 characters?)
+    if (newUserObj.username.trim().length < 4) {
+      appendErrorMessage(containerDIV, "dialog.createUser.error.username.length");
+      showError = true;
+    }
   } else {
     appendErrorMessage(containerDIV, "dialog.createUser.error.username.empty");
     showError = true;
@@ -146,7 +149,10 @@ function createUserBtnAction() {
   // validate the password
   var passwordConfirm = jQuery("#userPasswordDos").val();
   if (newUserObj.password !== "") {
-    //TODO: Validate format
+    if (newUserObj.password.trim().length < 4) {
+      appendErrorMessage(containerDIV, "dialog.createUser.error.password.length");
+      showError = true;
+    }
 
     // verify if password matches
     if (newUserObj.password !== passwordConfirm) {

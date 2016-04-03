@@ -97,7 +97,7 @@ function loadExternalPages() {
     
     //Assign Create Event function
     jQuery("#contextCreateEvent").click(function () {
-      jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+      createDateField("#eventDate");
       jQuery("#buttonEditEvent").hide();
       jQuery("#buttonCreateEvent").show();
       jQuery('#newEventDialog').dialog('open');
@@ -117,12 +117,28 @@ function loadExternalPages() {
   });
   */
     jQuery("#footerNewEvent").click(function () {
-        jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+        createDateField("#eventDate");
         jQuery("#buttonEditEvent").hide();
         jQuery("#buttonCreateEvent").show();
         jQuery('#newEventDialog').dialog('open');
         closeMenu();
     });
+}
 
-
+function createDateField(targetId) {
+  return jQuery(targetId).datepicker({
+    dateFormat: "dd-mm-yy",
+    changeMonth: true,
+    changeYear: true,
+    minDate: new Date(1900, 0, 1),
+    maxDate: new Date(),
+    showWeek: true,
+    yearRange: "1900:+0", // dates in thic component can't be less than 1900
+    dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    weekHeader: "Sem",
+    monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+    nextText: "Sig",
+    prevText: "Ant"
+  });
+  $.datepicker.regional[ "es" ];
 }

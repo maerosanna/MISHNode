@@ -87,14 +87,14 @@ Mish.Event.prototype.render = function(){
     this.drawPoint();
     this.drawTitle();
     this.drawDate();
-    if(this.imageElement){
+    if (this.imageElement) {
       this.drawImage();
     }
 
     this.drawDescription();
 
     //Move the DIV element if exists
-    if(this.detailElement){
+    if (this.detailElement) {
       this.detailElement.css({
         left: this.x
       });
