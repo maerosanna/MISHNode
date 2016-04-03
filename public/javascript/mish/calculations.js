@@ -117,8 +117,11 @@ function findGroupOfEvent(eventTime, isBC) {
     }
   }
   else {
-    // console.log("eventTime", eventTime);
-    for (var i = 0; i < mishGA.timeRulerGroups.length; i++) {
+    // if (test === false) {
+    //   console.log("eventTime", eventTime);
+    // }
+
+    for (var i = mishGA.timeRulerGroups.length - 1; i >= 0; i--) {
       // ignore years of more of 4 digits in dates B.C.
       if (mishGA.timeRulerGroups[i].attr('id').split('-')[3].length > 6 &&
           mishGA.timeRulerGroups[i].attr('id').split('-').length === 5) {
@@ -128,17 +131,32 @@ function findGroupOfEvent(eventTime, isBC) {
       }
 
       var groupTime = getTimeOfGroupId(mishGA.timeRulerGroups[i], true);
-      if (mishGA.timeRulerGroups[i].attr('id').split('-').length === 5) {
+      if (mishGA.timeRulerGroups[i].attr('id').split('-').length === 5 &&
+          groupTime > 0) {
         groupTime *= -1;
       }
-      
-      if (test === false) {
-        // console.log("groupTime[%s]", i, groupTime);
+      else if (mishGA.timeRulerGroups[i].attr('id').split('-').length === 4 &&
+          groupTime < 0) {
+        groupTime *= -1;
+      }
+
+      if (groupTime > 0) {
+        // ignore groups A.C.
+        continue;
       }
       
-      if (eventTime >= groupTime) {
+      // if (test === false) {
+      //   console.log("groupTime[%s]", i, groupTime);
+      // }
+      
+      if (groupTime >= eventTime) {
         groupOfDate = mishGA.timeRulerGroups[i];
-        // break;
+        
+        // if (test === false) {
+        //   console.log("groupOfDate ", groupOfDate);
+        // }
+        
+        break;
       }
     }
   }
